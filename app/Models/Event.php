@@ -15,4 +15,10 @@ class Event extends Model
         'end_date',
         'description',
     ];
+
+
+    public function competitions()
+    {
+        return $this->belongsToMany(Competition::class);
+    }
 }
