@@ -16,4 +16,15 @@ class FrontendController extends Controller
             'event' => $event
         ]);
     }
+    public function vote(){
+
+        $event = Event::with('competitions')->latest()->first();
+
+
+        return view('frontend.vote',[
+            'event' => $event
+        ]);
+    }
+
+
 }
