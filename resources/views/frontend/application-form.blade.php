@@ -14,75 +14,103 @@
     @livewireStyles
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        [x-cloak] {
+            display: none;
+        }
+
+        [type="checkbox"] {
+            box-sizing: border-box;
+            padding: 0;
+        }
+
+        .form-checkbox,
+        .form-radio {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            -webkit-print-color-adjust: exact;
+            color-adjust: exact;
+            display: inline-block;
+            vertical-align: middle;
+            background-origin: border-box;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            flex-shrink: 0;
+            color: currentColor;
+            background-color: #fff;
+            border-color: #e2e8f0;
+            border-width: 1px;
+            height: 1.4em;
+            width: 1.4em;
+        }
+
+        .form-checkbox {
+            border-radius: 0.25rem;
+        }
+
+        .form-radio {
+            border-radius: 50%;
+        }
+
+        .form-checkbox:checked {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+            border-color: transparent;
+            background-color: currentColor;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .form-radio:checked {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
+            border-color: transparent;
+            background-color: currentColor;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
 
 <body class="antialiased">
+    @php
+        $start_date = \Carbon\Carbon::parse($event->form_end_date);
+    @endphp
     <div
         class="relative min-h-screen bg-gray-100 bg-center sm:flex sm:justify-center sm:items-center bg-dots-darker dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
         <div class="p-6 w-full mx-auto lg:p-8">
             <h1 class="text-2xl text-center font-bold">{{ $event->name }}</h1>
             <div class="text-center">Application Form</div>
 
+            <div class="text-sm text-center">Form Close Date: {{ $start_date->format('m D Y') }} </div>
+            <div class="flex items-center justify-center space-x-4 mt-4" x-data="timer({{ $start_date->timestamp * 1000 }})"
+                x-init="init();">
+                <div class="flex flex-col items-center px-4">
+                    <span x-text="time().days" class="text-4xl lg:text-5xl text-gray-200">00</span>
+                    <span class="text-gray-400 mt-2">Days</span>
+                </div>
+                <span class="w-[1px] h-24 bg-gray-400"></span>
+                <div class="flex flex-col items-center px-4">
+                    <span x-text="time().hours" class="text-4xl lg:text-5xl text-gray-200">23</span>
+                    <span class="text-gray-400 mt-2">Hours</span>
+                </div>
+                <span class="w-[1px] h-24 bg-gray-400"></span>
+                <div class="flex flex-col items-center px-4">
+                    <span x-text="time().minutes" class="text-4xl lg:text-5xl text-gray-200">59</span>
+                    <span class="text-gray-400 mt-2">Minutes</span>
+                </div>
+                <span class="w-[1px] h-24 bg-gray-400"></span>
+                <div class="flex flex-col items-center px-4">
+                    <span x-text="time().seconds" class="text-4xl lg:text-5xl text-gray-200">28</span>
+                    <span class="text-gray-400 mt-2">Seconds</span>
+                </div>
+            </div>
 
-            <style>
-                [x-cloak] {
-                    display: none;
-                }
 
-                [type="checkbox"] {
-                    box-sizing: border-box;
-                    padding: 0;
-                }
 
-                .form-checkbox,
-                .form-radio {
-                    -webkit-appearance: none;
-                    -moz-appearance: none;
-                    appearance: none;
-                    -webkit-print-color-adjust: exact;
-                    color-adjust: exact;
-                    display: inline-block;
-                    vertical-align: middle;
-                    background-origin: border-box;
-                    -webkit-user-select: none;
-                    -moz-user-select: none;
-                    -ms-user-select: none;
-                    user-select: none;
-                    flex-shrink: 0;
-                    color: currentColor;
-                    background-color: #fff;
-                    border-color: #e2e8f0;
-                    border-width: 1px;
-                    height: 1.4em;
-                    width: 1.4em;
-                }
-
-                .form-checkbox {
-                    border-radius: 0.25rem;
-                }
-
-                .form-radio {
-                    border-radius: 50%;
-                }
-
-                .form-checkbox:checked {
-                    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
-                    border-color: transparent;
-                    background-color: currentColor;
-                    background-size: 100% 100%;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                }
-
-                .form-radio:checked {
-                    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
-                    border-color: transparent;
-                    background-color: currentColor;
-                    background-size: 100% 100%;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                }
-            </style>
 
             <div x-data="app()" x-cloak class="bg-white rounded-lg p-4 mt-5">
                 <div class="mb-4">
@@ -221,10 +249,12 @@
                         <!-- Step Content -->
                         <div class="py-10">
                             <div x-show.transition.in="step === 1">
-                                <x-select label="Select Country" placeholder="Select a country" :async-data="route('countryOptions')"
-                                  option-src="src" option-label="country" option-value="code"
-                                  hide-empty-message name="country">
-                                </x-select>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <x-select label="Select Country" placeholder="Select a country" :async-data="route('countryOptions')"
+                                        option-src="src" option-label="country" option-value="code"
+                                        hide-empty-message name="country">
+                                    </x-select>
+                                </div>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                                     <div>
@@ -276,41 +306,50 @@
                                             placeholder="" label="Date Of Birth" />
                                     </div>
                                     <div>
-                                        <x-input id="age" name="meta[personal_background][age]" label="Age" />
+                                        <x-input id="age" name="meta[personal_background][age]"
+                                            label="Age" />
                                     </div>
                                     <div>
-                                        <x-input id="height" name="meta[personal_background][height]" label="Heights" />
+                                        <x-input id="height" name="meta[personal_background][height]"
+                                            label="Heights" />
                                     </div>
                                     <div>
-                                        <x-input id="weight" name="meta[personal_background][weight]" placeholder="kg"
-                                            label="Weight" />
+                                        <x-input id="weight" name="meta[personal_background][weight]"
+                                            placeholder="kg" label="Weight" />
                                     </div>
                                     <div>
-                                        <x-input id="dress_size" name="meta[personal_background][dress_size]" label="Dress Size" />
+                                        <x-input id="dress_size" name="meta[personal_background][dress_size]"
+                                            label="Dress Size" />
                                     </div>
                                     <div>
-                                        <x-input id="shoe_size" name="meta[personal_background][shoe_size]" label="Shoe Size" />
+                                        <x-input id="shoe_size" name="meta[personal_background][shoe_size]"
+                                            label="Shoe Size" />
                                     </div>
                                 </div>
 
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <x-input id="school_college_name" name="meta[personal_background][Attended School/College Name]"
+                                        <x-input id="school_college_name"
+                                            name="meta[personal_background][Attended School/College Name]"
                                             label="Attended School/College Name" />
                                     </div>
                                     <div>
-                                        <x-input id="awards_achievements" name="meta[personal_background][List Awards or Achievements (Non Scholastic)]"
+                                        <x-input id="awards_achievements"
+                                            name="meta[personal_background][List Awards or Achievements (Non Scholastic)]"
                                             label="List Awards or Achievements (Non Scholastic)" />
                                     </div>
                                 </div>
 
                                 <div class="mb-4">
-                                    <x-input id="degree_achievements" name="meta[personal_background][List Any Degree Attained, Scholarship & Achievement]"
+                                    <x-input id="degree_achievements"
+                                        name="meta[personal_background][List Any Degree Attained, Scholarship & Achievement]"
                                         label="List Any Degree Attained, Scholarship & Achievement" />
                                 </div>
 
                                 <div class="mb-4">
-                                    <x-textarea id="family_achievement" name="meta[personal_background][Tell us of Any Interesting Facts About Your Family or Their Achievement]" rows="3"
+                                    <x-textarea id="family_achievement"
+                                        name="meta[personal_background][Tell us of Any Interesting Facts About Your Family or Their Achievement]"
+                                        rows="3"
                                         label="Tell us of Any Interesting Facts About Your Family or Their Achievement" />
                                 </div>
                             </div>
@@ -600,6 +639,58 @@
                     personal_statement: "Personal Statement",
                     verification: "Verification",
                 }
+            }
+        }
+    </script>
+    <script>
+        function timer(expiry) {
+            return {
+                expiry: expiry,
+                remaining: null,
+                init() {
+                    this.setRemaining()
+                    setInterval(() => {
+                        this.setRemaining();
+                    }, 1000);
+                },
+                setRemaining() {
+                    const diff = this.expiry - new Date().getTime();
+                    this.remaining = parseInt(diff / 1000);
+                },
+                days() {
+                    return {
+                        value: this.remaining / 86400,
+                        remaining: this.remaining % 86400
+                    };
+                },
+                hours() {
+                    return {
+                        value: this.days().remaining / 3600,
+                        remaining: this.days().remaining % 3600
+                    };
+                },
+                minutes() {
+                    return {
+                        value: this.hours().remaining / 60,
+                        remaining: this.hours().remaining % 60
+                    };
+                },
+                seconds() {
+                    return {
+                        value: this.minutes().remaining,
+                    };
+                },
+                format(value) {
+                    return ("0" + parseInt(value)).slice(-2)
+                },
+                time() {
+                    return {
+                        days: this.format(this.days().value),
+                        hours: this.format(this.hours().value),
+                        minutes: this.format(this.minutes().value),
+                        seconds: this.format(this.seconds().value),
+                    }
+                },
             }
         }
     </script>

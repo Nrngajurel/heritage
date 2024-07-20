@@ -19,7 +19,7 @@
 
 <body class="antialiased">
     @php
-        $start_date = \Carbon\Carbon::parse($event->start_date);
+        $start_date = \Carbon\Carbon::parse($event->voting_start_date);
     @endphp
     <h1 class="text-2xl text-center font-bold">{{ $event->name }}</h1>
     <div class="text-sm text-center">Voting Start From: {{ $start_date->format('m D Y') }} </div>

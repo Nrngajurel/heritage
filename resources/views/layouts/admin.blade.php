@@ -158,7 +158,7 @@
                                 class="block p-2 text-sm text-gray-400 transition-colors duration-200 rounded-md dark:text-gray-400 dark:hover:text-light hover:text-gray-700">
                                 Dashboard
                             </a>
-                            
+
                         </div>
                     </div> --}}
 
@@ -259,10 +259,10 @@
             </div>
 
             <!-- Main content -->
-            <main class="relative flex-1 overflow-y-scroll">
+            <main class="relative flex-1">
                 <div
                     class="h-[70px] bg-white border-b border-gray-100 dark:bg-gray-800 dark:border-gray-700 sticky p-5">
-    
+
                 </div>
                 <div class="p-5">
 

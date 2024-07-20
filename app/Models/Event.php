@@ -11,8 +11,10 @@ class Event extends Model
 
     protected $fillable = [
         'name',
-        'start_date',
-        'end_date',
+        'form_start_date',
+        'form_end_date',
+        'voting_start_date',
+        'voting_end_date',
         'description',
     ];
 

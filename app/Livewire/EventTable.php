@@ -51,13 +51,15 @@ final class EventTable extends PowerGridComponent
             ->addColumn('id')
             ->addColumn('name')
 
-           /** Example of custom column using a closure **/
+            /** Example of custom column using a closure **/
             ->addColumn('name_lower', fn (Event $model) => strtolower(e($model->name)))
 
-            ->addColumn('start_date_formatted', fn (Event $model) => Carbon::parse($model->start_date)->format('d/m/Y H:i:s'))
-            ->addColumn('end_date_formatted', fn (Event $model) => Carbon::parse($model->end_date)->format('d/m/Y H:i:s'))
+            ->addColumn('form_start_date_formatted', fn (Event $model) => Carbon::parse($model->form_start_date)->format('d M Y H:i:s'))
+            ->addColumn('form_end_date_formatted', fn (Event $model) => Carbon::parse($model->form_end_date)->format('d M Y H:i:s'))
+            ->addColumn('voting_start_date_formatted', fn (Event $model) => Carbon::parse($model->voting_start_date)->format('d M Y H:i:s'))
+            ->addColumn('voting_end_date_formatted', fn (Event $model) => Carbon::parse($model->voting_end_date)->format('d M Y H:i:s'))
             ->addColumn('description')
-            ->addColumn('created_at_formatted', fn (Event $model) => Carbon::parse($model->created_at)->format('d/m/Y H:i:s'));
+            ->addColumn('created_at_formatted', fn (Event $model) => Carbon::parse($model->created_at)->format('d M Y H:i:s'));
     }
 
     public function columns(): array
@@ -68,10 +70,15 @@ final class EventTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('Start date', 'start_date_formatted', 'start_date')
+            Column::make('Form Start date', 'form_start_date_formatted', 'form_start_date')
                 ->sortable(),
 
-            Column::make('End date', 'end_date_formatted', 'end_date')
+            Column::make('Form End date', 'form_end_date_formatted', 'form_end_date')
+                ->sortable(),
+            Column::make('Voting Start date', 'voting_start_date_formatted', 'voting_start_date')
+                ->sortable(),
+
+            Column::make('Voting End date', 'voting_end_date_formatted', 'voting_end_date')
                 ->sortable(),
 
             // Column::make('Description', 'description')
@@ -89,8 +96,8 @@ final class EventTable extends PowerGridComponent
     {
         return [
             Filter::inputText('name')->operators(['contains']),
-            Filter::datetimepicker('start_date'),
-            Filter::datetimepicker('end_date'),
+            Filter::datetimepicker('form_start_date'),
+            Filter::datetimepicker('form_end_date'),
             Filter::datetimepicker('created_at'),
         ];
     }
@@ -98,17 +105,22 @@ final class EventTable extends PowerGridComponent
     #[\Livewire\Attributes\On('edit')]
     public function edit($rowId): void
     {
-        $this->js('alert('.$rowId.')');
+        $this->js('alert(' . $rowId . ')');
     }
 
     public function actions(\App\Models\Event $row): array
     {
         return [
             Button::add('edit')
-                ->slot('Edit: '.$row->id)
+                ->slot('Edit')
                 ->id()
                 ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->dispatch('edit', ['rowId' => $row->id]),
+            Button::add('delete')
+                ->slot('Delete')
+                ->id()
+                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+                ->dispatch('delete', ['rowId' => $row->id])
         ];
     }
 
