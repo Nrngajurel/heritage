@@ -4,5 +4,7 @@
         'opacity-60'         => $attributes->get('disabled'),
         'text-gray-700 dark:text-gray-400' => !$hasError,
     ]) }}>
-    {{ $label ?? $slot }}
+    {{ $label ?? $slot }} @if ($attributes->has('required'))
+        <sup class="text-red-600 font-bold">*</sup>
+    @endif
 </label>

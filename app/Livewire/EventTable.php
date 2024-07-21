@@ -29,6 +29,9 @@ final class EventTable extends PowerGridComponent
                 ->striped()
                 ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
             Header::make()->showSearchInput(),
+
+            Footer::make()
+                ->includeViewOnTop('components.datatable.footer-top'),
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
@@ -96,8 +99,6 @@ final class EventTable extends PowerGridComponent
     {
         return [
             Filter::inputText('name')->operators(['contains']),
-            Filter::datetimepicker('form_start_date'),
-            Filter::datetimepicker('form_end_date'),
             Filter::datetimepicker('created_at'),
         ];
     }
@@ -106,6 +107,16 @@ final class EventTable extends PowerGridComponent
     public function edit($rowId): void
     {
         $this->js('alert(' . $rowId . ')');
+    }
+    #[\Livewire\Attributes\On('confirmDelete')]
+    public function confirmDelete($rowId): void
+    {
+        $event = Event::find($rowId);
+
+        if ($event) {
+            $event->delete();
+            $this->dispatch('pg:toast', ['type' => 'success', 'message' => 'Event deleted successfully']);
+        }
     }
 
     public function actions(\App\Models\Event $row): array

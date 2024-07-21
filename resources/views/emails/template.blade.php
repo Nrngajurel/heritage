@@ -77,8 +77,7 @@
                     <div style="text-align: center; font-size: 14px; font-weight: normal;">
                         Thank You for Applying to Heritage Pageants!
                     </div>
-                    <div class=""
-                        style="font-size: 24px; font-weight: bold; text-transform: capitalize; text-align  :center">
+                    <div class="" style="font-size: 24px; font-weight: bold; text-transform: capitalize; text-align  :center">
                         Application Acknowledgment
                     </div>
                 </div>

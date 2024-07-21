@@ -19,12 +19,11 @@ return new class extends Migration
             $table->foreignIdFor(Competition::class)->constrained();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('address');
+            $table->json('address');
             $table->string('country');
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
-            $table->string('avatar');
-            $table->string('meta')->nullable();
+            $table->json('meta')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();
         });

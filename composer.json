@@ -12,7 +12,9 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
+        "openspout/openspout": "^4.24",
         "power-components/livewire-powergrid": "^5.1",
+        "spatie/laravel-medialibrary": "^10.15",
         "wireui/wireui": "^1.19"
     },
     "require-dev": {

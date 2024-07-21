@@ -25,7 +25,6 @@
             {!! json_encode($optionsToArray()) !!}
         </div>
     @endif
-
     <div class="relative">
         @if ($label)
             <x-dynamic-component
@@ -34,6 +33,7 @@
                 :label="$label"
                 :has-error="$name && $errors->has($name)"
                 :disabled="$disabled"
+                :required="$attributes->has('required')"
                 x-on:click="toggle"
                 :wire:key="'select.label.' . $name"
             />

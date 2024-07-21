@@ -20,6 +20,7 @@
                     :label="$cornerHint"
                     :has-error="$hasError"
                     :for="$id"
+                    :required="$attributes->has('required')"
                 />
             @endif
         </div>
