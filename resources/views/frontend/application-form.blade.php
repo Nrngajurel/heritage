@@ -693,6 +693,7 @@
             return {
                 step: 0,
                 loading: false,
+                csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 form: {
                     competition_id: '',
                     country: '',
@@ -873,6 +874,7 @@
                     axios.post('/application-form', formData, {
                             headers: {
                                 'Content-Type': 'multipart/form-data',
+                                'X-CSRF-TOKEN': this.csrfToken
                             }
                         })
                         .then(response => {
