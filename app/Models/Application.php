@@ -47,8 +47,8 @@ class Application extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('headshots')->singleFile();
-        $this->addMediaCollection('waist_up_photos')->singleFile();
-        $this->addMediaCollection('passport_copies')->singleFile();
+        $this->addMediaCollection('headshot_photo')->singleFile();
+        $this->addMediaCollection('waist_up_photo')->singleFile();
+        $this->addMediaCollection('passport_copy')->singleFile();
     }
 }

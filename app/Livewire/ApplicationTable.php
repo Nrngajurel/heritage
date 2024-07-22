@@ -117,15 +117,7 @@ final class ApplicationTable extends PowerGridComponent
         return [];
     }
 
-    #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId): void
-    {
-        $application = Application::query()
-            ->with('competition', 'event')
-            ->find($rowId)
-            ->toArray();
-        $this->dispatch('viewDetail', $application);
-    }
+
 
     public function actions(Application $row): array
     {

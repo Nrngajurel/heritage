@@ -488,7 +488,7 @@
     </script>
 
     @stack('modals')
-
+<wireui:scripts />
     @livewireScripts
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" data-navigate-once></script>
     <script src="{{asset('admin.js')}}" data-navigate-once></script>

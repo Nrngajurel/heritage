@@ -80,14 +80,14 @@ class FrontendController extends Controller
         $event = Event::with('competitions')->latest()->first();
         $application = $event->applications()->create($data);
 
-        if ($request->hasFile('headshot_upload')) {
-            $application->addMedia($request->file('headshot_upload'))->toMediaCollection('headshots');
+        if ($request->hasFile('headshot_photo')) {
+            $application->addMedia($request->file('headshot_photo'))->toMediaCollection('headshot_photo');
         }
-        if ($request->hasFile('waist_up_photo_upload')) {
-            $application->addMedia($request->file('waist_up_photo_upload'))->toMediaCollection('waist_up_photos');
+        if ($request->hasFile('waist_up_photo')) {
+            $application->addMedia($request->file('waist_up_photo'))->toMediaCollection('waist_up_photo');
         }
-        if ($request->hasFile('passport_copy_upload')) {
-            $application->addMedia($request->file('passport_copy_upload'))->toMediaCollection('passport_copies');
+        if ($request->hasFile('passport_copy')) {
+            $application->addMedia($request->file('passport_copy'))->toMediaCollection('passport_copy');
         }
 
         $application->notify(new ApplicationSubmitted($application));

@@ -78,8 +78,7 @@
     @php
         $start_date = \Carbon\Carbon::parse($event->form_end_date);
     @endphp
-    <div
-        x-show="loading"
+    <div x-show="loading"
         class="flex h-screen w-screen items-center justify-center overflow-hidden rounded-lg border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800">
         <div role="status">
             <svg aria-hidden="true" class="h-8 w-8 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
@@ -767,8 +766,6 @@
                                 this.errors.last_name = 'Last name is required.';
                                 isValid = false;
                             }
-                            break;
-                        case 2:
                             if (!this.form.address.address_line_1) {
                                 this.errors.address_line_1 = 'Address line 1 is required.';
                                 isValid = false;
@@ -794,7 +791,7 @@
                                 isValid = false;
                             }
                             break;
-                        case 3:
+                        case 2:
                             if (!this.form.meta.personal_background.date_of_birth) {
                                 this.errors.date_of_birth = 'Date of birth is required.';
                                 isValid = false;
@@ -871,7 +868,7 @@
 
                     appendData(this.form);
                     var self = this;
-                    this.loading=true;
+                    this.loading = true;
                     // Send the form data to the server using Axios
                     axios.post('/application-form', formData, {
                             headers: {
@@ -881,13 +878,13 @@
                         .then(response => {
                             self.step = 'complete';
                             alert('Application submitted successfully!');
-                            self.loading =false;
+                            self.loading = false;
                             // Handle successful response
                         })
                         .catch(error => {
                             console.error('Error submitting application:', error);
                             alert('There was an error submitting your application.');
-                            self.loading =false;
+                            self.loading = false;
                             // Handle error response
                         });
 
