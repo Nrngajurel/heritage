@@ -693,7 +693,7 @@
             return {
                 step: 0,
                 loading: false,
-                csrfToken: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                csrfToken: "{{ csrf_token()}}",
                 form: {
                     competition_id: '',
                     country: '',
