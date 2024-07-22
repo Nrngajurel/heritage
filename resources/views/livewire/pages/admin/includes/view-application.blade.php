@@ -1,5 +1,5 @@
 <div>
-    <x-modal name="viewDetailModal" show="true" maxWidth="">
+    <x-modal name="viewDetailModal" maxWidth="">
         <x-card title="View Detail">
             @if ($application)
                 <div class="p-5">

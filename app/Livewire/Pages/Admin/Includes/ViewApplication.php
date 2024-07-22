@@ -20,10 +20,6 @@ class ViewApplication extends Component
     }
     public function render()
     {
-        $this->application = Application::query()
-            ->with('competition', 'event')
-            ->latest()
-            ->first();
         return view('livewire.pages.admin.includes.view-application');
     }
 }
