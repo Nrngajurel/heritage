@@ -31,12 +31,6 @@ class FrontendController extends Controller
     {
 
         $event = Event::with('competitions')->latest()->first();
-        $application = $event->applications()->latest()->first();
-        $application->update([
-            'email' => 'nrngajurel@gmail.com'
-        ]);
-        $application->notify(new ApplicationSubmitted($application));
-
         return view('frontend.application-form', [
             'event' => $event
         ]);
