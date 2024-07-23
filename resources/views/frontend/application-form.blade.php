@@ -130,7 +130,7 @@
 
                     <div class="mx-auto w-full px-4 py-5">
                         <div class="grid grid-cols-3 gap-5" x-show.transition.in="step == 0">
-                            <div>
+                            <div class="col-span-3 md:col-span-1">
                                 <x-select label="Select Your Country" placeholder="Select a country" :async-data="route('countryOptions')"
                                     option-label="country" option-value="code" hide-empty-message name="country"
                                     x-bind:class="{ 'border-red-500': errors.country }" required
@@ -245,7 +245,7 @@
                                                     x-text="errors.last_name"></p>
                                             </div>
 
-                                            <div>
+                                            <div  class="col-span-2 md:col-span-1">
                                                 <x-input id="address_line_1" name="address[address_line_1]"
                                                     placeholder="Address Line 1" label="Address Line 1"
                                                     x-model="form.address.address_line_1"
@@ -256,21 +256,21 @@
                                                 <p class="mt-2 text-xs text-red-600 dark:text-red-400"
                                                     x-text="errors.address && errors.address.address_line_1"></p>
                                             </div>
-                                            <div>
+                                            <div class="col-span-2 md:col-span-1">
                                                 <x-input id="city" name="address[city]" placeholder="City"
                                                     label="City" x-model="form.address.city"
                                                     x-bind:class="{ 'border-red-500': errors.address && errors.address.city }" />
                                                 <p class="mt-2 text-xs text-red-600 dark:text-red-400"
                                                     x-text="errors.address && errors.address.city"></p>
                                             </div>
-                                            <div>
+                                            <div class="col-span-2 md:col-span-1">
                                                 <x-input id="state" name="address[state]" placeholder="State"
                                                     label="State" x-model="form.address.state"
                                                     x-bind:class="{ 'border-red-500': errors.address && errors.address.state }" />
                                                 <p class="mt-2 text-xs text-red-600 dark:text-red-400"
                                                     x-text="errors.address && errors.address.state"></p>
                                             </div>
-                                            <div>
+                                            <div class="col-span-2 md:col-span-1">
                                                 <x-input id="zip_code" name="address[zip]" placeholder="Zip Code"
                                                     label="Zip Code" x-model="form.address.zip"
                                                     x-bind:class="{ 'border-red-500': errors.address && errors.address.zip }" />
@@ -278,14 +278,14 @@
                                                     x-text="errors.address && errors.address.zip"></p>
                                             </div>
 
-                                            <div>
+                                            <div class="col-span-3 md:col-span-1">
                                                 <x-input id="email" name="email" type="email"
                                                     placeholder="Email Address" label="Email" x-model="form.email"
                                                     x-bind:class="{ 'border-red-500': errors.email }" required />
                                                 <p class="mt-2 text-xs text-red-600 dark:text-red-400"
                                                     x-text="errors.email"></p>
                                             </div>
-                                            <div>
+                                            <div class="col-span-3 md:col-span-1">
                                                 <x-input id="phone_number" name="phone" type="tel"
                                                     placeholder="Phone Number" label="Phone No" x-model="form.phone"
                                                     x-bind:class="{ 'border-red-500': errors.phone }" required />
