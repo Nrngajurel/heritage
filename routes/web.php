@@ -26,3 +26,4 @@ Route::get('vote', [FrontendController::class, 'vote'])->name('vote-form');
 
 
 Route::view('mail-template', 'emails.template');
+Route::view('mail-template1', 'emails.template1');
