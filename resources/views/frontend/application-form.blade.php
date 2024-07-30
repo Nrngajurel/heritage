@@ -361,7 +361,7 @@
                                         <div class="mb-4">
                                             <x-textarea id="social_links" name="meta[more][social_links]"
                                                 rows="4"
-                                                x-model="form.meta.more['Are You on FB/Twitter/Instagram? Please provide linkst']"
+                                                x-model="form.meta.more.social_links"
                                                 label="Are You on FB/Twitter/Instagram? Please provide links" />
                                         </div>
 
@@ -370,18 +370,18 @@
                                             <div class="mb-4">
                                                 <x-input id="favorite_color" name="meta[more][favorite_color]"
                                                     label="Favorite Color"
-                                                    x-model="form.meta.personal_background.favorite_color" />
+                                                    x-model="form.meta.more.favorite_color" />
                                             </div>
 
                                             <div class="mb-4">
                                                 <x-input id="favorite_food" name="meta[more][favorite_food]"
                                                     label="Your Favorite Food"
-                                                    x-model="form.meta.personal_background.favorite_food" />
+                                                    x-model="form.meta.more.favorite_food" />
                                             </div>
                                             <div class="mb-4">
                                                 <x-input id="favorite_spot" name="meta[more][favorite_spot]"
                                                     label="Favourite Sports"
-                                                    x-model="form.meta.personal_background.spot" />
+                                                    x-model="form.meta.more.spot" />
                                             </div>
                                         </div>
                                     </div>
@@ -392,7 +392,7 @@
                                             <div class="mb-4">
                                                 <x-input id="hobbies" name="meta[outlook][hobbies]"
                                                     label="What are Your Hobbies"
-                                                    x-model="form.meta.personal_background['What are Your Hobbies']" />
+                                                    x-model="form.meta.personal_background.hobbies" />
                                             </div>
 
                                             <div class="mb-4">
