@@ -735,7 +735,6 @@
                             talent: '',
                             future_ambitions: '',
                             awards: '',
-                            trainings: '',
                             'Most unusual thing You have Done Ever?': '',
                             'What Person Would You Like To Meet And Why?': '',
                             'Describe the Moment in Your Life You Are Most Proud of?': '',

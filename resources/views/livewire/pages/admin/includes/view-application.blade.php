@@ -11,6 +11,10 @@
                                 <p class="mt-1">{{ $application['country'] }}</p>
                             </div>
                             <div>
+                                <label class="block font-medium">Competition Name</label>
+                                <p class="mt-1">{{ $application->competition?->name }}</p>
+                            </div>
+                            <div>
                                 <label class="block font-medium">Full Name</label>
                                 <p class="mt-1">{{ $application['first_name'] }} {{ $application['last_name'] }}</p>
                             </div>

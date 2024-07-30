@@ -69,7 +69,6 @@ class FrontendController extends Controller
             'waist_up_photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'passport_copy' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        $data['email'] = 'nrngajurel@gmail.com';
 
         $event = Event::with('competitions')->latest()->first();
         $application = $event->applications()->create($data);
