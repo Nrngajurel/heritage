@@ -42,9 +42,6 @@
         .image_block img+div {
             display: none;
         }
-        .row{
-            padding: 1rem;
-        }
 
         @media (max-width:700px) {
 
@@ -131,7 +128,7 @@
                                 <td>
                                     <table class="row-content stack" align="center" border="0" cellpadding="0"
                                         cellspacing="0" role="presentation"
-                                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-radius: 0; color: #000000; width: 680px; margin: 0 auto;"
+                                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-radius: 0; color: #000000; width: 680px; margin: 0 auto; padding: 1rem;"
                                         width="680">
                                         <tbody>
                                             <tr>
@@ -289,7 +286,7 @@
                     </table>
                     <table class="row row-4" align="center" width="100%" border="0" cellpadding="0"
                         cellspacing="0" role="presentation"
-                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #a25a013d;">
+                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #a25a013d;padding: 1rem;">
                         <tbody>
                             <tr>
                                 <td>
@@ -346,7 +343,7 @@
                     </table>
                     <table class="row row-5" align="center" width="100%" border="0" cellpadding="0"
                         cellspacing="0" role="presentation"
-                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #a25a013d;">
+                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #a25a013d;padding: 1rem;">
                         <tbody>
                             <tr>
                                 <td>
@@ -423,7 +420,7 @@
                     </table>
                     <table class="row row-6" align="center" width="100%" border="0" cellpadding="0"
                         cellspacing="0" role="presentation"
-                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #a25a013d;">
+                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #a25a013d;padding: 1rem;">
                         <tbody>
                             <tr>
                                 <td>
@@ -449,7 +446,7 @@
 
                     <table class="row row-7" align="center" width="100%" border="0" cellpadding="0"
                         cellspacing="0" role="presentation"
-                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #e0e0e0;; background-size: auto;">
+                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #e0e0e0;padding: 1rem; background-size: auto;">
                         <tbody>
                             <tr>
                                 <td>
@@ -474,7 +471,7 @@
                     </table>
                     <table class="row row-8" align="center" width="100%" border="0" cellpadding="0"
                         cellspacing="0" role="presentation"
-                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #e0e0e0;">
+                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #e0e0e0;padding: 1rem;">
                         <tbody>
                             <tr>
                                 <td>
@@ -613,7 +610,7 @@
 
                     <table class="row row-9" align="center" width="100%" border="0" cellpadding="0"
                         cellspacing="0" role="presentation"
-                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #e0e0e0;;">
+                        style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #e0e0e0;">
                         <tbody>
                             <tr>
                                 <td>

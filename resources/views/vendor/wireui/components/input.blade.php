@@ -2,7 +2,7 @@
     $hasError = !$errorless && $name && $errors->has($name);
 @endphp
 
-<div class="@if($disabled) opacity-60 @endif">
+<div @if($disabled) class="opacity-60" @endif>
     @if ($label || $cornerHint)
         <div class="flex {{ !$label && $cornerHint ? 'justify-end' : 'justify-between items-end' }} mb-1">
             @if ($label)
@@ -11,6 +11,7 @@
                     :label="$label"
                     :has-error="$hasError"
                     :for="$id"
+                    :required="$attributes->has('required')"
                 />
             @endif
 
@@ -26,7 +27,7 @@
         </div>
     @endif
 
-    <div class="relative rounded-md @unless($shadowless) shadow-sm @endunless">
+    <div class="@unless($shadowless) @endunless relative rounded-md shadow-sm">
         @if ($prefix || $icon)
             <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none
                 {{ $hasError ? 'text-negative-500' : 'text-secondary-400' }}">
@@ -34,7 +35,7 @@
                     <x-dynamic-component
                         :component="WireUi::component('icon')"
                         :name="$icon"
-                        class="w-5 h-5"
+                        class="h-5 w-5"
                     />
                 @elseif($prefix)
                     <span class="flex items-center self-center pl-1">
@@ -61,7 +62,7 @@
                     <x-dynamic-component
                         :component="WireUi::component('icon')"
                         :name="$rightIcon"
-                        class="w-5 h-5"
+                        class="h-5 w-5"
                         :wire:loading.remove="(bool) $spinner"
                     />
                 @elseif ($suffix)
@@ -69,7 +70,7 @@
                         {{ $suffix }}
                     </span>
                 @elseif($spinner)
-                    <svg class="animate-spin shrink-0 w-5 h-5 none"
+                    <svg class="none h-5 w-5 shrink-0 animate-spin"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -85,7 +86,7 @@
                     <x-dynamic-component
                         :component="WireUi::component('icon')"
                         name="exclamation-circle"
-                        class="w-5 h-5"
+                        class="h-5 w-5"
                     />
                 @endif
             </div>

@@ -20,6 +20,10 @@ final class ApplicationTable extends PowerGridComponent
 {
     use WithExport;
 
+    public string $sortField = 'applications.created_at';
+    public string $sortDirection = 'desc';
+
+
     public function setUp(): array
     {
         $this->showCheckBox();
@@ -28,7 +32,9 @@ final class ApplicationTable extends PowerGridComponent
             Exportable::make('export')
                 ->striped()
                 ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
+
             Header::make()->showSearchInput(),
+
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
@@ -71,7 +77,9 @@ final class ApplicationTable extends PowerGridComponent
     {
         return [
             Column::action('Action'),
-            Column::make('Id', 'id'),
+            Column::make('SN', 'id')
+                ->index(),
+
             Column::make('Status', 'status')
                 ->sortable()
                 ->searchable(),
@@ -82,10 +90,6 @@ final class ApplicationTable extends PowerGridComponent
                 ->searchable(),
 
             Column::make('Last name', 'last_name')
-                ->sortable()
-                ->searchable(),
-
-            Column::make('Address', 'formatted_address')
                 ->sortable()
                 ->searchable(),
 
@@ -101,10 +105,6 @@ final class ApplicationTable extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            // Column::make('Meta', 'meta')
-            //     ->sortable()
-            //     ->searchable(),
-
 
             Column::make('Created at', 'created_at_formatted', 'created_at')
                 ->sortable(),
@@ -114,7 +114,23 @@ final class ApplicationTable extends PowerGridComponent
 
     public function filters(): array
     {
-        return [];
+        return [
+            Filter::select('status')
+                ->dataSource(collect([
+                    [
+                        'id' => 'pending',
+                        'label' => 'Pending',
+                    ],
+                    [
+                        'id' => 'approved',
+                        'label' => 'Approved',
+                    ],
+                    [
+                        'id' => 'rejected',
+                        'label' => 'Rejected',
+                    ],
+                ]))->optionLabel('label')->optionValue('id'),
+        ];
     }
 
 

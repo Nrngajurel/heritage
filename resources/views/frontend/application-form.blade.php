@@ -131,7 +131,7 @@
                     <div class="mx-auto w-full px-4 py-5">
                         <div class="grid grid-cols-3 gap-5" x-show.transition.in="step == 0">
                             <div class="col-span-3 md:col-span-1">
-                                <x-select label="Select Your Country" placeholder="Select a country" :async-data="route('countryOptions')"
+                                <x-select id="country" name="country" label="Select Your Country" placeholder="Select a country" :async-data="route('countryOptions')"
                                     option-label="country" option-value="code" hide-empty-message name="country"
                                     x-bind:class="{ 'border-red-500': errors.country }" required
                                     x-on:selected="selectCountry">
@@ -245,7 +245,7 @@
                                                     x-text="errors.last_name"></p>
                                             </div>
 
-                                            <div  class="col-span-2 md:col-span-1">
+                                            <div class="col-span-2 md:col-span-1">
                                                 <x-input id="address_line_1" name="address[address_line_1]"
                                                     placeholder="Address Line 1" label="Address Line 1"
                                                     x-model="form.address.address_line_1"
@@ -287,7 +287,7 @@
                                             </div>
                                             <div class="col-span-3 md:col-span-1">
                                                 <x-input id="phone_number" name="phone" type="tel"
-                                                    placeholder="Phone Number" label="Phone No" x-model="form.phone"
+                                                    placeholder="Phone Number" label="Phone No"
                                                     x-bind:class="{ 'border-red-500': errors.phone }" required />
                                                 <p class="mt-2 text-xs text-red-600 dark:text-red-400"
                                                     x-text="errors.phone"></p>
@@ -426,19 +426,19 @@
                                                     x-model="form.meta.more['Most unusual thing You have Done Ever?']" />
                                             </div>
                                             <div class="mb-4">
-                                                <x-input id="unusal_tings_you_have_done"
+                                                <x-input id="what_person_would_you_like_to_meet"
                                                     name="meta[outlook][What Person Would You Like To Meet And Why?]"
                                                     label="What Person Would You Like To Meet And Why?"
                                                     x-model="form.meta.more['What Person Would You Like To Meet And Why?']" />
                                             </div>
                                             <div class="mb-4">
-                                                <x-input id="unusal_tings_you_have_done"
+                                                <x-input id="describe_the_moment_in_your_life"
                                                     name="meta[outlook][Describe the Moment in Your Life You Are Most Proud of?]"
                                                     label="Describe the Moment in Your Life You Are Most Proud of?"
                                                     x-model="form.meta.more['Describe the Moment in Your Life You Are Most Proud of?']" />
                                             </div>
                                             <div class="mb-4">
-                                                <x-input id="unusal_tings_you_have_done"
+                                                <x-input id="list_all_of _the_countries_you_have_travelled_to"
                                                     name="meta[outlook][List all of the countries you have travelled to?]"
                                                     label="List all of the countries you have travelled to?"
                                                     x-model="form.meta.more['List all of the countries you have travelled to?']" />
@@ -463,8 +463,9 @@
                                                 <div x-data="{ photoName: null, photoPreview: null }"
                                                     class="col-span-6 ml-2 sm:col-span-4 md:mr-3">
                                                     <!-- Photo File Input -->
-                                                    <input name="headshot_photo" type="file" class="hidden"
+                                                    <input id="headshot_photo" name="headshot_photo" type="file" class="hidden"
                                                         x-ref="photo"
+                                                        accept="image/png, image/gif, image/jpeg"
                                                         x-on:change="
                                                                     photoName = $refs.photo.files[0].name;
                                                                     const reader = new FileReader();
@@ -477,7 +478,7 @@
 
                                                     <label
                                                         class="mb-2 block text-center text-sm font-bold text-gray-700"
-                                                        for="photo">
+                                                        for="headshot_photo">
                                                         Upload Your Current Professional Full Length Colour Headshot
                                                         (Maximum
                                                         Size 1 MB)
@@ -513,8 +514,9 @@
                                                 <div x-data="{ photoName: null, photoPreview: null }"
                                                     class="col-span-6 ml-2 sm:col-span-4 md:mr-3">
                                                     <!-- Photo File Input -->
-                                                    <input name="waist_up_photo" type="file" class="hidden"
+                                                    <input id="waist_up_photo" name="waist_up_photo" type="file" class="hidden"
                                                         x-ref="photo"
+                                                        accept="image/png, image/gif, image/jpeg"
                                                         x-on:change="
                                                                         photoName = $refs.photo.files[0].name;
                                                                         const reader = new FileReader();
@@ -527,8 +529,8 @@
 
                                                     <label
                                                         class="mb-2 block text-center text-sm font-bold text-gray-700"
-                                                        for="photo">
-                                                        Upload Your Passport Copy (Data Page Only) (Maximum Size 1 MB)
+                                                        for="waist_up_photo">
+                                                       Upload Your Passport Size Photo Colour (Maximum Size 1 MB)
                                                         <span class="text-red-600"> </span>
                                                     </label>
 
@@ -561,8 +563,9 @@
                                                 <div x-data="{ photoName: null, photoPreview: null }"
                                                     class="col-span-6 ml-2 sm:col-span-4 md:mr-3">
                                                     <!-- Photo File Input -->
-                                                    <input name="passport_copy" type="file" class="hidden"
+                                                    <input id="passport_copy" name="passport_copy" type="file" class="hidden"
                                                         x-ref="photo"
+                                                        accept="image/png, image/gif, image/jpeg"
                                                         x-on:change="
                                                                 photoName = $refs.photo.files[0].name;
                                                                 const reader = new FileReader();
@@ -575,8 +578,9 @@
 
                                                     <label
                                                         class="mb-2 block text-center text-sm font-bold text-gray-700"
-                                                        for="photo">
-                                                        Upload Your Passport Size Photo Colour (Maximum Size 1 MB) <span
+                                                        for="passport_copy">
+                                                         Upload Your Passport Copy (Data Page Only) (Maximum Size 1 MB)
+                                                         <span
                                                             class="text-red-600"> </span>
                                                     </label>
 
@@ -611,22 +615,22 @@
 
 
                                         <div class="mb-4">
-                                            <x-checkbox id="terms_acceptance" name="acceptance-checkbox"
+                                            <x-checkbox id="terms_acceptance_a" name="acceptance-checkbox"
                                                 value="Yes"
                                                 label=" I hereby agree that the information provided above is true and accurate and would like to included in this year's Pageant of Heritage" />
                                         </div>
                                         <div class="mb-4">
-                                            <x-checkbox id="terms_acceptance" name="acceptance-checkbox"
+                                            <x-checkbox id="terms_acceptance_b" name="acceptance-checkbox"
                                                 value="Yes"
                                                 label="I hereby agree to be bound by the terms and conditions stated in the eligibility criteria for the Pageant of Heritage." />
                                         </div>
                                         <div class="mb-4">
-                                            <x-checkbox id="terms_acceptance" name="acceptance-checkbox"
+                                            <x-checkbox id="terms_acceptance_c" name="acceptance-checkbox"
                                                 value="Yes"
                                                 label="Terms of Conditions( https://mrsheritageinternational.com/repertoire/)" />
                                         </div>
                                         <div class="mb-4">
-                                            <x-checkbox id="terms_acceptance" name="acceptance-checkbox"
+                                            <x-checkbox id="terms_acceptance_d" name="acceptance-checkbox"
                                                 value="Yes"
                                                 label="I have read and agree to follow: https://mrsheritageinternational.com/repertoire/" />
                                         </div>
@@ -653,7 +657,7 @@
                                         Thank you. We have sent you an email to <span x-text="form.email"></span>
                                         about status of the application
                                     </div>
-                                    <button type="button" @click="step = 1"
+                                    <button type="button" @click="window.location.reload()"
                                         class="mx-auto block w-40 rounded-lg border bg-white px-5 py-2 text-center font-medium text-gray-600 shadow-sm hover:bg-gray-100 focus:outline-none">Back
                                         to home</button>
                                 </div>
@@ -682,7 +686,7 @@
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.3.2/build/js/intlTelInput.min.js"></script>
     <script>
         const phone_number = document.querySelector("#phone_number");
-        window.intlTelInput(phone_number, {
+        const iti = window.intlTelInput(phone_number, {
             utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@23.3.2/build/js/utils.js",
             initialCountry: "sg",
         });
@@ -693,7 +697,7 @@
             return {
                 step: 0,
                 loading: false,
-                csrfToken: "{{ csrf_token()}}",
+                csrfToken: "{{ csrf_token() }}",
                 form: {
                     competition_id: '',
                     country: '',
@@ -744,6 +748,10 @@
                     passport_copy: null
                 },
                 errors: {},
+                validateEmail(email) {
+                    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    return re.test(String(email).toLowerCase());
+                },
 
                 validateStep(step) {
                     let isValid = true;
@@ -759,6 +767,7 @@
                             }
                             break;
                         case 1:
+                            this.form.phone= iti.getNumber();
                             if (!this.form.first_name) {
                                 this.errors.first_name = 'First name is required.';
                                 isValid = false;
@@ -767,26 +776,32 @@
                                 this.errors.last_name = 'Last name is required.';
                                 isValid = false;
                             }
+                            this.errors.address = {};
                             if (!this.form.address.address_line_1) {
-                                this.errors.address_line_1 = 'Address line 1 is required.';
+                                this.errors.address.address_line_1 = 'Address line 1 is required.';
                                 isValid = false;
                             }
                             if (!this.form.address.city) {
-                                this.errors.city = 'City is required.';
+                                this.errors.address.city = 'City is required.';
                                 isValid = false;
                             }
                             if (!this.form.address.state) {
-                                this.errors.state = 'State is required.';
+                                this.errors.address.state = 'State is required.';
                                 isValid = false;
                             }
                             if (!this.form.address.zip) {
-                                this.errors.zip = 'Zip code is required.';
+                                this.errors.address.zip = 'Zip code is required.';
                                 isValid = false;
                             }
                             if (!this.form.email) {
                                 this.errors.email = 'Email is required.';
                                 isValid = false;
+                            } else if (!this.validateEmail(this.form.email)) {
+                                this.errors.email = 'Invalid email format.';
+                                isValid = false;
                             }
+                            // email should  email
+
                             if (!this.form.phone) {
                                 this.errors.phone = 'Phone number is required.';
                                 isValid = false;
@@ -833,8 +848,10 @@
                     return isValid;
                 },
                 selectCountry(event) {
+                    if (event.detail) {
 
-                    this.form.country = event.detail.country;
+                        this.form.country = event.detail.country;
+                    }
                 },
 
                 nextStep() {
