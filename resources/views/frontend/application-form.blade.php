@@ -381,7 +381,7 @@
                                             <div class="mb-4">
                                                 <x-input id="favorite_spot" name="meta[more][favorite_spot]"
                                                     label="Favourite Sports"
-                                                    x-model="form.meta.more.spot" />
+                                                    x-model="form.meta.more.favorite_spot" />
                                             </div>
                                         </div>
                                     </div>
@@ -392,18 +392,18 @@
                                             <div class="mb-4">
                                                 <x-input id="hobbies" name="meta[outlook][hobbies]"
                                                     label="What are Your Hobbies"
-                                                    x-model="form.meta.personal_background.hobbies" />
+                                                    x-model="form.meta.outlook.hobbies" />
                                             </div>
 
                                             <div class="mb-4">
                                                 <x-input id="talent" name="meta[outlook][talent]" label="Talent"
-                                                    x-model="form.meta.personal_background.talent" />
+                                                    x-model="form.meta.outlook.talent" />
                                             </div>
 
                                             <div class="mb-4">
                                                 <x-input id="future_ambitions" name="meta[outlook][future_ambitions]"
                                                     label="Future Ambitions"
-                                                    x-model="form.meta.personal_background.future_ambitions" />
+                                                    x-model="form.meta.outlook.future_ambitions" />
                                             </div>
 
 
@@ -411,37 +411,37 @@
                                             <div class="mb-4">
                                                 <x-input id="awards" name="meta[outlook][awards]"
                                                     label="Any Title(s) or Award(s)?"
-                                                    x-model="form.meta.personal_background.awards" />
+                                                    x-model="form.meta.outlook.awards" />
                                             </div>
                                             <div class="mb-4">
                                                 <x-input id="trainings" name="meta[outlook][trainings]"
                                                     label="Do You Have Any Special Training in Music, Dance, Art etc.?"
-                                                    x-model="form.meta.more['Do You Have Any Special Training in Music, Dance, Art etc.?']" />
+                                                    x-model="form.meta.outlook['Do You Have Any Special Training in Music, Dance, Art etc.?']" />
                                             </div>
 
                                             <div class="mb-4">
                                                 <x-input id="unusal_tings_you_have_done"
                                                     name="meta[outlook][Most unusual thing You have Done Ever?]"
                                                     label="Most unusual thing You have Done Ever?"
-                                                    x-model="form.meta.more['Most unusual thing You have Done Ever?']" />
+                                                    x-model="form.meta.outlook['Most unusual thing You have Done Ever?']" />
                                             </div>
                                             <div class="mb-4">
                                                 <x-input id="what_person_would_you_like_to_meet"
                                                     name="meta[outlook][What Person Would You Like To Meet And Why?]"
                                                     label="What Person Would You Like To Meet And Why?"
-                                                    x-model="form.meta.more['What Person Would You Like To Meet And Why?']" />
+                                                    x-model="form.meta.outlook['What Person Would You Like To Meet And Why?']" />
                                             </div>
                                             <div class="mb-4">
                                                 <x-input id="describe_the_moment_in_your_life"
                                                     name="meta[outlook][Describe the Moment in Your Life You Are Most Proud of?]"
                                                     label="Describe the Moment in Your Life You Are Most Proud of?"
-                                                    x-model="form.meta.more['Describe the Moment in Your Life You Are Most Proud of?']" />
+                                                    x-model="form.meta.outlook['Describe the Moment in Your Life You Are Most Proud of?']" />
                                             </div>
                                             <div class="mb-4">
                                                 <x-input id="list_all_of _the_countries_you_have_travelled_to"
                                                     name="meta[outlook][List all of the countries you have travelled to?]"
                                                     label="List all of the countries you have travelled to?"
-                                                    x-model="form.meta.more['List all of the countries you have travelled to?']" />
+                                                    x-model="form.meta.outlook['List all of the countries you have travelled to?']" />
                                             </div>
                                         </div>
                                     </div>
