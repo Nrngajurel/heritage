@@ -103,22 +103,22 @@
             <div class="text-center text-sm">Form Close Date: {{ $start_date->format('m D Y') }} </div>
             <div class="mt-4 flex items-center justify-center space-x-4" x-data="timer({{ $start_date->timestamp * 1000 }})"
                 x-init="init();">
-                <div class="flex flex-col items-center px-4">
+                <div class="flex flex-col items-center px-2 md:px-4">
                     <span x-text="time().days" class="text-4xl text-gray-200 lg:text-5xl">00</span>
                     <span class="mt-2 text-gray-400">Days</span>
                 </div>
                 <span class="h-24 w-[1px] bg-gray-400"></span>
-                <div class="flex flex-col items-center px-4">
+                <div class="flex flex-col items-center px-2 md:px-4">
                     <span x-text="time().hours" class="text-4xl text-gray-200 lg:text-5xl">23</span>
                     <span class="mt-2 text-gray-400">Hours</span>
                 </div>
                 <span class="h-24 w-[1px] bg-gray-400"></span>
-                <div class="flex flex-col items-center px-4">
+                <div class="flex flex-col items-center px-2 md:px-4">
                     <span x-text="time().minutes" class="text-4xl text-gray-200 lg:text-5xl">59</span>
                     <span class="mt-2 text-gray-400">Minutes</span>
                 </div>
                 <span class="h-24 w-[1px] bg-gray-400"></span>
-                <div class="flex flex-col items-center px-4">
+                <div class="flex flex-col items-center px-2 md:px-4">
                     <span x-text="time().seconds" class="text-4xl text-gray-200 lg:text-5xl">28</span>
                     <span class="mt-2 text-gray-400">Seconds</span>
                 </div>

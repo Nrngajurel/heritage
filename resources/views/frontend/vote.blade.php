@@ -18,30 +18,31 @@
 
 
 <body class="antialiased">
+
     @php
         $start_date = \Carbon\Carbon::parse($event->voting_start_date);
     @endphp
-    <h1 class="text-2xl text-center font-bold">{{ $event->name }}</h1>
-    <div class="text-sm text-center">Voting Start From: {{ $start_date->format('m D Y') }} </div>
-    <div class="flex items-center justify-center space-x-4 mt-4" x-data="timer({{$start_date->timestamp*1000}})" x-init="init();">
+    <h1 class="text-center text-2xl font-bold">{{ $event->name }}</h1>
+    <div class="text-center text-sm">Voting Start From: {{ $start_date->format('m D Y') }} </div>
+    <div class="mt-4 flex items-center justify-center space-x-4" x-data="timer({{$start_date->timestamp*1000}})" x-init="init();">
         <div class="flex flex-col items-center px-4">
-            <span x-text="time().days" class="text-4xl lg:text-5xl text-gray-200">00</span>
-            <span class="text-gray-400 mt-2">Days</span>
+            <span x-text="time().days" class="text-4xl text-gray-200 lg:text-5xl">00</span>
+            <span class="mt-2 text-gray-400">Days</span>
         </div>
-        <span class="w-[1px] h-24 bg-gray-400"></span>
+        <span class="h-24 w-[1px] bg-gray-400"></span>
         <div class="flex flex-col items-center px-4">
-            <span x-text="time().hours" class="text-4xl lg:text-5xl text-gray-200">23</span>
-            <span class="text-gray-400 mt-2">Hours</span>
+            <span x-text="time().hours" class="text-4xl text-gray-200 lg:text-5xl">23</span>
+            <span class="mt-2 text-gray-400">Hours</span>
         </div>
-        <span class="w-[1px] h-24 bg-gray-400"></span>
+        <span class="h-24 w-[1px] bg-gray-400"></span>
         <div class="flex flex-col items-center px-4">
-            <span x-text="time().minutes" class="text-4xl lg:text-5xl text-gray-200">59</span>
-            <span class="text-gray-400 mt-2">Minutes</span>
+            <span x-text="time().minutes" class="text-4xl text-gray-200 lg:text-5xl">59</span>
+            <span class="mt-2 text-gray-400">Minutes</span>
         </div>
-        <span class="w-[1px] h-24 bg-gray-400"></span>
+        <span class="h-24 w-[1px] bg-gray-400"></span>
         <div class="flex flex-col items-center px-4">
-            <span x-text="time().seconds" class="text-4xl lg:text-5xl text-gray-200">28</span>
-            <span class="text-gray-400 mt-2">Seconds</span>
+            <span x-text="time().seconds" class="text-4xl text-gray-200 lg:text-5xl">28</span>
+            <span class="mt-2 text-gray-400">Seconds</span>
         </div>
     </div>
 
@@ -49,16 +50,16 @@
 
 
     <div id="extralarge-modal" tabindex="-1"
-        class="transition ease-in-out delay-150 fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full  ">
-        <div class="relative w-full max-w-7xl max-h-full">
+        class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full overflow-y-auto overflow-x-hidden p-4 transition delay-150 ease-in-out md:inset-0">
+        <div class="relative max-h-full w-full max-w-7xl">
             <!-- Modal content -->
             <div class="relative bg-white shadow dark:bg-gray-700">
                 <!-- Modal header -->
 
                 <button type="button"
-                    class="fixed top-2 right-2 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    class="fixed right-2 top-2 ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
                     data-modal-hide="extralarge-modal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
@@ -78,41 +79,41 @@
                                     <!-- Item 1 -->
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="https://mrsheritageinternational.com/wp-content/uploads/2023/08/WhatsApp-Image-2023-09-11-at-8.51.03-AM.jpeg"
-                                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                            class="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                     </div>
                                     <!-- Item 2 -->
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
                                         <img src="https://mrsheritageinternational.com/wp-content/uploads/2023/08/WhatsApp-Image-2023-09-11-at-8.51.03-AM.jpeg"
-                                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                            class="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                     </div>
                                     <!-- Item 3 -->
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="https://mrsheritageinternational.com/wp-content/uploads/2023/08/WhatsApp-Image-2023-09-11-at-8.51.03-AM.jpeg"
-                                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                            class="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                     </div>
                                     <!-- Item 4 -->
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="https://mrsheritageinternational.com/wp-content/uploads/2023/08/WhatsApp-Image-2023-09-11-at-8.51.03-AM.jpeg"
-                                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                            class="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                     </div>
                                     <!-- Item 5 -->
                                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
                                         <img src="https://mrsheritageinternational.com/wp-content/uploads/2023/08/WhatsApp-Image-2023-09-11-at-8.51.03-AM.jpeg"
-                                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                            class="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
                                             alt="...">
                                     </div>
                                 </div>
                                 <!-- Slider controls -->
                                 <button type="button"
-                                    class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                                    class="group absolute start-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
                                     data-carousel-prev>
                                     <span
-                                        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                        <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                                        class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70">
+                                        <svg class="h-4 w-4 text-white dark:text-gray-800 rtl:rotate-180"
                                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                             viewBox="0 0 6 10">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -122,11 +123,11 @@
                                     </span>
                                 </button>
                                 <button type="button"
-                                    class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
+                                    class="group absolute end-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
                                     data-carousel-next>
                                     <span
-                                        class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                                        <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                                        class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70">
+                                        <svg class="h-4 w-4 text-white dark:text-gray-800 rtl:rotate-180"
                                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                             viewBox="0 0 6 10">
                                             <path stroke="currentColor" stroke-linecap="round"
@@ -151,24 +152,24 @@
     </div>
 
     <div
-        class="relative min-h-screen bg-gray-100 bg-center sm:flex sm:justify-center sm:items-center bg-dots-darker dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-        <div class="p-6 w-full mx-auto lg:p-8">
+        class="bg-dots-darker dark:bg-dots-lighter relative min-h-screen bg-gray-100 bg-center selection:bg-red-500 selection:text-white dark:bg-gray-900 sm:flex sm:items-center sm:justify-center">
+        <div class="mx-auto w-full p-6 lg:p-8">
 
-            <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mt-5">
+            <div class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <!-- First Card -->
 
                 @foreach (range(0, 7) as $item)
-                    <div class="bg-white shadow-lg rounded-lg overflow-hidden" data-modal-target="extralarge-modal"
+                    <div class="overflow-hidden rounded-lg bg-white shadow-lg" data-modal-target="extralarge-modal"
                         data-modal-toggle="extralarge-modal">
 
                         <div class="relative">
                             <img src="https://mrsheritageinternational.com/wp-content/uploads/2023/08/WhatsApp-Image-2023-09-11-at-8.51.03-AM.jpeg"
-                                alt="Cover Image" class="w-full h-36 object-cover">
+                                alt="Cover Image" class="h-36 w-full object-cover">
                         </div>
 
-                        <div class="flex items-center justify-center space-x-2 -mt-20">
+                        <div class="-mt-20 flex items-center justify-center space-x-2">
                             <img src="https://mrsheritageinternational.com/wp-content/uploads/2023/08/Miss-Australia.jpg"
-                                alt="Country Image" class="w-32 h-32 rounded-full object-cover z-10 shadow">
+                                alt="Country Image" class="z-10 h-32 w-32 rounded-full object-cover shadow">
                             </svg>
                         </div>
                         <div class="p-4">
@@ -179,10 +180,10 @@
                                 You Already Participated!
                             </div>
                             <div class="mt-4">
-                                <div class="relative w-full bg-gray-200 rounded">
-                                    <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-orange-400 to-red-500"
+                                <div class="relative w-full rounded bg-gray-200">
+                                    <div class="absolute left-0 top-0 h-full bg-gradient-to-r from-orange-400 to-red-500"
                                         style="width:0%;"></div>
-                                    <div class="absolute top-0 left-0 h-full text-white text-sm flex items-center justify-center"
+                                    <div class="absolute left-0 top-0 flex h-full items-center justify-center text-sm text-white"
                                         style="width:0%;">
                                         0%
                                     </div>
