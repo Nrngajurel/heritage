@@ -30,8 +30,8 @@ class FrontendController extends Controller
     }
     public function applicationForm()
     {
-        $application = Application::first();
-        $application->notify(new ApplicationSubmitted);
+        // $application = Application::first();
+        // $application->notify(new ApplicationSubmitted);
 
         $event = Event::with('competitions')->latest()->first();
         return view('frontend.application-form', [
