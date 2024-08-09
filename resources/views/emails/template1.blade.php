@@ -363,7 +363,7 @@
                                                                 <div class="alignment" align="center"
                                                                     style="line-height:10px">
                                                                     <div style="max-width: 226.66666666666666px;"><img
-                                                                            src="{{ asset('assets/images/appstore-qr.png') }}"
+                                                                            src="https://voting.heritagepageant.com/assets/images/appstore-qr.png"
                                                                             style="display: block; height: auto; border: 0; width: 100%;"
                                                                             width="226.66666666666666" height="auto">
                                                                     </div>
@@ -383,7 +383,7 @@
                                                                 <div class="alignment" align="center"
                                                                     style="line-height:10px">
                                                                     <div style="max-width: 226.66666666666666px;"><img
-                                                                            src="{{ asset('assets/images/mobile-app-screenshot.png')}}"
+                                                                            src="https://voting.heritagepageant.com/assets/images/mobile-app-screenshot.png"
                                                                             style="display: block; height: auto; border: 0; width: 100%;"
                                                                             width="226.66666666666666" height="auto">
                                                                     </div>
@@ -402,7 +402,7 @@
                                                                 <div class="alignment" align="center"
                                                                     style="line-height:10px">
                                                                     <div style="max-width: 226.66666666666666px;"><img
-                                                                            src="{{ asset('assets/images/playstore-qr.png')}}"
+                                                                            src="https://voting.heritagepageant.com/assets/images/playstore-qr.png"
                                                                             style="display: block; height: auto; border: 0; width: 100%;"
                                                                             width="226.66666666666666" height="auto">
                                                                     </div>
