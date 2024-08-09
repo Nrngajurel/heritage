@@ -1,14 +1,24 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-TnSpoBms.css",
+    "file": "assets/app-B-b4y97H.css",
     "isEntry": true,
     "src": "resources/css/app.css"
+  },
+  "resources/css/filament/admin/tailwind.config.js": {
+    "file": "assets/tailwind.config-XoaFzL6F.js",
+    "isEntry": true,
+    "src": "resources/css/filament/admin/tailwind.config.js"
+  },
+  "resources/css/filament/admin/theme.css": {
+    "file": "assets/theme-MFFkoLvB.css",
+    "isEntry": true,
+    "src": "resources/css/filament/admin/theme.css"
   },
   "resources/js/app.js": {
     "css": [
       "assets/app-u9JJSjPw.css"
     ],
-    "file": "assets/app-JLxXNjZ9.js",
+    "file": "assets/app-eO2xR4Cb.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
