@@ -196,10 +196,10 @@
                                                                 <div
                                                                     style="color:#6c6c6c;direction:ltr;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif;font-size:19px;font-weight:400;letter-spacing:0px;line-height:150%;text-align:left;mso-line-height-alt:28.5px;">
                                                                     <p style="margin: 0; margin-bottom: 26px;">Dear
-                                                                        [Participant's Name],</p>
+                                                                       {{ $application->full_name }},</p>
                                                                     <p style="margin: 0; margin-bottom: 26px;">Thank you
                                                                         for submitting your application for the
-                                                                        [Selected Competition] category in the Heritage
+                                                                        {{ $application->competition?->name }} category in the Heritage
                                                                         Pageants. We are delighted to have you
                                                                         participate in our global beauty competition
                                                                         that emphasizes Peace, Environment, Tourism,
@@ -307,7 +307,7 @@
                                                                 <div
                                                                     style="color:#101112;direction:ltr;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif;font-size:16px;font-weight:700;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:19.2px;">
                                                                     <p style="margin: 0;"><a
-                                                                            href="http://127.0.0.1:8000/mail-template"
+                                                                            href="https://voting.heritagepageant.com/application-form"
                                                                             style="text-decoration: underline; color: #a25a01;">|
                                                                             PARTICIPATE |</a></p>
                                                                 </div>
@@ -326,7 +326,7 @@
                                                                 <div
                                                                     style="color:#101112;direction:ltr;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif;font-size:16px;font-weight:700;letter-spacing:0px;line-height:120%;text-align:right;mso-line-height-alt:19.2px;">
                                                                     <p style="margin: 0;"><a
-                                                                            href="http://127.0.0.1:8000/mail-template"
+                                                                            href="https://voting.heritagepageant.com/vote"
                                                                             style="text-decoration: underline; color: #a25a01;">|
                                                                             VOTE |</a></p>
                                                                 </div>
@@ -363,7 +363,7 @@
                                                                 <div class="alignment" align="center"
                                                                     style="line-height:10px">
                                                                     <div style="max-width: 226.66666666666666px;"><img
-                                                                            src="https://6b70fd6641.imgdist.com/pub/bfra/k6jb86y5/i5u/0kg/66i/apple-app-store-qr-code-sticker.png"
+                                                                            src="{{ asset('assets/images/appstore-qr.png') }}"
                                                                             style="display: block; height: auto; border: 0; width: 100%;"
                                                                             width="226.66666666666666" height="auto">
                                                                     </div>
@@ -383,7 +383,7 @@
                                                                 <div class="alignment" align="center"
                                                                     style="line-height:10px">
                                                                     <div style="max-width: 226.66666666666666px;"><img
-                                                                            src="https://6b70fd6641.imgdist.com/pub/bfra/k6jb86y5/ae6/7nx/v6i/iPhone-12-PRO-heritagepageant.com.png"
+                                                                            src="{{ asset('assets/images/mobile-app-screenshot.png')}}"
                                                                             style="display: block; height: auto; border: 0; width: 100%;"
                                                                             width="226.66666666666666" height="auto">
                                                                     </div>
@@ -402,7 +402,7 @@
                                                                 <div class="alignment" align="center"
                                                                     style="line-height:10px">
                                                                     <div style="max-width: 226.66666666666666px;"><img
-                                                                            src="https://6b70fd6641.imgdist.com/pub/bfra/k6jb86y5/lda/n3n/clc/google-play-store-qr-code-sticker.png"
+                                                                            src="{{ asset('assets/images/playstore-qr.png')}}"
                                                                             style="display: block; height: auto; border: 0; width: 100%;"
                                                                             width="226.66666666666666" height="auto">
                                                                     </div>

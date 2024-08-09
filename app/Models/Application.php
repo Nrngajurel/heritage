@@ -43,6 +43,10 @@ class Application extends Model implements HasMedia
     public function getFormattedAddressAttribute(){
         return "{$this->address['address_line_1']}, {$this->address['city']}, {$this->address['state']} {$this->address['zip']}";;
     }
+    public function getFullNameAttribute(){
+
+        return $this->first_name . " " . $this->last_name;
+    }
 
 
     public function registerMediaCollections(): void

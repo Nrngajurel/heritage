@@ -15,7 +15,7 @@ class ApplicationSubmitted extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(public Application $application)
+    public function __construct()
     {
         //
     }
@@ -35,7 +35,9 @@ class ApplicationSubmitted extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage)->view('emails.template1');
+        return (new MailMessage)->view('emails.template1', [
+            'application'=> $notifiable
+        ]);
     }
 
     /**

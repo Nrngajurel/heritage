@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
 use App\Models\Event;
 use App\Notifications\ApplicationSubmitted;
 use Illuminate\Http\Request;
@@ -29,6 +30,8 @@ class FrontendController extends Controller
     }
     public function applicationForm()
     {
+        // $application = Application::first();
+        // $application->notify(new ApplicationSubmitted);
 
         $event = Event::with('competitions')->latest()->first();
         return view('frontend.application-form', [
