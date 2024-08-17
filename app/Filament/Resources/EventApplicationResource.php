@@ -104,7 +104,7 @@ class EventApplicationResource extends Resource
                                     'exportPdf'=> true
                                 ])
                             )->stream();
-                        }, $record->id . $record->full_name . '.pdf');
+                        }, $record->id . 'application-form.pdf');
                     }),
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make(),
