@@ -115,7 +115,7 @@
                 <td class="mt-5">
                     <label class="block font-medium">HeadShot</label>
                     @isset($exportPdf)
-                        <img src="{{ $record->getFirstMedia('headshot_photo')?->getPath() }}" />
+                        <img  style="width:100%" src="{{ $record->getFirstMedia('headshot_photo')?->getPath() }}" />
                     @else
                         {{ $record->getFirstMedia('headshot_photo') }}
                     @endisset
@@ -124,7 +124,7 @@
                 <td class="mt-5">
                     <label class="block font-medium">Waist up photo</label>
                     @isset($exportPdf)
-                        <img src="{{ $record->getFirstMedia('waist_up_photo')?->getPath() }}" />
+                        <img style="width:100%" src="{{ $record->getFirstMedia('waist_up_photo')?->getPath() }}" />
                     @else
                         {{ $record->getFirstMedia('waist_up_photo') }}
                     @endisset
@@ -133,7 +133,7 @@
                 <td class="mt-5">
                     <label class="block font-medium">Passport Copy</label>
                     @isset($exportPdf)
-                        <img src="{{ $record->getFirstMedia('passport_copy')?->getPath() }}" />
+                        <img  style="width:100%" src="{{ $record->getFirstMedia('passport_copy')?->getPath() }}" />
                     @else
                         {{ $record->getFirstMedia('passport_copy') }}
                     @endisset
