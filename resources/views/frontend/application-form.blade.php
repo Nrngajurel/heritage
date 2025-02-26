@@ -100,7 +100,7 @@
             <h1 class="text-center text-2xl font-bold">{{ $event->name }}</h1>
             <div class="text-center">Application Form</div>
 
-            <div class="text-center text-sm">Form Close Date: {{ $start_date->format('m D Y') }} </div>
+            <div class="text-center text-sm">Form Close Date: {{ $start_date->format('M d, Y') }} </div>
             <div class="mt-4 flex items-center justify-center space-x-4" x-data="timer({{ $start_date->timestamp * 1000 }})"
                 x-init="init();">
                 <div class="flex flex-col items-center px-2 md:px-4">
