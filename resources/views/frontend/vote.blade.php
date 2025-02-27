@@ -3,14 +3,27 @@
 @section('content')
     <style>
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
         }
 
         @keyframes spin-slow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .animate-float {
@@ -46,7 +59,7 @@
                 <div class="sparkle absolute left-1/2 top-1/2" style="animation-delay: 1s"></div>
             </div>
         </div>
-
+        {{-- 
         <!-- Timer Section -->
         <div class="timer-section mx-auto my-8 max-w-4xl rounded-xl px-4 py-8">
             <div class="mb-6 text-center">
@@ -81,7 +94,7 @@
                     <span class="ml-2 text-sm text-gray-400">votes</span>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Extra Large Modal -->
 
@@ -106,22 +119,31 @@
                             <!-- Smaller Glowing Background -->
                             <div class="absolute inset-0 scale-[2] transform">
                                 <!-- Primary glow -->
-                                <div class="from-gold/30 via-gold/15 to-gold/30 absolute inset-0 animate-pulse rounded-full bg-gradient-to-r blur-lg"></div>
+                                <div
+                                    class="from-gold/30 via-gold/15 to-gold/30 absolute inset-0 animate-pulse rounded-full bg-gradient-to-r blur-lg">
+                                </div>
                                 <!-- Secondary sparkle effect -->
-                                <div class="absolute inset-0 animate-pulse rounded-full bg-gradient-to-r from-yellow-200/20 via-amber-400/15 to-yellow-200/20 blur-md" style="animation-delay: 0.5s"></div>
+                                <div class="absolute inset-0 animate-pulse rounded-full bg-gradient-to-r from-yellow-200/20 via-amber-400/15 to-yellow-200/20 blur-md"
+                                    style="animation-delay: 0.5s"></div>
                                 <!-- Shimmer effect -->
-                                <div class="animate-shimmer via-gold/20 absolute inset-0 rounded-full bg-gradient-to-r from-transparent to-transparent blur-sm"></div>
+                                <div
+                                    class="animate-shimmer via-gold/20 absolute inset-0 rounded-full bg-gradient-to-r from-transparent to-transparent blur-sm">
+                                </div>
                             </div>
-                            
+
                             <!-- Crown Image -->
                             <div class="group relative transition-transform duration-300 hover:scale-105">
-                                <img src="{{ asset('assets/images/crown.png') }}" alt="Crown" class="z-100 h-32 w-32 object-contain brightness-105 drop-shadow-[0_0_10px_rgba(255,215,0,0.4)] filter" />
-                                
+                                <img src="{{ asset('assets/images/crown.png') }}" alt="Crown"
+                                    class="z-100 h-32 w-32 object-contain brightness-105 drop-shadow-[0_0_10px_rgba(255,215,0,0.4)] filter" />
+
                                 <!-- Animated Sparkles -->
                                 <div class="pointer-events-none absolute left-0 top-0 h-full w-full">
-                                    <span class="animate-float absolute -top-1 left-0 text-lg" style="animation-delay: 0s">✨</span>
-                                    <span class="animate-float absolute -right-1 top-1/2 text-lg" style="animation-delay: 0.3s">✨</span>
-                                    <span class="animate-float absolute -bottom-1 left-1/2 text-lg" style="animation-delay: 0.6s">✨</span>
+                                    <span class="animate-float absolute -top-1 left-0 text-lg"
+                                        style="animation-delay: 0s">✨</span>
+                                    <span class="animate-float absolute -right-1 top-1/2 text-lg"
+                                        style="animation-delay: 0.3s">✨</span>
+                                    <span class="animate-float absolute -bottom-1 left-1/2 text-lg"
+                                        style="animation-delay: 0.6s">✨</span>
                                 </div>
                             </div>
                         </div>
@@ -147,19 +169,108 @@
                 </div>
 
                 <!-- Live Stats -->
-                <div class="mb-16 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-                    <div class="pageant-card animate-glow p-4 text-center sm:p-6">
-                        <div class="text-gold text-xl font-bold sm:text-2xl lg:text-3xl"
-                            x-text="formatNumber(getTotalVotes())">0</div>
-                        <div class="text-gold/60 text-sm sm:text-base">Total Votes</div>
+                <div class="mb-16 grid grid-cols-2 gap-4 sm:grid-cols-4" x-data="{
+                    countdown: {
+                        days: 0,
+                        hours: 0,
+                        minutes: 0,
+                        seconds: 0
+                    },
+                    initCountdown() {
+                        const endDate = new Date('{{ $event->voting_end_date }}').getTime();
+                        const updateTimer = () => {
+                            const now = new Date().getTime();
+                            const distance = endDate - now;
+                
+                            this.countdown = {
+                                days: - Math.floor(distance / (1000 * 60 * 60 * 24)),
+                                hours: - Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                                minutes: - Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+                                seconds: -Math.floor((distance % (1000 * 60)) / 1000)
+                            };
+                        };
+                        updateTimer();
+                        setInterval(updateTimer, 1000);
+                    }
+                }" x-init="initCountdown()">
+                    <!-- Total Votes -->
+                    <div class="pageant-card relative overflow-hidden p-4 text-center sm:p-6">
+                        <div class="from-gold/5 to-gold/5 absolute inset-0 bg-gradient-to-br via-transparent opacity-50">
+                        </div>
+                        <div class="relative">
+                            <div class="text-gold mb-1 text-xl font-bold sm:text-2xl lg:text-3xl"
+                                x-text="formatNumber(getTotalVotes())">0</div>
+                            <div class="text-gold/60 text-xs sm:text-sm">Total Votes</div>
+                        </div>
                     </div>
-                    <div class="pageant-card animate-glow p-4 text-center sm:p-6">
-                        <div class="text-gold text-xl font-bold sm:text-2xl lg:text-3xl">30d 12h</div>
-                        <div class="text-gold/60 text-sm sm:text-base">Time Remaining</div>
+
+                    <!-- Time Remaining -->
+                    <div class="pageant-card relative col-span-2 overflow-hidden p-4 text-center sm:p-6">
+                        <div class="from-gold/5 to-gold/5 absolute inset-0 bg-gradient-to-br via-transparent opacity-50">
+                        </div>
+                        <div class="relative space-y-2">
+                            <div class="text-gold/60 text-xs font-medium uppercase tracking-wider sm:text-sm">Time Remaining
+                            </div>
+                            <div class="flex items-center justify-center gap-2 sm:gap-3">
+                                <!-- Days -->
+                                <div class="group flex flex-col">
+                                    <div
+                                        class="from-gold/10 to-gold/5 relative overflow-hidden rounded-lg bg-gradient-to-b px-2 py-1 backdrop-blur-sm sm:px-3 sm:py-2">
+                                        <div class="text-gold text-xl font-bold sm:text-2xl lg:text-3xl"
+                                            x-text="countdown.days.toString().padStart(2, '0')">00</div>
+                                        <div class="absolute inset-0 hidden bg-white/5 group-hover:block"></div>
+                                    </div>
+                                    <span class="text-gold/40 mt-1 text-[10px] font-medium uppercase sm:text-xs">Days</span>
+                                </div>
+
+                                <!-- Hours -->
+                                <div class="group flex flex-col">
+                                    <div
+                                        class="from-gold/10 to-gold/5 relative overflow-hidden rounded-lg bg-gradient-to-b px-2 py-1 backdrop-blur-sm sm:px-3 sm:py-2">
+                                        <div class="text-gold text-xl font-bold sm:text-2xl lg:text-3xl"
+                                            x-text="countdown.hours.toString().padStart(2, '0')">00</div>
+                                        <div class="absolute inset-0 hidden bg-white/5 group-hover:block"></div>
+                                    </div>
+                                    <span
+                                        class="text-gold/40 mt-1 text-[10px] font-medium uppercase sm:text-xs">Hours</span>
+                                </div>
+
+                                <!-- Minutes -->
+                                <div class="group flex flex-col">
+                                    <div
+                                        class="from-gold/10 to-gold/5 relative overflow-hidden rounded-lg bg-gradient-to-b px-2 py-1 backdrop-blur-sm sm:px-3 sm:py-2">
+                                        <div class="text-gold text-xl font-bold sm:text-2xl lg:text-3xl"
+                                            x-text="countdown.minutes.toString().padStart(2, '0')">00</div>
+                                        <div class="absolute inset-0 hidden bg-white/5 group-hover:block"></div>
+                                    </div>
+                                    <span
+                                        class="text-gold/40 mt-1 text-[10px] font-medium uppercase sm:text-xs">Minutes</span>
+                                </div>
+
+                                <!-- Seconds -->
+                                <div class="group flex flex-col">
+                                    <div
+                                        class="from-gold/10 to-gold/5 relative overflow-hidden rounded-lg bg-gradient-to-b px-2 py-1 backdrop-blur-sm sm:px-3 sm:py-2">
+                                        <div class="text-gold text-xl font-bold sm:text-2xl lg:text-3xl"
+                                            x-text="countdown.seconds.toString().padStart(2, '0')">00</div>
+                                        <div class="absolute inset-0 hidden bg-white/5 group-hover:block"></div>
+                                    </div>
+                                    <span
+                                        class="text-gold/40 mt-1 text-[10px] font-medium uppercase sm:text-xs">Seconds</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="pageant-card animate-glow p-4 text-center sm:p-6">
-                        <div class="text-gold text-xl font-bold sm:text-2xl lg:text-3xl">{{ $candidates->count() }}</div>
-                        <div class="text-gold/60 text-sm sm:text-base">Contestants</div>
+
+                    <!-- Contestants Count -->
+                    <div class="pageant-card relative overflow-hidden p-4 text-center sm:p-6">
+                        <div class="from-gold/5 to-gold/5 absolute inset-0 bg-gradient-to-br via-transparent opacity-50">
+                        </div>
+                        <div class="relative">
+                            <div class="text-gold mb-1 text-xl font-bold sm:text-2xl lg:text-3xl">{{ $candidates->count() }}
+                            </div>
+                            <div class="text-gold/60 text-xs sm:text-sm">Contestants</div>
+                        </div>
                     </div>
                 </div>
 
@@ -168,7 +279,9 @@
                     <!-- Section Title with Crown Animation -->
                     <div class="relative mb-12 text-center">
                         <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                            <div class="animate-spin-slow from-gold/20 to-gold/20 h-32 w-32 rounded-full bg-gradient-to-r via-transparent blur-xl"></div>
+                            <div
+                                class="animate-spin-slow from-gold/20 to-gold/20 h-32 w-32 rounded-full bg-gradient-to-r via-transparent blur-xl">
+                            </div>
                         </div>
                         <h2 class="font-playfair text-gold relative inline-block text-3xl font-bold sm:text-4xl">
                             <span class="absolute -left-8 top-1/2 -translate-y-1/2">
@@ -191,42 +304,73 @@
                                 <div class="absolute -right-4 -top-4 z-20">
                                     @php
                                         $rankStyles = [
-                                            1 => ['bg' => 'from-yellow-400 to-yellow-600', 'icon' => '⭐', 'text' => 'Leading', 'glow' => 'gold'],
-                                            2 => ['bg' => 'from-gray-300 to-gray-500', 'icon' => '⭐', 'text' => 'Runner Up', 'glow' => 'silver'],
-                                            3 => ['bg' => 'from-amber-600 to-amber-800', 'icon' => '⭐', 'text' => 'Top 3', 'glow' => 'bronze']
+                                            1 => [
+                                                'bg' => 'from-yellow-400 to-yellow-600',
+                                                'icon' => '⭐',
+                                                'text' => 'Leading',
+                                                'glow' => 'gold',
+                                            ],
+                                            2 => [
+                                                'bg' => 'from-gray-300 to-gray-500',
+                                                'icon' => '⭐',
+                                                'text' => 'Runner Up',
+                                                'glow' => 'silver',
+                                            ],
+                                            3 => [
+                                                'bg' => 'from-amber-600 to-amber-800',
+                                                'icon' => '⭐',
+                                                'text' => 'Top 3',
+                                                'glow' => 'bronze',
+                                            ],
                                         ];
-                                        $style = $rankStyles[$index + 1] ?? ['bg' => 'from-purple-400 to-purple-600', 'icon' => '⭐', 'text' => 'Finalist', 'glow' => 'purple'];
+                                        $style = $rankStyles[$index + 1] ?? [
+                                            'bg' => 'from-purple-400 to-purple-600',
+                                            'icon' => '⭐',
+                                            'text' => 'Finalist',
+                                            'glow' => 'purple',
+                                        ];
                                     @endphp
                                     <div class="animate-float relative">
                                         <!-- Glowing Effect -->
-                                        <div class="absolute inset-0 animate-pulse rounded-full bg-gradient-to-br {{ $style['bg'] }} opacity-50 blur-xl"></div>
+                                        <div
+                                            class="absolute inset-0 animate-pulse rounded-full bg-gradient-to-br {{ $style['bg'] }} opacity-50 blur-xl">
+                                        </div>
                                         <!-- Badge Container -->
-                                        <div class="relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br {{ $style['bg'] }} p-1">
-                                            <div class="flex h-full w-full items-center justify-center rounded-full bg-black/50 backdrop-blur-sm">
+                                        <div
+                                            class="relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br {{ $style['bg'] }} p-1">
+                                            <div
+                                                class="flex h-full w-full items-center justify-center rounded-full bg-black/50 backdrop-blur-sm">
                                                 <span class="text-2xl">{{ $style['icon'] }}</span>
                                             </div>
                                         </div>
                                         <!-- Rank Number -->
-                                        <div class="text-gold absolute -bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-2 py-0.5 text-xs font-bold backdrop-blur-sm">
+                                        <div
+                                            class="text-gold absolute -bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-2 py-0.5 text-xs font-bold backdrop-blur-sm">
                                             #{{ $index + 1 }}
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Card Content -->
-                                <div class="group relative overflow-hidden rounded-xl bg-gradient-to-b from-black/40 to-black/60 shadow-lg backdrop-blur-sm transition-all duration-300">
+                                <div
+                                    class="group relative overflow-hidden rounded-xl bg-gradient-to-b from-black/40 to-black/60 shadow-lg backdrop-blur-sm transition-all duration-300">
                                     <!-- Background Effects -->
-                                    <div class="bg-gold/20 group-hover:bg-gold/30 absolute -left-20 -top-20 h-40 w-40 rounded-full blur-3xl transition-all duration-500"></div>
-                                    <div class="bg-gold/20 group-hover:bg-gold/30 absolute -bottom-20 -right-20 h-40 w-40 rounded-full blur-3xl transition-all duration-500"></div>
+                                    <div
+                                        class="bg-gold/20 group-hover:bg-gold/30 absolute -left-20 -top-20 h-40 w-40 rounded-full blur-3xl transition-all duration-500">
+                                    </div>
+                                    <div
+                                        class="bg-gold/20 group-hover:bg-gold/30 absolute -bottom-20 -right-20 h-40 w-40 rounded-full blur-3xl transition-all duration-500">
+                                    </div>
 
                                     <!-- Image Section -->
                                     <div class="relative aspect-[3/4] overflow-hidden">
-                                        <img src="{{ $candidate['image_url'] }}" 
-                                             alt="{{ $candidate['name'] }}" 
-                                             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110">
-                                        
+                                        <img src="{{ $candidate['image_url'] }}" alt="{{ $candidate['name'] }}"
+                                            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110">
+
                                         <!-- Gradient Overlay -->
-                                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-90"></div>
+                                        <div
+                                            class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-90">
+                                        </div>
 
                                         <!-- Content Overlay -->
                                         <div class="absolute bottom-0 left-0 right-0 p-6 text-center">
@@ -234,11 +378,13 @@
                                             <div class="mb-4">
                                                 <div class="mb-1 flex items-center justify-center gap-2">
                                                     <img src="https://flagcdn.com/w40/{{ strtolower($candidate['country_code']) }}.png"
-                                                         alt="{{ $candidate['country'] }} flag" 
-                                                         class="h-5 w-7 rounded shadow-lg">
+                                                        alt="{{ $candidate['country'] }} flag"
+                                                        class="h-5 w-7 rounded shadow-lg">
                                                 </div>
-                                                <h3 class="font-playfair mb-2 text-2xl font-bold text-white">{{ $candidate['name'] }}</h3>
-                                                <p class="text-gold text-lg font-medium">Currently #{{ $index + 1 }}</p>
+                                                <h3 class="font-playfair mb-2 text-2xl font-bold text-white">
+                                                    {{ $candidate['name'] }}</h3>
+                                                <p class="text-gold text-lg font-medium">Currently #{{ $index + 1 }}
+                                                </p>
                                                 <p class="text-gold/80 text-sm">{{ $candidate['title'] }}</p>
                                             </div>
 
@@ -246,23 +392,25 @@
                                             <div class="mb-4 rounded-lg bg-black/30 p-3 backdrop-blur-sm">
                                                 <div class="mb-2 flex items-center justify-between">
                                                     <span class="text-gold/60 text-sm">Total Votes</span>
-                                                    <span class="text-gold font-bold" x-text="formatNumber(votes[{{ $index + 1 }}])">0</span>
+                                                    <span class="text-gold font-bold"
+                                                        x-text="formatNumber(votes[{{ $index + 1 }}])">0</span>
                                                 </div>
                                                 <div class="relative h-2 overflow-hidden rounded-full bg-black/30">
                                                     <div class="absolute inset-0 bg-gradient-to-r {{ $style['bg'] }}"
-                                                         :style="'width: ' + getVotePercentage({{ $index + 1 }}) + '%'"
-                                                         style="transition: width 1s ease-in-out"></div>
+                                                        :style="'width: ' + getVotePercentage({{ $index + 1 }}) + '%'"
+                                                        style="transition: width 1s ease-in-out"></div>
                                                 </div>
                                                 <div class="mt-1 text-right">
-                                                    <span class="text-gold/60 text-xs" x-text="getVotePercentage({{ $index + 1 }}) + '%'">0%</span>
+                                                    <span class="text-gold/60 text-xs"
+                                                        x-text="getVotePercentage({{ $index + 1 }}) + '%'">0%</span>
                                                 </div>
                                             </div>
 
                                             <!-- Vote Button -->
-                                            <button @click="castVote({{ $index + 1 }})" 
-                                                    :disabled="loading"
-                                                    class="group relative w-full overflow-hidden rounded-full bg-gradient-to-r {{ $style['bg'] }} p-[2px] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_2rem_0_rgba(255,215,0,0.3)]">
-                                                <div class="relative flex h-full w-full items-center justify-center gap-2 rounded-full bg-black/50 px-6 py-2 backdrop-blur-sm transition-all duration-300 group-hover:bg-opacity-90">
+                                            <button @click="castVote({{ $index + 1 }})" :disabled="loading"
+                                                class="group relative w-full overflow-hidden rounded-full bg-gradient-to-r {{ $style['bg'] }} p-[2px] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_2rem_0_rgba(255,215,0,0.3)]">
+                                                <div
+                                                    class="relative flex h-full w-full items-center justify-center gap-2 rounded-full bg-black/50 px-6 py-2 backdrop-blur-sm transition-all duration-300 group-hover:bg-opacity-90">
                                                     <span class="text-white">Vote Now</span>
                                                     <span class="text-lg">{{ $style['icon'] }}</span>
                                                 </div>
