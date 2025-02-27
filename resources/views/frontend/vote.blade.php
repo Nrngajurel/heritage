@@ -1,6 +1,26 @@
 @extends('layouts.frontend-new')
 
 @section('content')
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-spin-slow {
+            animation: spin-slow 10s linear infinite;
+        }
+    </style>
     <div x-data="voting()" data-votes='{{ $candidates->pluck('votes', 'id')->toJson() }}'>
 
         @php
@@ -117,6 +137,117 @@
                     <div class="pageant-card animate-glow p-4 text-center sm:p-6">
                         <div class="text-gold text-xl font-bold sm:text-2xl lg:text-3xl">{{ $candidates->count() }}</div>
                         <div class="text-gold/60 text-sm sm:text-base">Contestants</div>
+                    </div>
+                </div>
+
+                <!-- Title Holders Section -->
+                <div class="mb-16">
+                    <!-- Section Title with Crown Animation -->
+                    <div class="relative mb-12 text-center">
+                        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                            <div class="animate-spin-slow h-32 w-32 rounded-full bg-gradient-to-r from-gold/20 via-transparent to-gold/20 blur-xl"></div>
+                        </div>
+                        <h2 class="font-playfair relative inline-block text-3xl font-bold text-gold sm:text-4xl">
+                            <span class="absolute -left-8 top-1/2 -translate-y-1/2">
+                                <span class="animate-float inline-block text-3xl">👑</span>
+                            </span>
+                            Current Title Holders
+                            <span class="absolute -right-8 top-1/2 -translate-y-1/2">
+                                <span class="animate-float inline-block text-3xl" style="animation-delay: 0.5s">👑</span>
+                            </span>
+                        </h2>
+                    </div>
+
+                    <!-- Title Holders Grid -->
+                    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                        @foreach ($candidates->where('is_featured', true) as $index => $candidate)
+                            <!-- Title Holder Card -->
+                            <div class="group relative transform-gpu transition-all duration-500 hover:scale-[1.02]">
+                                <!-- Rank Badge -->
+                                <div class="absolute -right-4 -top-4 z-20">
+                                    @php
+                                        $rankStyles = [
+                                            1 => ['bg' => 'from-yellow-400 to-yellow-600', 'icon' => '👑', 'text' => 'Winner', 'glow' => 'gold'],
+                                            2 => ['bg' => 'from-gray-300 to-gray-500', 'icon' => '🥈', 'text' => '1st Runner Up', 'glow' => 'silver'],
+                                            3 => ['bg' => 'from-amber-600 to-amber-800', 'icon' => '🥉', 'text' => '2nd Runner Up', 'glow' => 'bronze']
+                                        ];
+                                        $style = $rankStyles[$index + 1] ?? ['bg' => 'from-purple-400 to-purple-600', 'icon' => '⭐', 'text' => 'Finalist', 'glow' => 'purple'];
+                                    @endphp
+                                    <div class="animate-float relative">
+                                        <!-- Glowing Effect -->
+                                        <div class="absolute inset-0 animate-pulse rounded-full bg-gradient-to-br {{ $style['bg'] }} opacity-50 blur-xl"></div>
+                                        <!-- Badge Container -->
+                                        <div class="relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br {{ $style['bg'] }} p-1">
+                                            <div class="flex h-full w-full items-center justify-center rounded-full bg-black/50 backdrop-blur-sm">
+                                                <span class="text-2xl">{{ $style['icon'] }}</span>
+                                            </div>
+                                        </div>
+                                        <!-- Rank Number -->
+                                        <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-2 py-0.5 text-xs font-bold text-gold backdrop-blur-sm">
+                                            #{{ $index + 1 }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Card Content -->
+                                <div class="group relative overflow-hidden rounded-xl bg-gradient-to-b from-black/40 to-black/60 shadow-lg backdrop-blur-sm transition-all duration-300">
+                                    <!-- Background Effects -->
+                                    <div class="absolute -left-20 -top-20 h-40 w-40 rounded-full bg-gold/20 blur-3xl transition-all duration-500 group-hover:bg-gold/30"></div>
+                                    <div class="absolute -bottom-20 -right-20 h-40 w-40 rounded-full bg-gold/20 blur-3xl transition-all duration-500 group-hover:bg-gold/30"></div>
+
+                                    <!-- Image Section -->
+                                    <div class="relative aspect-[3/4] overflow-hidden">
+                                        <img src="{{ $candidate['image_url'] }}" 
+                                             alt="{{ $candidate['name'] }}" 
+                                             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110">
+                                        
+                                        <!-- Gradient Overlay -->
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-90"></div>
+
+                                        <!-- Content Overlay -->
+                                        <div class="absolute bottom-0 left-0 right-0 p-6 text-center">
+                                            <!-- Name and Title -->
+                                            <div class="mb-4">
+                                                <div class="mb-1 flex items-center justify-center gap-2">
+                                                    <img src="https://flagcdn.com/w40/{{ strtolower($candidate['country_code']) }}.png"
+                                                         alt="{{ $candidate['country'] }} flag" 
+                                                         class="h-5 w-7 rounded shadow-lg">
+                                                </div>
+                                                <h3 class="font-playfair mb-2 text-2xl font-bold text-white">{{ $candidate['name'] }}</h3>
+                                                <p class="text-gold text-lg font-medium">{{ $style['text'] }}</p>
+                                                <p class="text-gold/80 text-sm">{{ $candidate['title'] }}</p>
+                                            </div>
+
+                                            <!-- Vote Stats -->
+                                            <div class="mb-4 rounded-lg bg-black/30 p-3 backdrop-blur-sm">
+                                                <div class="mb-2 flex items-center justify-between">
+                                                    <span class="text-gold/60 text-sm">Total Votes</span>
+                                                    <span class="text-gold font-bold" x-text="formatNumber(votes[{{ $index + 1 }}])">0</span>
+                                                </div>
+                                                <div class="relative h-2 overflow-hidden rounded-full bg-black/30">
+                                                    <div class="absolute inset-0 bg-gradient-to-r {{ $style['bg'] }}"
+                                                         :style="'width: ' + getVotePercentage({{ $index + 1 }}) + '%'"
+                                                         style="transition: width 1s ease-in-out"></div>
+                                                </div>
+                                                <div class="mt-1 text-right">
+                                                    <span class="text-gold/60 text-xs" x-text="getVotePercentage({{ $index + 1 }}) + '%'">0%</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Vote Button -->
+                                            <button @click="castVote({{ $index + 1 }})" 
+                                                    :disabled="loading"
+                                                    class="group relative w-full overflow-hidden rounded-full bg-gradient-to-r {{ $style['bg'] }} p-[2px] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_2rem_0_rgba(255,215,0,0.3)]">
+                                                <div class="relative flex h-full w-full items-center justify-center gap-2 rounded-full bg-black/50 px-6 py-2 backdrop-blur-sm transition-all duration-300 group-hover:bg-opacity-90">
+                                                    <span class="text-white">Crown Your Queen</span>
+                                                    <span class="text-lg">{{ $style['icon'] }}</span>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
 
