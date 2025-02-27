@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', 'application-form');
+Route::redirect('/', 'application-form')->name('home');
 
 Route::get('countryOptions',[FrontendController::class, 'countryOptions'])->name('countryOptions');
 Route::get('application-form', [FrontendController::class, 'applicationForm'])->name('application-form');
