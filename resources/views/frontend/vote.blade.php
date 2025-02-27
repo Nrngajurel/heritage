@@ -145,17 +145,18 @@
                     <!-- Section Title with Crown Animation -->
                     <div class="relative mb-12 text-center">
                         <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                            <div class="animate-spin-slow h-32 w-32 rounded-full bg-gradient-to-r from-gold/20 via-transparent to-gold/20 blur-xl"></div>
+                            <div class="animate-spin-slow from-gold/20 to-gold/20 h-32 w-32 rounded-full bg-gradient-to-r via-transparent blur-xl"></div>
                         </div>
-                        <h2 class="font-playfair relative inline-block text-3xl font-bold text-gold sm:text-4xl">
+                        <h2 class="font-playfair text-gold relative inline-block text-3xl font-bold sm:text-4xl">
                             <span class="absolute -left-8 top-1/2 -translate-y-1/2">
-                                <span class="animate-float inline-block text-3xl">👑</span>
+                                <span class="animate-float inline-block text-3xl">⭐</span>
                             </span>
-                            Current Title Holders
+                            Leading Contestants
                             <span class="absolute -right-8 top-1/2 -translate-y-1/2">
-                                <span class="animate-float inline-block text-3xl" style="animation-delay: 0.5s">👑</span>
+                                <span class="animate-float inline-block text-3xl" style="animation-delay: 0.5s">⭐</span>
                             </span>
                         </h2>
+                        <p class="text-gold/60 mt-4">Vote for your favorite contestant and help them win the crown!</p>
                     </div>
 
                     <!-- Title Holders Grid -->
@@ -167,9 +168,9 @@
                                 <div class="absolute -right-4 -top-4 z-20">
                                     @php
                                         $rankStyles = [
-                                            1 => ['bg' => 'from-yellow-400 to-yellow-600', 'icon' => '👑', 'text' => 'Winner', 'glow' => 'gold'],
-                                            2 => ['bg' => 'from-gray-300 to-gray-500', 'icon' => '🥈', 'text' => '1st Runner Up', 'glow' => 'silver'],
-                                            3 => ['bg' => 'from-amber-600 to-amber-800', 'icon' => '🥉', 'text' => '2nd Runner Up', 'glow' => 'bronze']
+                                            1 => ['bg' => 'from-yellow-400 to-yellow-600', 'icon' => '⭐', 'text' => 'Leading', 'glow' => 'gold'],
+                                            2 => ['bg' => 'from-gray-300 to-gray-500', 'icon' => '⭐', 'text' => 'Runner Up', 'glow' => 'silver'],
+                                            3 => ['bg' => 'from-amber-600 to-amber-800', 'icon' => '⭐', 'text' => 'Top 3', 'glow' => 'bronze']
                                         ];
                                         $style = $rankStyles[$index + 1] ?? ['bg' => 'from-purple-400 to-purple-600', 'icon' => '⭐', 'text' => 'Finalist', 'glow' => 'purple'];
                                     @endphp
@@ -183,7 +184,7 @@
                                             </div>
                                         </div>
                                         <!-- Rank Number -->
-                                        <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-2 py-0.5 text-xs font-bold text-gold backdrop-blur-sm">
+                                        <div class="text-gold absolute -bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-2 py-0.5 text-xs font-bold backdrop-blur-sm">
                                             #{{ $index + 1 }}
                                         </div>
                                     </div>
@@ -192,8 +193,8 @@
                                 <!-- Card Content -->
                                 <div class="group relative overflow-hidden rounded-xl bg-gradient-to-b from-black/40 to-black/60 shadow-lg backdrop-blur-sm transition-all duration-300">
                                     <!-- Background Effects -->
-                                    <div class="absolute -left-20 -top-20 h-40 w-40 rounded-full bg-gold/20 blur-3xl transition-all duration-500 group-hover:bg-gold/30"></div>
-                                    <div class="absolute -bottom-20 -right-20 h-40 w-40 rounded-full bg-gold/20 blur-3xl transition-all duration-500 group-hover:bg-gold/30"></div>
+                                    <div class="bg-gold/20 group-hover:bg-gold/30 absolute -left-20 -top-20 h-40 w-40 rounded-full blur-3xl transition-all duration-500"></div>
+                                    <div class="bg-gold/20 group-hover:bg-gold/30 absolute -bottom-20 -right-20 h-40 w-40 rounded-full blur-3xl transition-all duration-500"></div>
 
                                     <!-- Image Section -->
                                     <div class="relative aspect-[3/4] overflow-hidden">
@@ -214,7 +215,7 @@
                                                          class="h-5 w-7 rounded shadow-lg">
                                                 </div>
                                                 <h3 class="font-playfair mb-2 text-2xl font-bold text-white">{{ $candidate['name'] }}</h3>
-                                                <p class="text-gold text-lg font-medium">{{ $style['text'] }}</p>
+                                                <p class="text-gold text-lg font-medium">Currently #{{ $index + 1 }}</p>
                                                 <p class="text-gold/80 text-sm">{{ $candidate['title'] }}</p>
                                             </div>
 
@@ -239,7 +240,7 @@
                                                     :disabled="loading"
                                                     class="group relative w-full overflow-hidden rounded-full bg-gradient-to-r {{ $style['bg'] }} p-[2px] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_2rem_0_rgba(255,215,0,0.3)]">
                                                 <div class="relative flex h-full w-full items-center justify-center gap-2 rounded-full bg-black/50 px-6 py-2 backdrop-blur-sm transition-all duration-300 group-hover:bg-opacity-90">
-                                                    <span class="text-white">Crown Your Queen</span>
+                                                    <span class="text-white">Vote Now</span>
                                                     <span class="text-lg">{{ $style['icon'] }}</span>
                                                 </div>
                                             </button>
