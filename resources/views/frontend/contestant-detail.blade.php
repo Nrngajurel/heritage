@@ -97,6 +97,22 @@
             text-shadow: 0 2px 10px rgba(255, 215, 0, 0.2);
         }
 
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
         .animate-glow {
             animation: glow 2s ease-in-out infinite alternate;
         }
@@ -284,118 +300,128 @@
                         <img src="https://flagcdn.com/w160/{{ strtolower($candidate->country_code) }}.png"
                             alt="{{ $candidate->country }} flag" class="h-full w-full object-cover">
                     </div>
-                    <div class="aspect-[3/4] overflow-hidden rounded-xl">
+                    <div class="relative aspect-[3/4] overflow-hidden">
                         <img :src="activeImage" alt="{{ $candidate->name }}"
                             class="h-full w-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-110">
+
                     </div>
 
-                    @if ($candidate->gallery)
-                        <div class="mt-4 grid grid-cols-4 gap-3">
-                            <p class="text-gold/80 col-span-4 mb-2 text-sm font-medium">Gallery</p>
-                            @foreach (json_decode($candidate->gallery) as $image)
-                                <button @click="activeImage = '{{ $image }}'"
-                                    class="hover:border-gold aspect-square cursor-pointer overflow-hidden rounded-lg border-2 border-transparent transition-all duration-300 hover:brightness-110">
-                                    <img src="{{ $image }}" alt="Gallery image of {{ $candidate->name }}"
-                                        class="h-full w-full object-cover">
-                                </button>
-                            @endforeach
+                    <!-- Vote Count Section -->
+                    <div class="bg-black/20 p-4 backdrop-blur-sm sm:p-6">
+                        <div class="mb-3">
+                            <div class="mb-2 flex items-center justify-between">
+                                <span class="text-gold/60 text-sm">Current Votes</span>
+                                <span class="vote-count text-sm" x-text="5000"></span>
+                            </div>
+                            <div class="progress-bar">
+                                <div :id="'progress-' + 1" class="progress-bar-fill" :style="'width: ' + 10 + '%'"></div>
+                            </div>
                         </div>
-                    @endif
+
+                        <button :id="'vote-button-' + 1" :disabled="loading"
+                            class="vote-button flex w-full items-center justify-center space-x-2 text-sm disabled:cursor-not-allowed disabled:opacity-50">
+                            <span>Vote Now</span>
+                            <span class="text-base">👑</span>
+                        </button>
+                    </div>
+
+
                 </div>
 
                 <!-- Right Side - Contestant Info -->
                 <div class="relative space-y-8 px-8">
                     <!-- Basic Info -->
-                    <div class="glass-card rounded-xl p-6 animate-glow">
-                        <h1 class="pageant-heading text-3xl font-bold mb-2">{{ $candidate->name }}</h1>
-                        <div class="flex items-center gap-3 mb-4">
+                    <div class="glass-card animate-glow rounded-xl p-6">
+                        <h1 class="pageant-heading mb-2 text-3xl font-bold">{{ $candidate->name }}</h1>
+                        <div class="mb-4 flex items-center gap-3">
                             <img src="https://flagcdn.com/w40/{{ strtolower($candidate->country_code) }}.png"
                                 alt="{{ $candidate->country }} flag" class="h-6 rounded shadow-lg">
                             <span class="text-gold/90 font-semibold">{{ $candidate->country }}</span>
                         </div>
                         <div class="grid grid-cols-2 gap-4 text-gray-300">
-                            <div class="stats-item p-3 glass-card rounded-lg">
-                                <p class="text-sm text-gold/70">Age</p>
-                                <p class="font-semibold">{{ $candidate->age }} Years</p>
+                            <div class="stats-item glass-card rounded-lg p-3">
+                                <p class="text-gold/70 text-sm">Age</p>
+                                <p class="font-semibold">24 Years</p>
                             </div>
-                            <div class="stats-item p-3 glass-card rounded-lg">
-                                <p class="text-sm text-gold/70">Height</p>
-                                <p class="font-semibold">{{ $candidate->height }} cm</p>
+                            <div class="stats-item glass-card rounded-lg p-3">
+                                <p class="text-gold/70 text-sm">Height</p>
+                                <p class="font-semibold">6 ft</p>
+                            </div>
+                            <div>
+                                <p class="text-gold/70 text-sm">Occupation</p>
+                                <p class="text-gray-300">Model</p>
+                            </div>
+                            <div>
+                                <p class="text-gold/70 text-sm">Education</p>
+                                <p class="text-gray-300">Bachelor's Degree in Business Administration</p>
+                            </div>
+                            <div>
+                                <p class="text-gold/70 text-sm">Languages</p>
+                                <p class="text-gray-300">English, Thai</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Bio & Achievements -->
                     <div class="glass-card rounded-xl p-6">
-                        <h2 class="text-xl font-semibold text-gold/90 mb-4">About {{ explode(' ', $candidate->name)[0] }}</h2>
-                        <p class="text-gray-300 leading-relaxed mb-6">{{ $candidate->bio }}</p>
-                        
-                        @if($candidate->achievements)
-                        <div class="space-y-3">
-                            <h3 class="text-lg font-semibold text-gold/80">Achievements</h3>
-                            <ul class="list-disc list-inside text-gray-300 space-y-2">
-                                @foreach(explode('\n', $candidate->achievements) as $achievement)
-                                    <li class="shimmer">{{ $achievement }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif
-                    </div>
+                        <h2 class="text-gold/90 mb-4 text-xl font-semibold">About {{ explode(' ', $candidate->name)[0] }}
+                        </h2>
+                        <p class="mb-6 leading-relaxed text-gray-300">
+                            I am a 25-year-old Thai model and beauty pageant titleholder. I am a passionate advocate for
+                            environmental conservation and sustainable development.
+                            I am also a strong advocate for women's rights and education. I am currently pursuing a degree
+                            in Business Administration from Chulalongkorn University.
+                        </p>
 
-                    <!-- Additional Details -->
-                    <div class="glass-card rounded-xl p-6">
-                        <h2 class="text-xl font-semibold text-gold/90 mb-4">Additional Information</h2>
-                        <div class="grid grid-cols-2 gap-4">
-                            @if($candidate->occupation)
-                            <div class="col-span-2">
-                                <p class="text-sm text-gold/70">Occupation</p>
-                                <p class="text-gray-300">{{ $candidate->occupation }}</p>
-                            </div>
-                            @endif
-                            @if($candidate->education)
-                            <div class="col-span-2">
-                                <p class="text-sm text-gold/70">Education</p>
-                                <p class="text-gray-300">{{ $candidate->education }}</p>
-                            </div>
-                            @endif
-                            @if($candidate->languages)
-                            <div class="col-span-2">
-                                <p class="text-sm text-gold/70">Languages</p>
-                                <p class="text-gray-300">{{ $candidate->languages }}</p>
-                            </div>
-                            @endif
+                        <div class="space-y-3">
+                            <h3 class="text-gold/80 text-lg font-semibold">Achievements</h3>
+                            <ul class="list-inside list-disc space-y-2 text-gray-300">
+                                <li class="shimmer">Winner of Miss Tourism Thailand 2022</li>
+                                <li class="shimmer">Finalist of Miss Earth Thailand 2020</li>
+                                <li class="shimmer">First Runner-up of Miss Thailand 2019</li>
+                            </ul>
                         </div>
                     </div>
 
                     <!-- Social Media Links -->
-                    @if($candidate->social_media)
-                    <div class="flex justify-center gap-4 py-4">
-                        @foreach(json_decode($candidate->social_media, true) as $platform => $link)
-                            <a href="{{ $link }}" target="_blank" rel="noopener noreferrer"
-                               class="text-gold hover:text-gold/80 transition-colors duration-300">
-                                <i class="fab fa-{{ strtolower($platform) }} text-2xl"></i>
-                            </a>
-                        @endforeach
-                    </div>
+                    @if ($candidate->social_media)
+                        <div class="flex justify-center gap-4 py-4">
+                            @foreach (json_decode($candidate->social_media, true) as $platform => $link)
+                                <a href="{{ $link }}" target="_blank" rel="noopener noreferrer"
+                                    class="text-gold hover:text-gold/80 transition-colors duration-300">
+                                    <i class="fab fa-{{ strtolower($platform) }} text-2xl"></i>
+                                </a>
+                            @endforeach
+                        </div>
                     @endif
 
                     <!-- Voting Section -->
-                    <div class="glass-card rounded-xl p-6 text-center">
-                        <h2 class="text-xl font-semibold text-gold/90 mb-4">Support {{ explode(' ', $candidate->name)[0] }}</h2>
-                        <p class="text-gray-300 mb-4">Cast your vote to help {{ explode(' ', $candidate->name)[0] }} win!</p>
-                        <div class="flex justify-center">
-                            <button @click="voting.vote({{ $candidate->id }})" 
-                                    class="back-button px-8 py-3 rounded-full text-gold hover:text-white transition-all duration-300"
-                                    :disabled="voting.hasVoted({{ $candidate->id }})">
-                                <span x-text="voting.hasVoted({{ $candidate->id }}) ? 'Voted!' : 'Vote Now'"></span>
-                            </button>
+
+
+                    <!-- Share Section -->
+                    <div class="border-gold/10 mt-6 border-t pt-6">
+                        <p class="mb-4 text-center text-sm text-gray-400">Share to support
+                            {{ explode(' ', $candidate->name)[0] }}</p>
+                        <div class="flex justify-center gap-4">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ url()->current() }}" target="_blank"
+                                class="text-gold transition-colors hover:text-white">
+                                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z" />
+                                </svg>
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?url={{ url()->current() }}&text=Support {{ urlencode($candidate->name) }} in the Heritage Pageant!"
+                                target="_blank" class="text-gold transition-colors hover:text-white">
+                                <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M23.44 4.83c-.8.37-1.5.38-2.22.02.93-.56.98-.96 1.32-2.02-.88.52-1.86.9-2.9 1.1-.82-.88-2-1.43-3.3-1.43-2.5 0-4.55 2.04-4.55 4.54 0 .36.03.7.1 1.04-3.77-.2-7.12-2-9.36-4.75-.4.67-.6 1.45-.6 2.3 0 1.56.8 2.95 2 3.77-.74-.03-1.44-.23-2.05-.58v.06c0 2.2 1.56 4.03 3.64 4.44-.67.2-1.37.2-2.06.08.58 1.8 2.26 3.12 4.25 3.16C5.78 18.1 3.37 18.74 1 18.46c2 1.3 4.4 2.04 6.97 2.04 8.35 0 12.92-6.92 12.92-12.93 0-.2 0-.4-.02-.6.9-.63 1.96-1.22 2.56-2.14z" />
+                                </svg>
+                            </a>
                         </div>
-                        <p class="text-sm text-gold/70 mt-4">
-                            <span x-text="voting.votes[{{ $candidate->id }}] || 0"></span> votes received
-                        </p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
