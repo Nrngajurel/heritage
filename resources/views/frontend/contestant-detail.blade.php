@@ -19,8 +19,27 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
             animation: pulse 4s ease-in-out infinite;
+        }
+
+        .hero-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 150%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+            animation: shine 8s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(0); }
+            20%, 100% { transform: translateX(200%); }
         }
 
         @keyframes pulse {
@@ -88,6 +107,29 @@
         .pageant-card {
             @apply relative overflow-hidden rounded-xl bg-black/30 backdrop-blur-sm border border-gold/20;
             box-shadow: 0 8px 32px rgba(218, 165, 32, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pageant-card:hover {
+            border-color: rgba(255, 215, 0, 0.4);
+            box-shadow: 
+                0 8px 32px rgba(218, 165, 32, 0.2),
+                0 0 0 1px rgba(255, 215, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .pageant-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 215, 0, 0.15) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .pageant-card:hover::before {
+            opacity: 1;
         }
 
         .pageant-heading {
@@ -230,7 +272,27 @@
 @endpush
 
 @section('content')
-    <div class="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900" x-data="{ activeImage: '{{ $candidate->image_url }}', voting: voting() }"
+    <div class="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900" 
+         x-data="{ 
+            activeImage: '{{ $candidate->image_url }}', 
+            voting: voting(),
+            initMouseMove() {
+                document.addEventListener('mousemove', (e) => {
+                    const cards = document.querySelectorAll('.pageant-card');
+                    cards.forEach(card => {
+                        const rect = card.getBoundingClientRect();
+                        const x = ((e.clientX - rect.left) / card.offsetWidth) * 100;
+                        const y = ((e.clientY - rect.top) / card.offsetHeight) * 100;
+                        card.style.setProperty('--mouse-x', `${x}%`);
+                        card.style.setProperty('--mouse-y', `${y}%`);
+                    });
+                });
+            }
+         }"
+         x-init="
+            voting.votes = {{ json_encode([$candidate->id => $candidate->votes]) }};
+            initMouseMove();
+         "
         x-init="voting.votes = {{ json_encode([$candidate->id => $candidate->votes]) }}">
         <!-- Hero Section with Background -->
         <div class="hero-background relative min-h-[50vh] w-full overflow-hidden"
@@ -332,7 +394,15 @@
                 <div class="relative space-y-8 px-8">
                     <!-- Basic Info -->
                     <div class="glass-card animate-glow rounded-xl p-6">
-                        <h1 class="pageant-heading mb-2 text-3xl font-bold">{{ $candidate->name }}</h1>
+                        <h1 class="pageant-heading relative mb-2 text-3xl font-bold">
+                            <span class="absolute -left-6 top-1/2 -translate-y-1/2 transform">
+                                <span class="animate-float inline-block text-2xl" style="animation-delay: 0.2s">✨</span>
+                            </span>
+                            {{ $candidate->name }}
+                            <span class="absolute -right-6 top-1/2 -translate-y-1/2 transform">
+                                <span class="animate-float inline-block text-2xl" style="animation-delay: 0.8s">✨</span>
+                            </span>
+                        </h1>
                         <div class="mb-4 flex items-center gap-3">
                             <img src="https://flagcdn.com/w40/{{ strtolower($candidate->country_code) }}.png"
                                 alt="{{ $candidate->country }} flag" class="h-6 rounded shadow-lg">
