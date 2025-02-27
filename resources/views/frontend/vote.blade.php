@@ -99,13 +99,36 @@
                 </div>
             </div>
             <div class="mx-auto max-w-7xl">
-                <div class="mb-16 text-center">
-                    <div class="animate-float mb-4 inline-block sm:mb-6">
-                        <span class="text-4xl sm:text-6xl">👑</span>
+                <div class="relative mb-16 text-center">
+                    <!-- Crown Icon at the top -->
+                    <div class="absolute -top-8 left-1/2 z-10 -translate-x-1/2 transform">
+                        <div class="relative flex h-24 w-24 items-center justify-center">
+                            <!-- Smaller Glowing Background -->
+                            <div class="absolute inset-0 scale-[2] transform">
+                                <!-- Primary glow -->
+                                <div class="from-gold/30 via-gold/15 to-gold/30 absolute inset-0 animate-pulse rounded-full bg-gradient-to-r blur-lg"></div>
+                                <!-- Secondary sparkle effect -->
+                                <div class="absolute inset-0 animate-pulse rounded-full bg-gradient-to-r from-yellow-200/20 via-amber-400/15 to-yellow-200/20 blur-md" style="animation-delay: 0.5s"></div>
+                                <!-- Shimmer effect -->
+                                <div class="animate-shimmer via-gold/20 absolute inset-0 rounded-full bg-gradient-to-r from-transparent to-transparent blur-sm"></div>
+                            </div>
+                            
+                            <!-- Crown Image -->
+                            <div class="group relative transition-transform duration-300 hover:scale-105">
+                                <img src="{{ asset('assets/images/crown.png') }}" alt="Crown" class="z-100 h-32 w-32 object-contain brightness-105 drop-shadow-[0_0_10px_rgba(255,215,0,0.4)] filter" />
+                                
+                                <!-- Animated Sparkles -->
+                                <div class="pointer-events-none absolute left-0 top-0 h-full w-full">
+                                    <span class="animate-float absolute -top-1 left-0 text-lg" style="animation-delay: 0s">✨</span>
+                                    <span class="animate-float absolute -right-1 top-1/2 text-lg" style="animation-delay: 0.3s">✨</span>
+                                    <span class="animate-float absolute -bottom-1 left-1/2 text-lg" style="animation-delay: 0.6s">✨</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="mb-6 flex items-center justify-center gap-2">
                         <img src="https://heritagepageant.com/wp-content/uploads/2023/06/logo-1-68x65.png"
-                            alt="Heritage Pageants Logo" class="h-12 sm:h-16 md:h-20">
+                            alt="Heritage Pageants Logo" class="h-20 sm:h-32 md:h-32">
                     </div>
                     <h1
                         class="pageant-heading mb-4 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
