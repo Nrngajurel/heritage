@@ -102,7 +102,7 @@
 
 
     <!-- Navigation -->
-    <nav class="border-gold/20 fixed z-50 w-full border-b bg-black/95 backdrop-blur-lg transition-all duration-300" :class="{ 'shadow-lg shadow-gold/5': window.pageYOffset > 0 }" @scroll.window="document.documentElement.style.setProperty('--scroll-y', `${window.pageYOffset}px`)">
+    <nav class="border-gold/20 fixed z-50 w-full backdrop-blur-lg transition-all duration-300" :class="{ 'shadow-lg shadow-gold/5': window.pageYOffset > 0 }" @scroll.window="document.documentElement.style.setProperty('--scroll-y', `${window.pageYOffset}px`)">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-20 items-center justify-between">
                 <!-- Logo Section -->
@@ -234,7 +234,7 @@
 </script>
 
     <!-- Footer -->
-    <footer class="border-gold/20 relative mt-32 border-t bg-black/95 backdrop-blur-lg">
+    <footer class="border-gold/20 relative mt-32 border-t backdrop-blur-lg">
         <!-- Decorative Elements -->
         <div class="absolute inset-0 overflow-hidden">
             <div class="bg-gold/5 absolute -left-1/4 -top-1/4 h-96 w-96 rounded-full blur-3xl"></div>

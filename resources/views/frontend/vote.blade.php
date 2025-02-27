@@ -59,42 +59,6 @@
                 <div class="sparkle absolute left-1/2 top-1/2" style="animation-delay: 1s"></div>
             </div>
         </div>
-        {{-- 
-        <!-- Timer Section -->
-        <div class="timer-section mx-auto my-8 max-w-4xl rounded-xl px-4 py-8">
-            <div class="mb-6 text-center">
-                <h2 class="pageant-heading mb-2 text-2xl sm:text-3xl">Voting {{ $now < $start_date ? 'Starts In' : 'Ends In' }}</h2>
-                <p class="text-gray-400">{{ $start_date->format('F d, Y') }}</p>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4 sm:flex sm:items-center sm:justify-center sm:space-x-4 md:space-x-8" x-data="timer({{ $start_date->timestamp * 1000 }})" x-init="init();">
-                <div class="flex flex-col items-center rounded-lg bg-gray-800/50 px-3 py-3 backdrop-blur sm:px-6 sm:py-4">
-                    <span x-text="time().days" class="timer-digit text-gold text-2xl font-bold sm:text-4xl lg:text-6xl">00</span>
-                    <span class="mt-1 text-sm uppercase tracking-wide text-gray-400 sm:mt-2 sm:text-base">Days</span>
-                </div>
-                <div class="flex flex-col items-center rounded-lg bg-gray-800/50 px-3 py-3 backdrop-blur sm:px-6 sm:py-4">
-                    <span x-text="time().hours" class="timer-digit text-gold text-2xl font-bold sm:text-4xl lg:text-6xl">23</span>
-                    <span class="mt-1 text-sm uppercase tracking-wide text-gray-400 sm:mt-2 sm:text-base">Hours</span>
-                </div>
-                <div class="flex flex-col items-center rounded-lg bg-gray-800/50 px-3 py-3 backdrop-blur sm:px-6 sm:py-4">
-                    <span x-text="time().minutes" class="timer-digit text-gold text-2xl font-bold sm:text-4xl lg:text-6xl">59</span>
-                    <span class="mt-1 text-sm uppercase tracking-wide text-gray-400 sm:mt-2 sm:text-base">Minutes</span>
-                </div>
-                <div class="flex flex-col items-center rounded-lg bg-gray-800/50 px-3 py-3 backdrop-blur sm:px-6 sm:py-4">
-                    <span x-text="time().seconds" class="timer-digit text-gold text-2xl font-bold sm:text-4xl lg:text-6xl">28</span>
-                    <span class="mt-1 text-sm uppercase tracking-wide text-gray-400 sm:mt-2 sm:text-base">Seconds</span>
-                </div>
-            </div>
-
-            <!-- Live Vote Counter -->
-            <div class="live-vote-counter mt-8 rounded-lg px-6 py-4 text-center">
-                <div class="text-gold mb-2 font-semibold">Live Votes</div>
-                <div class="text-3xl font-bold" x-data="{ count: 0 }" x-init="setInterval(() => count = Math.floor(Math.random() * 1000) + 5000, 3000)">
-                    <span x-text="count.toLocaleString()">5,000</span>
-                    <span class="ml-2 text-sm text-gray-400">votes</span>
-                </div>
-            </div>
-        </div> --}}
 
         <!-- Extra Large Modal -->
 
@@ -169,168 +133,192 @@
                 </div>
 
                 <!-- Live Stats -->
-<div class="mb-16" x-data="{
-    countdown: {
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0
-    },
-    previousValues: {
-        days: 0,
-        hours: 0,
-        minutes: 0,
-        seconds: 0
-    },
-    pulseStates: {
-        days: false,
-        hours: false,
-        minutes: false,
-        seconds: false
-    },
-    initCountdown() {
-        const endDate = new Date('{{ $event->voting_end_date }}').getTime();
-        const updateTimer = () => {
-            const now = new Date().getTime();
-            const distance = now - endDate;
-            
-            // Store previous values
-            Object.keys(this.countdown).forEach(key => {
-                this.previousValues[key] = this.countdown[key];
-            });
-            
-            // Update countdown values
-            this.countdown = {
-                days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-                hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-                minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-                seconds: Math.floor((distance % (1000 * 60)) / 1000)
-            };
-            
-            // Check for changes and trigger pulse
-            Object.keys(this.countdown).forEach(key => {
-                if (this.countdown[key] !== this.previousValues[key]) {
-                    this.pulseStates[key] = true;
-                    setTimeout(() => {
-                        this.pulseStates[key] = false;
-                    }, 300);
-                }
-            });
-        };
-        updateTimer();
-        setInterval(updateTimer, 1000);
-    }
-}" x-init="initCountdown()">
-    <!-- Stats Grid -->
-    <div class="mx-auto grid gap-4 px-4 sm:grid-cols-3 lg:gap-6">
-        <!-- Total Votes -->
-        <div class="pageant-card group relative overflow-hidden rounded-2xl p-4 transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_50px_0_rgba(255,215,0,0.15)] sm:p-6"
-            x-data="{ isHovered: false }"
-            @mouseenter="isHovered = true"
-            @mouseleave="isHovered = false">
-            <!-- Background Effects -->
-            <div class="from-gold/10 via-gold/5 to-gold/10 absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-            <div class="bg-gold/5 absolute -left-10 -top-10 h-20 w-20 rounded-full blur-xl transition-all duration-500"
-                :class="{ 'bg-gold/10 scale-150': isHovered }"></div>
-            <div class="bg-gold/5 absolute -bottom-10 -right-10 h-20 w-20 rounded-full blur-xl transition-all duration-500"
-                :class="{ 'bg-gold/10 scale-150': isHovered }"></div>
-            <!-- Sparkle Effects -->
-            <div class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
-                :class="{ 'opacity-100': isHovered }">
-                <span class="text-gold/30 absolute left-1/4 top-1/4 text-sm">✨</span>
-                <span class="text-gold/30 absolute right-1/4 top-3/4 text-sm">✨</span>
-                <span class="text-gold/30 absolute left-3/4 top-1/2 text-sm">✨</span>
-            </div>
-            
-            <!-- Content -->
-            <div class="relative flex flex-col items-center justify-center space-y-3">
-                <div class="text-gold/60 text-sm font-medium uppercase tracking-wider">Total Votes</div>
-                <div class="text-gold text-3xl font-bold transition-all duration-300 group-hover:scale-110 sm:text-4xl lg:text-5xl" x-text="formatNumber(getTotalVotes())">0</div>
-                <div class="text-gold/40 group-hover:text-gold/60 text-xs transition-all duration-300">and counting...</div>
-            </div>
-        </div>
+                <div class="mb-16" x-data="{
+                    countdown: {
+                        days: 0,
+                        hours: 0,
+                        minutes: 0,
+                        seconds: 0
+                    },
+                    previousValues: {
+                        days: 0,
+                        hours: 0,
+                        minutes: 0,
+                        seconds: 0
+                    },
+                    pulseStates: {
+                        days: false,
+                        hours: false,
+                        minutes: false,
+                        seconds: false
+                    },
+                    initCountdown() {
+                        const endDate = new Date('{{ $event->voting_end_date }}').getTime();
+                        const updateTimer = () => {
+                            const now = new Date().getTime();
+                            const distance = now - endDate;
+                
+                            // Store previous values
+                            Object.keys(this.countdown).forEach(key => {
+                                this.previousValues[key] = this.countdown[key];
+                            });
+                
+                            // Update countdown values
+                            this.countdown = {
+                                days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+                                hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+                                minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+                                seconds: Math.floor((distance % (1000 * 60)) / 1000)
+                            };
+                
+                            // Check for changes and trigger pulse
+                            Object.keys(this.countdown).forEach(key => {
+                                if (this.countdown[key] !== this.previousValues[key]) {
+                                    this.pulseStates[key] = true;
+                                    setTimeout(() => {
+                                        this.pulseStates[key] = false;
+                                    }, 300);
+                                }
+                            });
+                        };
+                        updateTimer();
+                        setInterval(updateTimer, 1000);
+                    }
+                }" x-init="initCountdown()">
+                    <!-- Stats Grid -->
+                    <div class="mx-auto grid gap-4 px-4 sm:grid-cols-3 lg:gap-6">
+                        <!-- Total Votes -->
+                        <div class="pageant-card group relative col-span-2 overflow-hidden rounded-2xl p-4 transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_50px_0_rgba(255,215,0,0.15)] sm:p-6 md:col-span-1"
+                            x-data="{ isHovered: false }" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+                            <!-- Background Effects -->
+                            <div
+                                class="from-gold/10 via-gold/5 to-gold/10 absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                            </div>
+                            <div class="bg-gold/5 absolute -left-10 -top-10 h-20 w-20 rounded-full blur-xl transition-all duration-500"
+                                :class="{ 'bg-gold/10 scale-150': isHovered }"></div>
+                            <div class="bg-gold/5 absolute -bottom-10 -right-10 h-20 w-20 rounded-full blur-xl transition-all duration-500"
+                                :class="{ 'bg-gold/10 scale-150': isHovered }"></div>
+                            <!-- Sparkle Effects -->
+                            <div class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
+                                :class="{ 'opacity-100': isHovered }">
+                                <span class="text-gold/30 absolute left-1/4 top-1/4 text-sm">✨</span>
+                                <span class="text-gold/30 absolute right-1/4 top-3/4 text-sm">✨</span>
+                                <span class="text-gold/30 absolute left-3/4 top-1/2 text-sm">✨</span>
+                            </div>
 
-        <!-- Time Remaining -->
-        <div class="pageant-card group relative col-span-2 overflow-hidden rounded-2xl p-4 transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_50px_0_rgba(255,215,0,0.15)] sm:col-span-1 sm:p-6"
-            x-data="{ isHovered: false }"
-            @mouseenter="isHovered = true"
-            @mouseleave="isHovered = false">
-            <!-- Background Effects -->
-            <div class="from-gold/10 via-gold/5 to-gold/10 absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-            <div class="bg-gold/5 absolute -left-10 -top-10 h-20 w-20 rounded-full blur-xl transition-all duration-500"
-                :class="{ 'bg-gold/10 scale-150': isHovered }">
-            </div>
-            <div class="bg-gold/5 absolute -bottom-10 -right-10 h-20 w-20 rounded-full blur-xl transition-all duration-500"
-                :class="{ 'bg-gold/10 scale-150': isHovered }">
-            </div>
-            <!-- Sparkle Effects -->
-            <div class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
-                :class="{ 'opacity-100': isHovered }">
-                <span class="text-gold/30 absolute left-1/4 top-1/4 text-sm">✨</span>
-                <span class="text-gold/30 absolute right-1/4 top-3/4 text-sm">✨</span>
-                <span class="text-gold/30 absolute left-3/4 top-1/2 text-sm">✨</span>
-            </div>
-            
-            <!-- Content -->
-            <div class="relative space-y-3">
-                <div class="text-gold/60 text-center text-sm font-medium uppercase tracking-wider">Time Remaining</div>
-                <div class="grid grid-cols-4 gap-2 sm:gap-3">
-                    <div class="text-center">
-                        <div class="relative overflow-hidden rounded-lg bg-black/20 p-2 backdrop-blur-sm transition-all duration-300 group-hover:bg-black/30">
-                            <span class="text-gold bg-gradient-to-r from-amber-200 to-yellow-500 bg-clip-text text-xl font-bold text-transparent sm:text-2xl lg:text-3xl" :class="{ 'animate-pulse': pulseStates.days }" x-text="countdown.days">0</span>
-                            <span class="text-gold/60 block text-xs font-medium">Days</span>
+                            <!-- Content -->
+                            <div class="relative flex flex-col items-center justify-center space-y-3">
+                                <div class="text-gold/60 text-sm font-medium uppercase tracking-wider">Total Votes</div>
+                                <div class="text-gold text-3xl font-bold transition-all duration-300 group-hover:scale-110 sm:text-4xl lg:text-5xl"
+                                    x-text="formatNumber(getTotalVotes())">0</div>
+                                <div class="text-gold/40 group-hover:text-gold/60 text-xs transition-all duration-300">and
+                                    counting...</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="text-center">
-                        <div class="relative overflow-hidden rounded-lg bg-black/20 p-2 backdrop-blur-sm transition-all duration-300 group-hover:bg-black/30">
-                            <span class="text-gold bg-gradient-to-r from-amber-200 to-yellow-500 bg-clip-text text-xl font-bold text-transparent sm:text-2xl lg:text-3xl" :class="{ 'animate-pulse': pulseStates.hours }" x-text="countdown.hours">0</span>
-                            <span class="text-gold/60 block text-xs font-medium">Hours</span>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <div class="relative overflow-hidden rounded-lg bg-black/20 p-2 backdrop-blur-sm transition-all duration-300 group-hover:bg-black/30">
-                            <span class="text-gold bg-gradient-to-r from-amber-200 to-yellow-500 bg-clip-text text-xl font-bold text-transparent sm:text-2xl lg:text-3xl" :class="{ 'animate-pulse': pulseStates.minutes }" x-text="countdown.minutes">0</span>
-                            <span class="text-gold/60 block text-xs font-medium">Minutes</span>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <div class="relative overflow-hidden rounded-lg bg-black/20 p-2 backdrop-blur-sm transition-all duration-300 group-hover:bg-black/30">
-                            <span class="text-gold bg-gradient-to-r from-amber-200 to-yellow-500 bg-clip-text text-xl font-bold text-transparent sm:text-2xl lg:text-3xl" :class="{ 'animate-pulse': pulseStates.seconds }" x-text="countdown.seconds">0</span>
-                            <span class="text-gold/60 block text-xs font-medium">Seconds</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Contestants Count -->
-        <div class="pageant-card group relative overflow-hidden rounded-2xl p-4 transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_50px_0_rgba(255,215,0,0.15)] sm:p-6"
-            x-data="{ isHovered: false }"
-            @mouseenter="isHovered = true"
-            @mouseleave="isHovered = false">
-            <!-- Background Effects -->
-            <div class="from-gold/10 via-gold/5 to-gold/10 absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-            <div class="bg-gold/5 absolute -left-10 -top-10 h-20 w-20 rounded-full blur-xl transition-all duration-500"
-                :class="{ 'bg-gold/10 scale-150': isHovered }"></div>
-            <div class="bg-gold/5 absolute -bottom-10 -right-10 h-20 w-20 rounded-full blur-xl transition-all duration-500"
-                :class="{ 'bg-gold/10 scale-150': isHovered }"></div>
-            <!-- Sparkle Effects -->
-            <div class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
-                :class="{ 'opacity-100': isHovered }">
-                <span class="text-gold/30 absolute left-1/4 top-1/4 text-sm">✨</span>
-                <span class="text-gold/30 absolute right-1/4 top-3/4 text-sm">✨</span>
-                <span class="text-gold/30 absolute left-3/4 top-1/2 text-sm">✨</span>
-            </div>
-            
-            <!-- Content -->
-            <div class="relative flex flex-col items-center justify-center space-y-3">
-                <div class="text-gold/60 text-sm font-medium uppercase tracking-wider">Contestants</div>
-                <div class="relative">
-                    <div class="text-gold bg-gradient-to-r from-amber-200 to-yellow-500 bg-clip-text text-3xl font-bold text-transparent transition-all duration-300 group-hover:scale-110 sm:text-4xl lg:text-5xl">{{ $candidates->count() }}</div>
-                    <div class="text-gold/40 group-hover:text-gold/60 absolute -right-3 top-0 text-lg transition-all duration-300 group-hover:rotate-12 group-hover:scale-110">✨</div>
-                </div>
-                <div class="text-gold/40 group-hover:text-gold/60 text-xs transition-all duration-300">beautiful contestants</div>
-                {{-- <div class="text-gold/40 h-12 w-12 transform transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
+                        <!-- Time Remaining -->
+                        <div class="pageant-card group relative col-span-2 overflow-hidden rounded-2xl p-4 transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_50px_0_rgba(255,215,0,0.15)] sm:col-span-1 sm:p-6"
+                            x-data="{ isHovered: false }" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+                            <!-- Background Effects -->
+                            <div
+                                class="from-gold/10 via-gold/5 to-gold/10 absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                            </div>
+                            <div class="bg-gold/5 absolute -left-10 -top-10 h-20 w-20 rounded-full blur-xl transition-all duration-500"
+                                :class="{ 'bg-gold/10 scale-150': isHovered }">
+                            </div>
+                            <div class="bg-gold/5 absolute -bottom-10 -right-10 h-20 w-20 rounded-full blur-xl transition-all duration-500"
+                                :class="{ 'bg-gold/10 scale-150': isHovered }">
+                            </div>
+                            <!-- Sparkle Effects -->
+                            <div class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
+                                :class="{ 'opacity-100': isHovered }">
+                                <span class="text-gold/30 absolute left-1/4 top-1/4 text-sm">✨</span>
+                                <span class="text-gold/30 absolute right-1/4 top-3/4 text-sm">✨</span>
+                                <span class="text-gold/30 absolute left-3/4 top-1/2 text-sm">✨</span>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="relative space-y-3">
+                                <div class="text-gold/60 text-center text-sm font-medium uppercase tracking-wider">Time
+                                    Remaining</div>
+                                <div class="grid grid-cols-4 gap-2 sm:gap-3">
+                                    <div class="text-center">
+                                        <div
+                                            class="relative overflow-hidden rounded-lg bg-black/20 p-2 backdrop-blur-sm transition-all duration-300 group-hover:bg-black/30">
+                                            <span
+                                                class="text-gold bg-gradient-to-r from-amber-200 to-yellow-500 bg-clip-text text-xl font-bold text-transparent sm:text-2xl lg:text-3xl"
+                                                :class="{ 'animate-pulse': pulseStates.days }"
+                                                x-text="countdown.days">0</span>
+                                            <span class="text-gold/60 block text-xs font-medium">Days</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div
+                                            class="relative overflow-hidden rounded-lg bg-black/20 p-2 backdrop-blur-sm transition-all duration-300 group-hover:bg-black/30">
+                                            <span
+                                                class="text-gold bg-gradient-to-r from-amber-200 to-yellow-500 bg-clip-text text-xl font-bold text-transparent sm:text-2xl lg:text-3xl"
+                                                :class="{ 'animate-pulse': pulseStates.hours }"
+                                                x-text="countdown.hours">0</span>
+                                            <span class="text-gold/60 block text-xs font-medium">Hours</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div
+                                            class="relative overflow-hidden rounded-lg bg-black/20 p-2 backdrop-blur-sm transition-all duration-300 group-hover:bg-black/30">
+                                            <span
+                                                class="text-gold bg-gradient-to-r from-amber-200 to-yellow-500 bg-clip-text text-xl font-bold text-transparent sm:text-2xl lg:text-3xl"
+                                                :class="{ 'animate-pulse': pulseStates.minutes }"
+                                                x-text="countdown.minutes">0</span>
+                                            <span class="text-gold/60 block text-xs font-medium">Minutes</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div
+                                            class="relative overflow-hidden rounded-lg bg-black/20 p-2 backdrop-blur-sm transition-all duration-300 group-hover:bg-black/30">
+                                            <span
+                                                class="text-gold bg-gradient-to-r from-amber-200 to-yellow-500 bg-clip-text text-xl font-bold text-transparent sm:text-2xl lg:text-3xl"
+                                                :class="{ 'animate-pulse': pulseStates.seconds }"
+                                                x-text="countdown.seconds">0</span>
+                                            <span class="text-gold/60 block text-xs font-medium">Seconds</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contestants Count -->
+                        <div class="pageant-card group relative col-span-2 overflow-hidden rounded-2xl p-4 transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_50px_0_rgba(255,215,0,0.15)] sm:p-6 md:col-span-1"
+                            x-data="{ isHovered: false }" @mouseenter="isHovered = true" @mouseleave="isHovered = false">
+                            <!-- Background Effects -->
+                            <div
+                                class="from-gold/10 via-gold/5 to-gold/10 absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                            </div>
+                            <div class="bg-gold/5 absolute -left-10 -top-10 h-20 w-20 rounded-full blur-xl transition-all duration-500"
+                                :class="{ 'bg-gold/10 scale-150': isHovered }"></div>
+                            <div class="bg-gold/5 absolute -bottom-10 -right-10 h-20 w-20 rounded-full blur-xl transition-all duration-500"
+                                :class="{ 'bg-gold/10 scale-150': isHovered }"></div>
+                            <!-- Sparkle Effects -->
+                            <div class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
+                                :class="{ 'opacity-100': isHovered }">
+                                <span class="text-gold/30 absolute left-1/4 top-1/4 text-sm">✨</span>
+                                <span class="text-gold/30 absolute right-1/4 top-3/4 text-sm">✨</span>
+                                <span class="text-gold/30 absolute left-3/4 top-1/2 text-sm">✨</span>
+                            </div>
+
+                            <!-- Content -->
+                            <div class="relative flex flex-col items-center justify-center space-y-3">
+                                <div class="text-gold/60 text-sm font-medium uppercase tracking-wider">Contestants</div>
+                                <div class="relative">
+                                    <div
+                                        class="text-gold bg-gradient-to-r from-amber-200 to-yellow-500 bg-clip-text text-3xl font-bold text-transparent transition-all duration-300 group-hover:scale-110 sm:text-4xl lg:text-5xl">
+                                        {{ $candidates->count() }}</div>
+                                    <div
+                                        class="text-gold/40 group-hover:text-gold/60 absolute -right-3 top-0 text-lg transition-all duration-300 group-hover:rotate-12 group-hover:scale-110">
+                                        ✨</div>
+                                </div>
+                                <div class="text-gold/40 group-hover:text-gold/60 text-xs transition-all duration-300">
+                                    beautiful contestants</div>
+                                {{-- <div class="text-gold/40 h-12 w-12 transform transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke-width="1.5" stroke="currentColor"
                         class="group-hover:stroke-gold transition-colors duration-300">
@@ -338,10 +326,10 @@
                             d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
                     </svg>
                 </div> --}}
-            </div>
-        </div>
-    </div>
-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Title Holders Section -->
                 <div class="mb-16">
@@ -495,7 +483,7 @@
                 <!-- Candidates Grid -->
                 <!-- Featured Contestants -->
                 <div class="mb-12">
-                    <h2 class="font-playfair text-gold mb-6 text-center text-2xl font-bold">Current Title Holders</h2>
+                    {{-- <h2 class="font-playfair text-gold mb-6 text-center text-2xl font-bold">Current Title Holders</h2> --}}
                     <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                         @foreach ($candidates->where('is_featured', true) as $index => $candidate)
                             <div class="pageant-card group relative overflow-hidden {{ $index < 2 ? 'sm:col-span-1' : '' }}"

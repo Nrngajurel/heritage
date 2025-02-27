@@ -1,8 +1,13 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-qHgKoMOu.css",
+    "file": "assets/app-K2zZ9jHM.css",
     "isEntry": true,
     "src": "resources/css/app.css"
+  },
+  "resources/css/pageant.css": {
+    "file": "assets/pageant-UT6zzZty.css",
+    "isEntry": true,
+    "src": "resources/css/pageant.css"
   },
   "resources/js/app.js": {
     "file": "assets/app-Ycfauwdt.js",
