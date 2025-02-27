@@ -9,6 +9,22 @@ use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
+    public function castVote(\App\Models\Candidate $candidate)
+    {
+        try {
+            $candidate->increment('votes');
+            return response()->json([
+                'success' => true,
+                'votes' => $candidate->votes,
+                'message' => 'Vote cast successfully!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to cast vote. Please try again.'
+            ], 500);
+        }
+    }
 
     public function countryOptions()
     {
@@ -28,6 +44,17 @@ class FrontendController extends Controller
 
         return $countries;
     }
+    public function show(\App\Models\Candidate $candidate)
+    {
+        $event = Event::latest()->first();
+
+
+        return view('frontend.contestant-detail', [
+            'candidate' => $candidate,
+            'event' => $event
+        ]);
+    }
+
     public function applicationForm()
     {
         // $application = Application::first();
@@ -40,11 +67,27 @@ class FrontendController extends Controller
     }
     public function vote()
     {
+        $candidates = \App\Models\Candidate::orderBy('votes', 'desc')
+            ->get()
+            ->map(function($candidate) {
+                return [
+                    'id' => $candidate->id,
+                    'name' => $candidate->name,
+                    'country' => $candidate->country,
+                    'country_code' => $candidate->country_code,
+                    'title' => $candidate->title,
+                    'focus_area' => $candidate->focus_area,
+                    'bio' => $candidate->bio,
+                    'votes' => $candidate->votes,
+                    'is_featured' => $candidate->is_featured,
+                    'image_url' => $candidate->image_url
+                ];
+            });
 
         $event = Event::with('competitions')->latest()->first();
 
 
-        return view('frontend.vote', [
+        return view('frontend.vote', compact('candidates'), [
             'event' => $event
         ]);
     }

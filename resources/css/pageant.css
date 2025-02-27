@@ -1,0 +1,284 @@
+/* Pageant-specific glamorous styles */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+:root {
+    --gold: #D4AF37;
+    --gold-dark: #B8860B;
+    --gold-light: #FFD700;
+    --gold-gradient: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+    --color-gold: #D4AF37;
+    --color-gold-light: #FFD700;
+    --color-gold-dark: #B8860B;
+    --color-royal-purple: #4B0082;
+    --color-ruby: #9B111E;
+    --color-emerald: #046307;
+    --color-sapphire: #0F52BA;
+    --color-silver: #C0C0C0;
+}
+
+.pageant-gradient {
+    background: linear-gradient(to right, var(--color-gold-dark), var(--color-gold), var(--color-gold-light));
+}
+
+.pageant-card {
+    @apply transform overflow-hidden rounded-lg bg-white/5 shadow-xl transition-all duration-300;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    height: 100%; /* Ensure equal height cards */
+    background: rgba(20, 20, 20, 0.8);
+    border: 1px solid var(--color-gold);
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.pageant-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.3);
+    border-color: var(--color-gold-light);
+}
+
+.crown-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l12 20H18L30 0z' fill='%23D4AF37' fill-opacity='0.05'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    opacity: 0.1;
+}
+
+/* Glamorous animations */
+@keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+    }
+}
+
+@keyframes shine {
+    0% {
+        background-position: 200% center;
+    }
+    100% {
+        background-position: -200% center;
+    }
+}
+
+.animate-shine {
+    background: linear-gradient(90deg, 
+        var(--gold) 0%, 
+        var(--gold-light) 25%,
+        var(--gold) 50%,
+        var(--gold-light) 75%,
+        var(--gold) 100%);
+    background-size: 200% auto;
+    animation: shine 2s linear infinite;
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes shine {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.2); }
+    50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+}
+
+.animate-sparkle {
+    animation: sparkle 2s infinite;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animate-shine {
+    background: linear-gradient(90deg, 
+        transparent 25%, 
+        rgba(212, 175, 55, 0.5) 50%, 
+        transparent 75%
+    );
+    background-size: 200% 100%;
+    animation: shine 3s linear infinite;
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes crown-shine {
+    0% { background-position: -100% 0; }
+    100% { background-position: 200% 0; }
+}
+
+@keyframes vote-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.pageant-heading {
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(45deg, var(--color-gold), #fff, var(--color-gold));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: crown-shine 3s linear infinite;
+}
+
+.vote-button {
+    background: linear-gradient(45deg, var(--color-gold-dark), var(--color-gold), var(--color-gold-light));
+    color: #1a1a1a;
+    font-weight: bold;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.vote-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+.vote-button:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+    transform: scale(0);
+    transition: transform 0.6s;
+}
+
+.vote-button:hover:before {
+    transform: scale(1);
+}
+
+.vote-count {
+    font-family: 'Playfair Display', serif;
+    background: linear-gradient(45deg, var(--color-gold), var(--color-gold-light));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.progress-bar {
+    @apply h-1.5 sm:h-2 w-full rounded-full bg-white/10 overflow-hidden;
+    height: 6px;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-gold-dark), var(--color-gold));
+    transition: width 0.3s ease;
+}
+
+.candidate-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+    border-color: var(--color-gold);
+}
+
+.vote-button {
+    background: linear-gradient(45deg, var(--color-gold), #fff8e7, var(--color-gold));
+    background-size: 200% auto;
+    transition: all 0.3s ease;
+}
+
+.vote-button:hover {
+    background-position: right center;
+    animation: vote-pulse 1s ease infinite;
+}
+
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--color-gold);
+    animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.live-vote-counter {
+    background: linear-gradient(180deg, rgba(20,20,20,0.9), rgba(40,40,40,0.95));
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.crown-icon {
+    position: relative;
+    display: inline-block;
+}
+
+.crown-icon::before {
+    content: '👑';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2em;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.candidate-card:hover .crown-icon::before {
+    opacity: 1;
+}
+
+/* Timer styles */
+.timer-section {
+    background: linear-gradient(to bottom, rgba(20,20,20,0.9), rgba(40,40,40,0.95));
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    backdrop-filter: blur(8px);
+}
+
+.timer-digit {
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    font-family: 'Playfair Display', serif;
+}
+
+/* Live voting animation */
+@keyframes vote-cast {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.5; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+.vote-animation {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.vote-animation::before {
+    content: '❤️';
+    position: absolute;
+    animation: vote-cast 1s ease-out forwards;
+}

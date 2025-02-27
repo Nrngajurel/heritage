@@ -1,267 +1,269 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layouts.frontend-new')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@section('content')
+    <div x-data="voting()" data-votes='{{ $candidates->pluck('votes', 'id')->toJson() }}'>
 
-    <title>Laravel</title>
+        @php
+            $start_date = \Carbon\Carbon::parse($event->voting_start_date);
+            $end_date = \Carbon\Carbon::parse($event->voting_end_date);
+            $now = \Carbon\Carbon::now();
+        @endphp
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.3.2/build/css/intlTelInput.css">
-    @livewireStyles
-
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-
-
-<body class="antialiased">
-
-    @php
-        $start_date = \Carbon\Carbon::parse($event->voting_start_date);
-    @endphp
-    <h1 class="text-center text-2xl font-bold">{{ $event->name }}</h1>
-    <div class="text-center text-sm">Voting Start From: {{ $start_date->format('m D Y') }} </div>
-    <div class="mt-4 flex items-center justify-center space-x-4" x-data="timer({{$start_date->timestamp*1000}})" x-init="init();">
-        <div class="flex flex-col items-center px-4">
-            <span x-text="time().days" class="text-4xl text-gray-200 lg:text-5xl">00</span>
-            <span class="mt-2 text-gray-400">Days</span>
+        <!-- Banner Section -->
+        <div class="relative overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800 pb-12 pt-24">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="relative z-10 text-center">
+                    <h1 class="pageant-heading mb-4 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
+                        {{ $event->name }}
+                    </h1>
+                    <p class="mt-2 text-xl text-gray-300">Cast your vote for the next heritage queen</p>
+                </div>
+            </div>
+            <!-- Decorative elements -->
+            <div class="absolute left-1/2 top-1/2 h-full w-full max-w-7xl -translate-x-1/2 -translate-y-1/2">
+                <div class="sparkle absolute left-1/4 top-1/4"></div>
+                <div class="sparkle absolute right-1/4 top-3/4" style="animation-delay: 0.5s"></div>
+                <div class="sparkle absolute left-1/2 top-1/2" style="animation-delay: 1s"></div>
+            </div>
         </div>
-        <span class="h-24 w-[1px] bg-gray-400"></span>
-        <div class="flex flex-col items-center px-4">
-            <span x-text="time().hours" class="text-4xl text-gray-200 lg:text-5xl">23</span>
-            <span class="mt-2 text-gray-400">Hours</span>
+
+        <!-- Timer Section -->
+        <div class="timer-section mx-auto my-8 max-w-4xl rounded-xl px-4 py-8">
+            <div class="mb-6 text-center">
+                <h2 class="pageant-heading mb-2 text-2xl sm:text-3xl">Voting {{ $now < $start_date ? 'Starts In' : 'Ends In' }}</h2>
+                <p class="text-gray-400">{{ $start_date->format('F d, Y') }}</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 sm:flex sm:items-center sm:justify-center sm:space-x-4 md:space-x-8" x-data="timer({{ $start_date->timestamp * 1000 }})" x-init="init();">
+                <div class="flex flex-col items-center rounded-lg bg-gray-800/50 px-3 py-3 backdrop-blur sm:px-6 sm:py-4">
+                    <span x-text="time().days" class="timer-digit text-gold text-2xl font-bold sm:text-4xl lg:text-6xl">00</span>
+                    <span class="mt-1 text-sm uppercase tracking-wide text-gray-400 sm:mt-2 sm:text-base">Days</span>
+                </div>
+                <div class="flex flex-col items-center rounded-lg bg-gray-800/50 px-3 py-3 backdrop-blur sm:px-6 sm:py-4">
+                    <span x-text="time().hours" class="timer-digit text-gold text-2xl font-bold sm:text-4xl lg:text-6xl">23</span>
+                    <span class="mt-1 text-sm uppercase tracking-wide text-gray-400 sm:mt-2 sm:text-base">Hours</span>
+                </div>
+                <div class="flex flex-col items-center rounded-lg bg-gray-800/50 px-3 py-3 backdrop-blur sm:px-6 sm:py-4">
+                    <span x-text="time().minutes" class="timer-digit text-gold text-2xl font-bold sm:text-4xl lg:text-6xl">59</span>
+                    <span class="mt-1 text-sm uppercase tracking-wide text-gray-400 sm:mt-2 sm:text-base">Minutes</span>
+                </div>
+                <div class="flex flex-col items-center rounded-lg bg-gray-800/50 px-3 py-3 backdrop-blur sm:px-6 sm:py-4">
+                    <span x-text="time().seconds" class="timer-digit text-gold text-2xl font-bold sm:text-4xl lg:text-6xl">28</span>
+                    <span class="mt-1 text-sm uppercase tracking-wide text-gray-400 sm:mt-2 sm:text-base">Seconds</span>
+                </div>
+            </div>
+
+            <!-- Live Vote Counter -->
+            <div class="live-vote-counter mt-8 rounded-lg px-6 py-4 text-center">
+                <div class="text-gold mb-2 font-semibold">Live Votes</div>
+                <div class="text-3xl font-bold" x-data="{ count: 0 }" x-init="setInterval(() => count = Math.floor(Math.random() * 1000) + 5000, 3000)">
+                    <span x-text="count.toLocaleString()">5,000</span>
+                    <span class="ml-2 text-sm text-gray-400">votes</span>
+                </div>
+            </div>
         </div>
-        <span class="h-24 w-[1px] bg-gray-400"></span>
-        <div class="flex flex-col items-center px-4">
-            <span x-text="time().minutes" class="text-4xl text-gray-200 lg:text-5xl">59</span>
-            <span class="mt-2 text-gray-400">Minutes</span>
-        </div>
-        <span class="h-24 w-[1px] bg-gray-400"></span>
-        <div class="flex flex-col items-center px-4">
-            <span x-text="time().seconds" class="text-4xl text-gray-200 lg:text-5xl">28</span>
-            <span class="mt-2 text-gray-400">Seconds</span>
-        </div>
-    </div>
 
-    <!-- Extra Large Modal -->
+        <!-- Extra Large Modal -->
 
-
-    <div id="extralarge-modal" tabindex="-1"
-        class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full overflow-y-auto overflow-x-hidden p-4 transition delay-150 ease-in-out md:inset-0">
-        <div class="relative max-h-full w-full max-w-7xl">
-            <!-- Modal content -->
-            <div class="relative bg-white shadow dark:bg-gray-700">
-                <!-- Modal header -->
-
-                <button type="button"
-                    class="fixed right-2 top-2 ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
-                    data-modal-hide="extralarge-modal">
-                    <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-
-                <!-- Modal body -->
-                <div class="">
-                    <div class="flex">
-                        <div class="w-1/2">
-
-
-                            <div id="controls-carousel" class="relative w-full" data-carousel="static">
-                                <!-- Carousel wrapper -->
-                                <div class="relative h-56 overflow-hidden md:h-96">
-                                    <!-- Item 1 -->
-                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                        <img src="https://mrsheritageinternational.com/wp-content/uploads/2023/08/WhatsApp-Image-2023-09-11-at-8.51.03-AM.jpeg"
-                                            class="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="...">
-                                    </div>
-                                    <!-- Item 2 -->
-                                    <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
-                                        <img src="https://mrsheritageinternational.com/wp-content/uploads/2023/08/WhatsApp-Image-2023-09-11-at-8.51.03-AM.jpeg"
-                                            class="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="...">
-                                    </div>
-                                    <!-- Item 3 -->
-                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                        <img src="https://mrsheritageinternational.com/wp-content/uploads/2023/08/WhatsApp-Image-2023-09-11-at-8.51.03-AM.jpeg"
-                                            class="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="...">
-                                    </div>
-                                    <!-- Item 4 -->
-                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                        <img src="https://mrsheritageinternational.com/wp-content/uploads/2023/08/WhatsApp-Image-2023-09-11-at-8.51.03-AM.jpeg"
-                                            class="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="...">
-                                    </div>
-                                    <!-- Item 5 -->
-                                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                                        <img src="https://mrsheritageinternational.com/wp-content/uploads/2023/08/WhatsApp-Image-2023-09-11-at-8.51.03-AM.jpeg"
-                                            class="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-                                            alt="...">
-                                    </div>
-                                </div>
-                                <!-- Slider controls -->
-                                <button type="button"
-                                    class="group absolute start-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
-                                    data-carousel-prev>
-                                    <span
-                                        class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70">
-                                        <svg class="h-4 w-4 text-white dark:text-gray-800 rtl:rotate-180"
-                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                            viewBox="0 0 6 10">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="M5 1 1 5l4 4" />
-                                        </svg>
-                                        <span class="sr-only">Previous</span>
-                                    </span>
-                                </button>
-                                <button type="button"
-                                    class="group absolute end-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
-                                    data-carousel-next>
-                                    <span
-                                        class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70">
-                                        <svg class="h-4 w-4 text-white dark:text-gray-800 rtl:rotate-180"
-                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                            viewBox="0 0 6 10">
-                                            <path stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
-                                        </svg>
-                                        <span class="sr-only">Next</span>
-                                    </span>
-                                </button>
-                            </div>
-
-                        </div>
-                        <div class="w-1/2">
-
-                        </div>
-
+        <div class="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 px-4 py-12 sm:px-6 lg:px-8">
+            <!-- Success Toast -->
+            <div x-show="showVoteSuccess" x-transition:enter="transform ease-out duration-300 transition"
+                x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+                x-transition:enter-end="translate-y-0 opacity-100 sm:translate-x-0"
+                x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                class="fixed right-4 top-4 z-50 rounded-lg bg-black/80 p-4 backdrop-blur-sm">
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl">👑</span>
+                    <p class="text-gold">Thank you for voting! Your vote has been recorded.</p>
+                </div>
+            </div>
+            <div class="mx-auto max-w-7xl">
+                <div class="mb-16 text-center">
+                    <div class="animate-float mb-4 inline-block sm:mb-6">
+                        <span class="text-4xl sm:text-6xl">👑</span>
+                    </div>
+                    <div class="mb-6 flex items-center justify-center gap-2">
+                        <img src="https://heritagepageant.com/wp-content/uploads/2023/06/logo-1-68x65.png"
+                            alt="Heritage Pageants Logo" class="h-12 sm:h-16 md:h-20">
+                    </div>
+                    <h1
+                        class="pageant-heading mb-4 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+                        Miss Heritage International 2025
+                    </h1>
+                    <p class="text-gold/80 mx-auto mb-4 max-w-3xl text-xl font-light">
+                        Celebrating Peace, Environment, Tourism, Culture & Heritage
+                    </p>
+                    <div class="text-gold/60 mb-8 flex flex-wrap justify-center gap-2 text-xs sm:gap-4 sm:text-sm">
+                        <span class="border-gold/20 rounded-full border px-3 py-1">#Peace</span>
+                        <span class="border-gold/20 rounded-full border px-3 py-1">#Environment</span>
+                        <span class="border-gold/20 rounded-full border px-3 py-1">#Tourism</span>
+                        <span class="border-gold/20 rounded-full border px-3 py-1">#Culture</span>
+                        <span class="border-gold/20 rounded-full border px-3 py-1">#Heritage</span>
                     </div>
                 </div>
-                <!-- Modal footer -->
 
-            </div>
-        </div>
-    </div>
+                <!-- Live Stats -->
+                <div class="mb-16 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                    <div class="pageant-card animate-glow p-4 text-center sm:p-6">
+                        <div class="text-gold text-xl font-bold sm:text-2xl lg:text-3xl"
+                            x-text="formatNumber(getTotalVotes())">0</div>
+                        <div class="text-gold/60 text-sm sm:text-base">Total Votes</div>
+                    </div>
+                    <div class="pageant-card animate-glow p-4 text-center sm:p-6">
+                        <div class="text-gold text-xl font-bold sm:text-2xl lg:text-3xl">30d 12h</div>
+                        <div class="text-gold/60 text-sm sm:text-base">Time Remaining</div>
+                    </div>
+                    <div class="pageant-card animate-glow p-4 text-center sm:p-6">
+                        <div class="text-gold text-xl font-bold sm:text-2xl lg:text-3xl">{{ $candidates->count() }}</div>
+                        <div class="text-gold/60 text-sm sm:text-base">Contestants</div>
+                    </div>
+                </div>
 
-    <div
-        class="bg-dots-darker dark:bg-dots-lighter relative min-h-screen bg-gray-100 bg-center selection:bg-red-500 selection:text-white dark:bg-gray-900 sm:flex sm:items-center sm:justify-center">
-        <div class="mx-auto w-full p-6 lg:p-8">
-
-            <div class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <!-- First Card -->
-
-                @foreach (range(0, 7) as $item)
-                    <div class="overflow-hidden rounded-lg bg-white shadow-lg" data-modal-target="extralarge-modal"
-                        data-modal-toggle="extralarge-modal">
-
-                        <div class="relative">
-                            <img src="https://mrsheritageinternational.com/wp-content/uploads/2023/08/WhatsApp-Image-2023-09-11-at-8.51.03-AM.jpeg"
-                                alt="Cover Image" class="h-36 w-full object-cover">
-                        </div>
-
-                        <div class="-mt-20 flex items-center justify-center space-x-2">
-                            <img src="https://mrsheritageinternational.com/wp-content/uploads/2023/08/Miss-Australia.jpg"
-                                alt="Country Image" class="z-10 h-32 w-32 rounded-full object-cover shadow">
-                            </svg>
-                        </div>
-                        <div class="p-4">
-                            <div class="mt-2 text-lg font-semibold">
-                                MISS HERITAGE AUSTRALIA
-                            </div>
-                            <div class="mt-1 text-red-500">
-                                You Already Participated!
-                            </div>
-                            <div class="mt-4">
-                                <div class="relative w-full rounded bg-gray-200">
-                                    <div class="absolute left-0 top-0 h-full bg-gradient-to-r from-orange-400 to-red-500"
-                                        style="width:0%;"></div>
-                                    <div class="absolute left-0 top-0 flex h-full items-center justify-center text-sm text-white"
-                                        style="width:0%;">
-                                        0%
+                <!-- Candidates Grid -->
+                <!-- Featured Contestants -->
+                <div class="mb-12">
+                    <h2 class="font-playfair text-gold mb-6 text-center text-2xl font-bold">Current Title Holders</h2>
+                    <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                        @foreach ($candidates->where('is_featured', true) as $index => $candidate)
+                            <div class="pageant-card group relative overflow-hidden {{ $index < 2 ? 'sm:col-span-1' : '' }}"
+                                :class="{ 'animate-glow': loading && selectedCandidate === {{ $index + 1 }} }">
+                                <div class="relative aspect-[3/4] overflow-hidden">
+                                    <img src="{{ $candidate['image_url'] ?? 'https://heritagepageant.com/wp-content/uploads/2024/05/Picture1.png' }}"
+                                        alt="{{ $candidate['name'] }}"
+                                        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                    <!-- Always visible on mobile, hover on desktop -->
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-100 transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100">
+                                    </div>
+                                    <div
+                                        class="absolute bottom-0 left-0 right-0 transform-none p-4 transition-transform duration-300 sm:translate-y-full sm:p-6 sm:group-hover:translate-y-0">
+                                        <div class="mb-2 flex items-center gap-2">
+                                            <img src="https://flagcdn.com/w40/{{ strtolower($candidate['country_code']) }}.png"
+                                                alt="{{ $candidate['country'] }} flag" class="h-4 w-6 rounded shadow">
+                                            <h3 class="font-playfair text-gold text-xl font-bold sm:text-2xl">
+                                                {{ $candidate['name'] }}</h3>
+                                        </div>
+                                        <p class="text-gold/80 mb-1 text-sm sm:text-base">{{ $candidate['title'] }}</p>
+                                        <p class="text-xs text-white/70 sm:text-sm">Focus: {{ $candidate['focus_area'] }}
+                                        </p>
+                                        <div class="mt-2 flex flex-wrap gap-2 sm:mt-3">
+                                            <span class="bg-gold/10 text-gold/90 rounded-full px-2 py-1 text-xs">PETCH
+                                                Ambassador</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="mt-2 flex justify-between text-sm text-gray-600">
-                                    <span>0%</span>
-                                    <span>471 / 166.5k</span>
+
+                                <!-- Vote Count Section -->
+                                <div class="bg-black/20 p-4 backdrop-blur-sm sm:p-6">
+                                    <div class="mb-3">
+                                        <div class="mb-2 flex items-center justify-between">
+                                            <span class="text-gold/60 text-sm">Current Votes</span>
+                                            <span class="vote-count text-sm"
+                                                x-text="formatNumber(votes[{{ $index + 1 }}])"></span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div :id="'progress-' + {{ $index + 1 }}" class="progress-bar-fill"
+                                                :style="'width: ' + getVotePercentage({{ $index + 1 }}) + '%'"></div>
+                                        </div>
+                                    </div>
+
+                                    <button :id="'vote-button-' + {{ $index + 1 }}"
+                                        @click="castVote({{ $index + 1 }}); selectedCandidate = {{ $index + 1 }}"
+                                        :disabled="loading"
+                                        class="vote-button flex w-full items-center justify-center space-x-2 text-sm disabled:cursor-not-allowed disabled:opacity-50">
+                                        <span>Vote Now</span>
+                                        <span class="text-base">👑</span>
+                                    </button>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
-                @endforeach
+                </div>
 
-                <!-- Second Card -->
+                <!-- Other Contestants -->
+                <h2 class="font-playfair text-gold mb-6 text-center text-2xl font-bold">Regional Title Holders</h2>
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    @foreach ($candidates->where('is_featured', false) as $index => $candidate)
+                        <div class="pageant-card group"
+                            :class="{ 'animate-glow': loading && selectedCandidate === {{ $index + 1 }} }">
+                            <a href="{{ route('vote.show', $candidate['id']) }}" class="block">
+                                <div class="relative overflow-hidden">
+                                    <img src="{{ $candidate['image_url'] ?? 'https://heritagepageant.com/wp-content/uploads/2024/05/Picture1.png' }}"
+                                        alt="{{ $candidate['name'] }}"
+                                        class="h-80 w-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                                    </div>
+                                    <div
+                                        class="absolute bottom-0 left-0 right-0 translate-y-full p-6 transition-transform duration-300 group-hover:translate-y-0">
+                                        <div class="mb-2 flex items-center gap-2">
+                                            <img src="https://flagcdn.com/w40/{{ strtolower($candidate['country_code']) }}.png"
+                                                alt="{{ $candidate['country'] }} flag" class="h-4 w-6 rounded shadow">
+                                            <h3 class="font-playfair text-gold text-2xl font-bold">
+                                                {{ $candidate['name'] }}</h3>
+                                        </div>
+                                        <p class="text-gold/80 mb-1">{{ $candidate['title'] }}</p>
+                                        <p class="text-sm text-white/70">Focus: {{ $candidate['focus_area'] }}</p>
+                                        <div class="mt-3 flex gap-2">
+                                            <span class="bg-gold/10 text-gold/90 rounded-full px-2 py-1 text-xs">PETCH
+                                                Ambassador</span>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <div class="p-6">
+                                    <div class="mb-4">
+                                        <div class="mb-2 flex items-center justify-between">
+                                            <span class="text-gold/60">Current Votes</span>
+                                            <span class="vote-count"
+                                                x-text="formatNumber(votes[{{ $index + 1 }}])"></span>
+                                        </div>
+                                        <div class="progress-bar">
+                                            <div :id="'progress-' + {{ $index + 1 }}" class="progress-bar-fill"
+                                                :style="'width: ' + getVotePercentage({{ $index + 1 }}) + '%'"></div>
+                                        </div>
+                                        <div class="mt-1 text-right">
+                                            <span class="text-gold/60 text-sm"
+                                                x-text="getVotePercentage({{ $index + 1 }}) + '%'"></span>
+                                        </div>
+                                    </div>
+
+                                    <button :id="'vote-button-' + {{ $index + 1 }}"
+                                        @click="castVote({{ $index + 1 }}); selectedCandidate = {{ $index + 1 }}"
+                                        :disabled="loading"
+                                        class="vote-button flex w-full items-center justify-center space-x-2 disabled:cursor-not-allowed disabled:opacity-50">
+                                        <span>Vote Now</span>
+                                        <span class="text-lg">👑</span>
+                                    </button>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
             </div>
-
-
-
 
         </div>
     </div>
 
-    <wireui:scripts />
-    <script src="//unpkg.com/alpinejs" defer></script>
-
-    <script>
-        function timer(expiry) {
-            return {
-                expiry: expiry,
-                remaining: null,
-                init() {
-                    this.setRemaining()
-                    setInterval(() => {
-                        this.setRemaining();
-                    }, 1000);
-                },
-                setRemaining() {
-                    const diff = this.expiry - new Date().getTime();
-                    this.remaining = parseInt(diff / 1000);
-                },
-                days() {
-                    return {
-                        value: this.remaining / 86400,
-                        remaining: this.remaining % 86400
-                    };
-                },
-                hours() {
-                    return {
-                        value: this.days().remaining / 3600,
-                        remaining: this.days().remaining % 3600
-                    };
-                },
-                minutes() {
-                    return {
-                        value: this.hours().remaining / 60,
-                        remaining: this.hours().remaining % 60
-                    };
-                },
-                seconds() {
-                    return {
-                        value: this.minutes().remaining,
-                    };
-                },
-                format(value) {
-                    return ("0" + parseInt(value)).slice(-2)
-                },
-                time() {
-                    return {
-                        days: this.format(this.days().value),
-                        hours: this.format(this.hours().value),
-                        minutes: this.format(this.minutes().value),
-                        seconds: this.format(this.seconds().value),
+    @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('votingData', () => ({
+                    totalVotes: 500,
+                    showDetailModal: false,
+                    selectedCandidate: null,
+                    candidates: @json($candidates),
+                    showCandidateDetail(candidateData) {
+                        this.selectedCandidate = JSON.parse(candidateData);
+                        this.showDetailModal = true;
+                    },
+                    updateChart() {
+                        // Logic to update the chart
                     }
-                },
-            }
-        }
-    </script>
-</body>
-
-</html>
+                }))
+            })
+        </script>
+    @endpush
+@endsection
