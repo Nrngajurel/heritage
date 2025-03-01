@@ -88,15 +88,17 @@
                     (Turning Events into Indelible Memories) entity upon the apprehension of the Indispensable rationale of
                     beauty pageants in promoting fundamental global agendas. Pageant of Heritage also known as Heritage
                     pageants.</p>
+            </div>
+            <div class="relative z-10">
                 <h2 class="mb-4 mt-24 text-4xl font-bold uppercase opacity-60">Heritage Pageants celebrate peace,
                     environmental awareness,
                     tourism, culture, and heritage.</h2>
             </div>
-            <div class="my-5 -mt-10 grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div class="my-5 -mt-5 grid grid-cols-1 gap-8 md:grid-cols-3">
                 @foreach (['https://heritagepageant.com/wp-content/uploads/elementor/thumbs/1C1A8662-qmmw96uotbwh9pa0ive1p04cq70qg3di2h23s001rw.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/04/1C1A9041.jpg', 'https://heritagepageant.com/wp-content/uploads/2023/11/WhatsApp-Image-2023-11-14-at-10.21.15-PM.jpeg'] as $key => $image)
                     <div class="fade-up group relative overflow-hidden rounded-lg {{ $key === 1 ? 'md:-mt-8' : '' }}">
                         <img src="{{ $image }}"
-                            class="-z-10 w-full object-cover transition-transform duration-300 group-hover:scale-110 {{ $key === 1 ? 'h-[850px]' : 'h-[650px]' }}"
+                            class="-z-10 w-full object-cover transition-transform duration-300 group-hover:scale-110 {{ $key === 1 ? 'h-[850px]' : 'h-[650px]' }} bottom-0"
                             alt="Heritage Pageant">
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -138,8 +140,43 @@
     </section>
 
     <!-- Title Holders Section -->
-    <section class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 px-4 py-12 sm:px-6 lg:px-8">
-        <div class="container mx-auto px-4">
+    <section class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 px-4 py-20 sm:px-6 lg:px-8">
+        <div class="container relative mx-auto px-4">
+
+            <div class="absolute -top-32 left-1/2 z-10 -translate-x-1/2 transform">
+                <div class="relative flex h-24 w-24 items-center justify-center">
+                    <!-- Smaller Glowing Background -->
+                    <div class="absolute inset-0 scale-[2] transform">
+                        <!-- Primary glow -->
+                        <div
+                            class="from-gold/30 via-gold/15 to-gold/30 absolute inset-0 animate-pulse rounded-full bg-gradient-to-r blur-lg">
+                        </div>
+                        <!-- Secondary sparkle effect -->
+                        <div class="absolute inset-0 animate-pulse rounded-full bg-gradient-to-r from-yellow-200/20 via-amber-400/15 to-yellow-200/20 blur-md"
+                            style="animation-delay: 0.5s"></div>
+                        <!-- Shimmer effect -->
+                        <div
+                            class="animate-shimmer via-gold/20 absolute inset-0 rounded-full bg-gradient-to-r from-transparent to-transparent blur-sm">
+                        </div>
+                    </div>
+
+                    <!-- Crown Image -->
+                    <div class="group relative transition-transform duration-300 hover:scale-105">
+                        <img src="{{ asset('assets/images/crown.png') }}" alt="Crown"
+                            class="z-100 h-32 w-32 object-contain brightness-105 drop-shadow-[0_0_10px_rgba(255,215,0,0.4)] filter" />
+
+                        <!-- Animated Sparkles -->
+                        <div class="pointer-events-none absolute left-0 top-0 h-full w-full">
+                            <span class="animate-float absolute -top-1 left-0 text-lg"
+                                style="animation-delay: 0s">✨</span>
+                            <span class="animate-float absolute -right-1 top-1/2 text-lg"
+                                style="animation-delay: 0.3s">✨</span>
+                            <span class="animate-float absolute -bottom-1 left-1/2 text-lg"
+                                style="animation-delay: 0.6s">✨</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <h2
                 class="pageant-heading mb-4 text-center text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
                 OUR PROUD TITLEHOLDERS</h2>
