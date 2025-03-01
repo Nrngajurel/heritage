@@ -551,7 +551,7 @@
                 <div class="relative space-y-6 px-4 sm:space-y-8 sm:px-8">
                     <!-- Basic Info -->
                     <div class="glass-card elegant-border animate-glow rounded-xl p-6 transition-all duration-300">
-                        <h1 class="luxury-text relative mb-2 text-3xl font-bold tracking-wider" style="text-shadow: 0 2px 4px rgba(255, 215, 0, 0.2)">
+                        <h1 class="relative mb-2 text-3xl font-bold tracking-wider" style="text-shadow: 0 2px 4px rgba(255, 215, 0, 0.2)">
                             <span class="absolute -left-6 top-1/2 -translate-y-1/2 transform">
                                 <span class="animate-float inline-block text-2xl" style="animation-delay: 0.2s">✨</span>
                             </span>
