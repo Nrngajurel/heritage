@@ -103,7 +103,7 @@
             animation: shimmer 2s infinite;
         }
     </style>
-
+    @stack('styles')
     @livewireStyles
     <wireui:scripts />
     @vite(['resources/css/app.css', 'resources/css/pageant.css', 'resources/js/app.js'])
@@ -201,7 +201,7 @@
 
     @yield('content')
 
-    @yield('scripts')
+    @stack('scripts')
 
 
 

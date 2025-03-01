@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Livewire\Pages\Admin\DashboardPage;
 use App\Livewire\Pages\Admin\EventPage;
 use App\Livewire\Pages\Events\Index;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', 'application-form')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('countryOptions',[FrontendController::class, 'countryOptions'])->name('countryOptions');
 Route::get('application-form', [FrontendController::class, 'applicationForm'])->name('application-form');
