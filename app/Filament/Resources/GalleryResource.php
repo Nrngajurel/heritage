@@ -4,59 +4,78 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\GalleryResource\Pages;
 use App\Models\Gallery;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Form;
+use Filament\Forms;
 use Filament\Resources\Resource;
-use Filament\Tables\Table;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\ToggleColumn;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Tables;
 use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Filters\TernaryFilter;
+
 
 class GalleryResource extends Resource
 {
     protected static ?string $model = Gallery::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-photo';
 
-    public static function form(Form $form): Form
+
+    protected static ?string $navigationGroup = 'CMS';
+
+    public static function form(Forms\Form $form): Forms\Form
     {
         return $form
             ->schema([
-                FileUpload::make('images')
-                    ->multiple()
+                Forms\Components\TextInput::make('title')
                     ->required()
-                    ->image()
-                    ->imageEditor()
-                    ->reorderable()
-                    ->directory('gallery')
+                    ->maxLength(255)
                     ->columnSpanFull(),
-                Toggle::make('is_active')
+                Forms\Components\FileUpload::make('images')
+                    ->label('Gallery Images')
+                    ->multiple()
+                    ->image()
+                    ->directory('gallery')
+                    ->reorderable()
+                    ->columnSpanFull(),
+                Forms\Components\Toggle::make('is_active')
                     ->label('Active')
-                    ->default(true),
+                    ->default(true)
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('sort_order')
+                    ->numeric()
+                    ->default(0)
+                    ->columnSpanFull(),
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(Tables\Table $table): Tables\Table
     {
         return $table
             ->columns([
-                ImageColumn::make('media')
-                    ->label('Images')
-                    ->circular()
-                    ->stacked()
-                    ->limit(3),
-                ToggleColumn::make('is_active')
-                    ->label('Active'),
-                TextColumn::make('sort_order')
+                Tables\Columns\TextColumn::make('title')->sortable()->searchable(),
+                Tables\Columns\ImageColumn::make('images')
+                    ->label('Gallery Images')
+                    ->limit(1), // Show only one image
+                Tables\Columns\ToggleColumn::make('is_active')
+                    ->label('Active')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('sort_order')->sortable(),
+                Tables\Columns\TextColumn::make('created_at')->label('Created')->dateTime(),
             ])
-            ->defaultSort('sort_order')
-            ->reorderable('sort_order')
+            ->filters([
+                TernaryFilter::make('is_active')
+                    ->label('Active Status')
+                    ->trueLabel('Active')
+                    ->falseLabel('Inactive'),
+            ])
             ->actions([
+                EditAction::make(),
                 DeleteAction::make(),
-            ]);
+            ])
+            ->reorderable('sort_order');
+    }
+
+    public static function getRelations(): array
+    {
+        return [];
     }
 
     public static function getPages(): array

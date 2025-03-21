@@ -10,9 +10,10 @@ return new class extends Migration
     {
         Schema::create('galleries', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
-            $table->boolean('is_active')->default(true);
+            $table->string('title')->nullable();
+            $table->json('images'); // Store multiple images as JSON
             $table->integer('sort_order')->default(0);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

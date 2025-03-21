@@ -12,13 +12,21 @@ class Gallery extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
 
-    protected $fillable = [
-        'is_active',
-        'sort_order',
-    ];
+    protected $fillable = ['title', 'images', 'sort_order', 'is_active'];
 
     protected $casts = [
+        'images' => 'array',
         'is_active' => 'boolean',
-        'sort_order' => 'integer',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($gallery) {
+            if (!$gallery->sort_order) {
+                $gallery->sort_order = Gallery::max('sort_order') + 1;
+            }
+        });
+    }
 }
