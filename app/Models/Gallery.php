@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Gallery extends Model implements HasMedia
+class Gallery extends Model
 {
     use HasFactory;
-    use InteractsWithMedia;
 
     protected $fillable = ['title', 'images', 'sort_order', 'is_active'];
 
