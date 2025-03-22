@@ -89,6 +89,7 @@ class OurEventResource extends Resource
     {
         return [
             \App\Filament\Resources\OurEventResource\RelationManagers\ApplicationsRelationManager::class,
+            \App\Filament\Resources\OurEventResource\RelationManagers\ContestantsRelationManager::class,
         ];
     }
 

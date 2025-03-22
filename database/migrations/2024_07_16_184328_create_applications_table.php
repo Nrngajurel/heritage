@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Event::class)->constrained();
-            $table->foreignIdFor(Competition::class)->constrained();
+            $table->foreignIdFor(model: Competition::class)->constrained();
             $table->string('first_name');
             $table->string('last_name');
             $table->json('address');

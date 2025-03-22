@@ -36,4 +36,10 @@ class Event extends Model
 
         return $this->hasMany(Application::class);
     }
+    public function contestants(){
+
+        return $this->hasMany(related: Contestant::class);
+    }
+
+    
 }

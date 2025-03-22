@@ -10,6 +10,7 @@ use Filament\Tables\Table;
 use Filament\Resources\RelationManagers\RelationManager;
 use Illuminate\Database\Eloquent\Model;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Blade;
 
 class ApplicationsRelationManager extends RelationManager
@@ -92,6 +93,19 @@ class ApplicationsRelationManager extends RelationManager
                             )->stream();
                         }, $record->id . 'application-form.pdf');
                     }),
+                Tables\Actions\Action::make('make_contestant')
+                    ->label('Make Contestant')
+                    ->icon('heroicon-o-user-plus')
+                    ->action(function (Model $record) {
+                        $record->registerAsContestant();;
+                        
+                    })
+                    ->successNotification(
+                        Notification::make()
+                            ->success()
+                            ->title('Contestant created')
+                            ->body('The contestant has been created successfully.')
+                    ),
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\ViewAction::make()
                         ->label('View')
@@ -119,7 +133,21 @@ class ApplicationsRelationManager extends RelationManager
                             return response()->streamDownload(function () use ($pdf) {
                                 echo $pdf->stream();
                             }, 'applications.pdf');
+                        }),
+                    Tables\Actions\BulkAction::make('make_contestants')
+                        ->label('Make Contestants')
+                        ->icon('heroicon-o-users')
+                        ->action(function ($records) {
+                            foreach ($records as $record) {
+                                $record->registerAsContestant();
+                            }
                         })
+                        ->successNotification(
+                            Notification::make()
+                                ->success()
+                                ->title('Contestants created')
+                                ->body('The contestants have been created successfully.')
+                        )
                 ]),
             ]);
     }
