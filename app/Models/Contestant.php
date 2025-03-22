@@ -5,9 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Candidate extends Model
+class Contestant extends Model
 {
     protected $fillable = [
+        "event_id",
+        'competition_id',
+        'contestant_id',
+        'application_id',
         'name',
         'country',
         'country_code',

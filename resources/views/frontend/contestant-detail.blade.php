@@ -431,7 +431,7 @@
 @section('content')
     <div class="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900" 
          x-data="{ 
-            activeImage: '{{ $candidate->image_url }}', 
+            activeImage: '{{ $contestant->image_url }}', 
             voting: voting(),
             initMouseMove() {
                 document.addEventListener('mousemove', (e) => {
@@ -447,13 +447,13 @@
             }
          }"
          x-init="
-            voting.votes = {{ json_encode([$candidate->id => $candidate->votes]) }};
+            voting.votes = {{ json_encode([$contestant->id => $contestant->votes]) }};
             initMouseMove();
          "
-        x-init="voting.votes = {{ json_encode([$candidate->id => $candidate->votes]) }}">
+        x-init="voting.votes = {{ json_encode([$contestant->id => $contestant->votes]) }}">
         <!-- Hero Section with Background -->
         <div class="hero-background relative min-h-[50vh] w-full overflow-hidden"
-            style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)), url('{{ $candidate->image_url }}') center/cover no-repeat;">
+            style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)), url('{{ $contestant->image_url }}') center/cover no-repeat;">
             <!-- Decorative Overlay -->
             <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50"></div>
 
@@ -485,14 +485,14 @@
                     <div class="relative">
                         <h1 class="gold-gradient mb-4 font-serif text-4xl font-bold sm:text-5xl md:text-6xl"
                             style="text-shadow: 0 2px 20px rgba(255, 215, 0, 0.3);">
-                            {{ $candidate->name }}
+                            {{ $contestant->name }}
                         </h1>
                         <div class="flex items-center justify-center gap-4">
                             <div
                                 class="border-gold/20 inline-flex items-center gap-3 rounded-full border bg-black/50 px-4 py-1.5">
-                                <img src="https://flagcdn.com/w40/{{ strtolower($candidate->country_code) }}.png"
-                                    alt="{{ $candidate->country }} flag" class="h-5 w-7 rounded shadow">
-                                <span class="text-gold text-lg">{{ $candidate->country }}</span>
+                                <img src="https://flagcdn.com/w40/{{ strtolower($contestant->country_code) }}.png"
+                                    alt="{{ $contestant->country }} flag" class="h-5 w-7 rounded shadow">
+                                <span class="text-gold text-lg">{{ $contestant->country }}</span>
                             </div>
                         </div>
                     </div>
@@ -516,11 +516,11 @@
                     
                     <!-- Country Flag Overlay -->
                     <div class="absolute -right-20 -top-20 z-10 h-40 w-40 rotate-45 overflow-hidden opacity-30">
-                        <img src="https://flagcdn.com/w160/{{ strtolower($candidate->country_code) }}.png"
-                            alt="{{ $candidate->country }} flag" class="h-full w-full object-cover">
+                        <img src="https://flagcdn.com/w160/{{ strtolower($contestant->country_code) }}.png"
+                            alt="{{ $contestant->country }} flag" class="h-full w-full object-cover">
                     </div>
                     <div class="relative aspect-[3/4] overflow-hidden">
-                        <img :src="activeImage" alt="{{ $candidate->name }}"
+                        <img :src="activeImage" alt="{{ $contestant->name }}"
                             class="h-full w-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-110">
 
                     </div>
@@ -555,15 +555,15 @@
                             <span class="absolute -left-6 top-1/2 -translate-y-1/2 transform">
                                 <span class="animate-float inline-block text-2xl" style="animation-delay: 0.2s">✨</span>
                             </span>
-                            {{ $candidate->name }}
+                            {{ $contestant->name }}
                             <span class="absolute -right-6 top-1/2 -translate-y-1/2 transform">
                                 <span class="animate-float inline-block text-2xl" style="animation-delay: 0.8s">✨</span>
                             </span>
                         </h1>
                         <div class="animate-float mb-4 flex items-center gap-3" style="animation-duration: 6s;">
-                            <img src="https://flagcdn.com/w40/{{ strtolower($candidate->country_code) }}.png"
-                                alt="{{ $candidate->country }} flag" class="h-6 rounded shadow-lg">
-                            <span class="text-gold/90 font-semibold">{{ $candidate->country }}</span>
+                            <img src="https://flagcdn.com/w40/{{ strtolower($contestant->country_code) }}.png"
+                                alt="{{ $contestant->country }} flag" class="h-6 rounded shadow-lg">
+                            <span class="text-gold/90 font-semibold">{{ $contestant->country }}</span>
                         </div>
                         <div class="grid grid-cols-2 gap-4 text-gray-300">
                             <div class="stats-item glass-card rounded-lg p-3">
@@ -591,7 +591,7 @@
 
                     <!-- Bio & Achievements -->
                     <div class="glass-card rounded-xl p-6">
-                        <h2 class="text-gold/90 mb-4 text-xl font-semibold">About {{ explode(' ', $candidate->name)[0] }}
+                        <h2 class="text-gold/90 mb-4 text-xl font-semibold">About {{ explode(' ', $contestant->name)[0] }}
                         </h2>
                         <p class="mb-6 leading-relaxed text-gray-300">
                             I am a 25-year-old Thai model and beauty pageant titleholder. I am a passionate advocate for
@@ -611,9 +611,9 @@
                     </div>
 
                     <!-- Social Media Links -->
-                    @if ($candidate->social_media)
+                    @if ($contestant->social_media)
                         <div class="flex justify-center gap-4 py-4">
-                            @foreach (json_decode($candidate->social_media, true) as $platform => $link)
+                            @foreach (json_decode($contestant->social_media, true) as $platform => $link)
                                 <a href="{{ $link }}" target="_blank" rel="noopener noreferrer"
                                     class="text-gold hover:text-gold/80 transition-colors duration-300">
                                     <i class="fab fa-{{ strtolower($platform) }} text-2xl"></i>
@@ -650,7 +650,7 @@
 
                     <!-- Social Share Buttons -->
                     <div class="mx-auto grid w-full max-w-xl grid-cols-5 gap-2 px-1 py-2 sm:gap-3 sm:p-2">
-                        <p class="col-span-5 mb-1 text-center text-xs text-gray-400 sm:mb-2 sm:text-sm">Share {{ $candidate->name }}'s journey</p>
+                        <p class="col-span-5 mb-1 text-center text-xs text-gray-400 sm:mb-2 sm:text-sm">Share {{ $contestant->name }}'s journey</p>
                         <a href="https://www.instagram.com/create/story?url={{ url()->current() }}"
                             class="social-share-btn bg-gold/10 hover:bg-gold/20 hover:shadow-gold/10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:shadow-lg sm:h-12 sm:w-12" target="_blank" title="Share on Instagram">
                             <svg class="h-5 w-5 sm:h-6 sm:w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -663,19 +663,19 @@
                                 <path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"/>
                             </svg>
                         </a>
-                        <a href="https://pinterest.com/pin/create/button/?url={{ url()->current() }}&media={{ asset($candidate->image) }}&description=Vote for {{ urlencode($candidate->name) }} in Miss Heritage International!"
+                        <a href="https://pinterest.com/pin/create/button/?url={{ url()->current() }}&media={{ asset($contestant->image) }}&description=Vote for {{ urlencode($contestant->name) }} in Miss Heritage International!"
                             class="social-share-btn bg-gold/10 hover:bg-gold/20 hover:shadow-gold/10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:shadow-lg sm:h-12 sm:w-12" target="_blank" title="Share on Pinterest">
                             <svg class="h-5 w-5 sm:h-6 sm:w-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/>
                             </svg>
                         </a>
-                        <a href="https://twitter.com/intent/tweet?url={{ url()->current() }}&text=Vote for {{ $candidate->name }} in Miss Heritage International!"
+                        <a href="https://twitter.com/intent/tweet?url={{ url()->current() }}&text=Vote for {{ $contestant->name }} in Miss Heritage International!"
                             class="social-share-btn bg-gold/10 hover:bg-gold/20 hover:shadow-gold/10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:shadow-lg sm:h-12 sm:w-12" target="_blank" title="Share on Twitter">
                             <svg class="h-5 w-5 sm:h-6 sm:w-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"/>
                             </svg>
                         </a>
-                        <a href="https://wa.me/?text=Vote for {{ $candidate->name }} in Miss Heritage International! {{ url()->current() }}"
+                        <a href="https://wa.me/?text=Vote for {{ $contestant->name }} in Miss Heritage International! {{ url()->current() }}"
                             class="social-share-btn bg-gold/10 hover:bg-gold/20 hover:shadow-gold/10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:shadow-lg sm:h-12 sm:w-12" target="_blank" title="Share on WhatsApp">
                             <svg class="h-5 w-5 sm:h-6 sm:w-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -685,10 +685,10 @@
                 </div>
                     <!-- Share Stats -->
                     <div class="border-gold/10 mt-6 border-t pt-4 text-center">
-                        <p class="text-sm text-gray-400">Help {{ explode(' ', $candidate->name)[0] }} reach more supporters</p>
+                        <p class="text-sm text-gray-400">Help {{ explode(' ', $contestant->name)[0] }} reach more supporters</p>
                         <div class="mt-2 flex justify-center gap-8">
                             <div class="text-center">
-                                <span class="text-gold/90 block text-xl font-semibold">{{ number_format($candidate->votes) }}</span>
+                                <span class="text-gold/90 block text-xl font-semibold">{{ number_format($contestant->votes) }}</span>
                                 <span class="text-xs text-gray-400">Votes</span>
                             </div>
                             <div class="text-center">

@@ -25,68 +25,66 @@ class ViewOurEvent extends ViewRecord
                 \Filament\Infolists\Components\Tabs::make('Content')
                     ->tabs([
                         \Filament\Infolists\Components\Tabs\Tab::make('Overview')
-                            ->schema(components: $this->getOverview()),
-                        \Filament\Infolists\Components\Tabs\Tab::make('Applications')
-                            ->schema([
-                                
-                            ]),
+                            ->schema($this->getOverview()),
+                        
                     ])
                     ->columnSpanFull()
             ]);
     }
 
 
+
     private function getOverview()
     {
         return  [
-                Grid::make(3)
-                    ->schema([
-                        Section::make('Event Details')
-                            ->icon('heroicon-o-calendar')
-                            ->columnSpan(2)
-                            ->schema([
-                                Grid::make(2)
-                                    ->schema([
-                                        TextEntry::make('name')
-                                            ->label('Event Name')
-                                            ->size('lg')
-                                            ->weight('bold')
-                                            ->icon('heroicon-o-star'),
-                                        TextEntry::make('description')
-                                            ->html()
-                                            ->columnSpanFull()
-                                            ->icon('heroicon-o-document-text'),
-                                    ]),
-                            ]),
-                        Section::make('Timeline')
-                            ->icon('heroicon-o-clock')
-                            ->columnSpan(1)
-                            ->schema([
-                                TextEntry::make('form_start_date')
-                                    ->label('Registration Start')
-                                    ->dateTime()
-                                    ->icon('heroicon-o-play'),
-                                TextEntry::make('form_end_date')
-                                    ->label('Registration End')
-                                    ->dateTime()
-                                    ->icon('heroicon-o-stop'),
-                                TextEntry::make('voting_start_date')
-                                    ->label('Voting Start')
-                                    ->dateTime()
-                                    ->icon('heroicon-o-hand-raised'),
-                                TextEntry::make('voting_end_date')
-                                    ->label('Voting End')
-                                    ->dateTime()
-                                    ->icon('heroicon-o-flag'),
-                            ]),
-                    ]),
-                Section::make('Competitions')
-                    ->icon('heroicon-o-trophy')
-                    ->schema([
-                        TextEntry::make('competitions.name')
-                            ->listWithLineBreaks()
-                            ->icon('heroicon-o-academic-cap'),
-                    ]),
-            ];
+            Grid::make(3)
+                ->schema([
+                    Section::make('Event Details')
+                        ->icon('heroicon-o-calendar')
+                        ->columnSpan(2)
+                        ->schema([
+                            Grid::make(2)
+                                ->schema([
+                                    TextEntry::make('name')
+                                        ->label('Event Name')
+                                        ->size('lg')
+                                        ->weight('bold')
+                                        ->icon('heroicon-o-star'),
+                                    TextEntry::make('description')
+                                        ->html()
+                                        ->columnSpanFull()
+                                        ->icon('heroicon-o-document-text'),
+                                ]),
+                        ]),
+                    Section::make('Timeline')
+                        ->icon('heroicon-o-clock')
+                        ->columnSpan(1)
+                        ->schema([
+                            TextEntry::make('form_start_date')
+                                ->label('Registration Start')
+                                ->dateTime()
+                                ->icon('heroicon-o-play'),
+                            TextEntry::make('form_end_date')
+                                ->label('Registration End')
+                                ->dateTime()
+                                ->icon('heroicon-o-stop'),
+                            TextEntry::make('voting_start_date')
+                                ->label('Voting Start')
+                                ->dateTime()
+                                ->icon('heroicon-o-hand-raised'),
+                            TextEntry::make('voting_end_date')
+                                ->label('Voting End')
+                                ->dateTime()
+                                ->icon('heroicon-o-flag'),
+                        ]),
+                ]),
+            Section::make('Competitions')
+                ->icon('heroicon-o-trophy')
+                ->schema([
+                    TextEntry::make('competitions.name')
+                        ->listWithLineBreaks()
+                        ->icon('heroicon-o-academic-cap'),
+                ]),
+        ];
     }
 }

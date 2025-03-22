@@ -8,7 +8,7 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('voting', () => ({
         votes: {},
         loading: false,
-        selectedCandidate: null,
+        selectedContestant: null,
         showVoteSuccess: false,
 
         init() {
@@ -26,12 +26,12 @@ document.addEventListener('alpine:init', () => {
         },
 
         startLiveUpdates() {
-            const candidateIds = Object.keys(this.votes);
+            const contestantIds = Object.keys(this.votes);
             setInterval(() => {
-                const randomIndex = Math.floor(Math.random() * candidateIds.length);
-                const randomCandidate = candidateIds[randomIndex];
+                const randomIndex = Math.floor(Math.random() * contestantIds.length);
+                const randomContestant = contestantIds[randomIndex];
                 if (Math.random() > 0.7) {
-                    this.votes[randomCandidate]++;
+                    this.votes[randomContestant]++;
                     this.updateProgressBars();
                 }
             }, 2000);
@@ -41,19 +41,19 @@ document.addEventListener('alpine:init', () => {
             return Object.values(this.votes).reduce((a, b) => a + b, 0);
         },
 
-        getVotePercentage(candidateId) {
-            return (this.votes[candidateId] / this.getTotalVotes() * 100).toFixed(1);
+        getVotePercentage(contestantId) {
+            return (this.votes[contestantId] / this.getTotalVotes() * 100).toFixed(1);
         },
 
-        async castVote(candidateId) {
+        async castVote(contestantId) {
             if (this.loading) return;
             
             this.loading = true;
-            const button = document.querySelector(`#vote-button-${candidateId}`);
+            const button = document.querySelector(`#vote-button-${contestantId}`);
             button.classList.add('animate-shine');
             
             try {
-                const response = await fetch(`/vote/${candidateId}`, {
+                const response = await fetch(`/vote/${contestantId}`, {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
@@ -64,7 +64,7 @@ document.addEventListener('alpine:init', () => {
                 const data = await response.json();
                 
                 if (data.success) {
-                    this.votes[candidateId] = data.votes;
+                    this.votes[contestantId] = data.votes;
                     this.showVoteSuccess = true;
                     this.updateProgressBars();
                     setTimeout(() => {

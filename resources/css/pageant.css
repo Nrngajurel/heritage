@@ -200,7 +200,7 @@
     transition: width 0.3s ease;
 }
 
-.candidate-card:hover {
+.contestant-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
     border-color: var(--color-gold);
@@ -248,7 +248,7 @@
     transition: opacity 0.3s ease;
 }
 
-.candidate-card:hover .crown-icon::before {
+.contestant-card:hover .crown-icon::before {
     opacity: 1;
 }
 

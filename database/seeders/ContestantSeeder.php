@@ -5,14 +5,14 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CandidateSeeder extends Seeder
+class ContestantSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $candidates = [
+        $contestants = [
             [
                 "name" => "Erika Hara",
                 "country" => "Japan",
@@ -219,8 +219,8 @@ class CandidateSeeder extends Seeder
             ]
         ];
 
-        foreach ($candidates as $candidate) {
-            \App\Models\Candidate::create($candidate);
+        foreach ($contestants as $contestant) {
+            \App\Models\Contestant::create($contestant);
         }
         //
     }

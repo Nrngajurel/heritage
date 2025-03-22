@@ -1,147 +1,217 @@
+<div>
+    @php
+    $records = $records ?? [$record];
+@endphp
+@foreach ($records as $record)
 @if ($record)
-    <div class="p-5">
-        <style>
-            td {
-                padding: 1rem 0;
+<div class="application-form">
+    <style>
+        /* DOMPDF-safe CSS */
+        .application-form {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.3;
+            color: #000;
+            margin: 0;
+            padding: 10px;
+            page-break-after: always;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .section {
+            margin: 10px 0;
+            page-break-inside: avoid;
+        }
+
+        .section h2 {
+            font-size: 13px;
+            font-weight: bold;
+            color: #444;
+            margin: 8px 0;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0;
+        }
+
+        .data-table td {
+            padding: 6px 4px;
+            vertical-align: top;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #666;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .value {
+            color: #222;
+            word-break: break-word;
+        }
+
+        .photo-row {
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        .photo-cell {
+            width: 33.3%;
+            text-align: center;
+            padding: 5px;
+        }
+
+        .photo-cell img {
+            max-width: 95%;
+            height: auto;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+        }
+
+        @media print {
+            .application-form {
+                padding: 0;
             }
-        </style>
-        <center>
-            <h1 class="text-3xl font-bold">Application Form</h1>
-        </center>
-        <div>
-            <h2 class="text-xl font-semibold">Basic Information</h2>
-            <table style="width: 100%">
-                <tr>
-                    <td>
-                        <label class="block font-medium">Country</label>
-                        <p class="mt-1">{{ $record['country'] }}</p>
-                    </td>
-                    <td>
-                        <label class="block font-medium">Competition Name</label>
-                        <p class="mt-1">{{ $record->competition?->name }}</p>
-                    </td>
-                    <td>
-                        <label class="block font-medium">Full Name</label>
-                        <p class="mt-1">{{ $record['first_name'] }} {{ $record['last_name'] }}</p>
-                    </td>
-                    <td>
-                        <label class="block font-medium">Email</label>
-                        <p class="mt-1">{{ $record['email'] }}</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="block font-medium">Phone</label>
-                        <p class="mt-1">{{ $record['phone'] }}</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="6" style="padding-bottom: 0">Address</td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="block font-medium">Address Line 1</label>
-                        <p class="mt-1">{{ $record['address']['address_line_1'] }}</p>
-                    </td>
-                    <td>
-                        <label class="block font-medium">City</label>
-                        <p class="mt-1">{{ $record['address']['city'] }}</p>
-                    </td>
-                    <td>
-                        <label class="block font-medium">State</label>
-                        <p class="mt-1">{{ $record['address']['state'] }}</p>
-                    </td>
-                    <td>
-                        <label class="block font-medium">ZIP Code</label>
-                        <p class="mt-1">{{ $record['address']['zip'] }}</p>
-                    </td>
+            
+            .section {
+                margin: 8px 0;
+            }
+        }
+    </style>
 
-                </tr>
-            </table>
-        </div>
+    <div class="header">
+        <h1>Application Form</h1>
+    </div>
 
-        <!-- Dynamic Meta Information -->
-
-        <div class="mt-5">
-            <h2 class="text-xl font-semibold">PERSONAL BACKGROUND</h2>
-            <div>
-
-                @foreach ($record['meta']['personal_background'] as $subKey => $subValue)
-                    <div class="mt-2" style="min-width: 33%; display: inline-block">
-                        <label class="block font-medium">{{ ucwords(str_replace('_', ' ', $subKey)) }}</label>
-                        <p class="mt-1 border-b-2 p-3">{!! nl2br($subValue) !!}</p>
-                    </div>
-                @endforeach
-            </div>
-
-        </div>
-        <div class="mt-5">
-            <h2 class="text-xl font-semibold">OUTLOOK</h2>
-            <div>
-                @foreach ($record['meta']['outlook'] as $subKey => $subValue)
-                    <div style="width: 100%; display: inline-block">
-                        <label class="block font-medium">{{ ucwords(str_replace('_', ' ', $subKey)) }}</label>
-                        <p class="mt-1 border-b-2 p-3">{!! nl2br($subValue) !!}</p>
-                    </div>
-                @endforeach
-            </div>
-
-        </div>
-        <div class="mt-5">
-            <h2 class="text-xl font-semibold">MORE</h2>
-            <div>
-                @foreach ($record['meta']['more'] as $subKey => $subValue)
-                    <div style="min-width: 33%; display: inline-block">
-                        <label class="block font-medium">{{ ucwords(str_replace('_', ' ', $subKey)) }}</label>
-                        <p class="mt-1 border-b-2 p-3">{!! nl2br($subValue) !!}</p>
-                    </div>
-                @endforeach
-            </div>
-
-        </div>
-        <div class="mt-5">
-            <h2 class="text-xl font-semibold">PERSONAL STATEMENT</h2>
-
-
-            <div class="mt-2">
-                <label class="block font-medium">Personal Statement</label>
-                <p class="mt-1 border-b-2 p-3">{!! nl2br($record['meta']['personal_statement']) !!}</p>
-            </div>
-
-        </div>
-        <table style="width: 100%">
-
+    <!-- Basic Information -->
+    <div class="section">
+        <h2>Basic Information</h2>
+        <table class="data-table">
             <tr>
-                <td class="mt-5">
-                    <label class="block font-medium">HeadShot</label>
-                    @isset($exportPdf)
-                        <img  style="width:100%" src="{{ $record->getFirstMedia('headshot_photo')?->getPath() }}" />
-                    @else
-                        {{ $record->getFirstMedia('headshot_photo') }}
-                    @endisset
-
+                <td style="width: 25%">
+                    <span class="label">Country</span>
+                    <div class="value">{{ $record['country'] }}</div>
                 </td>
-                <td class="mt-5">
-                    <label class="block font-medium">Waist up photo</label>
-                    @isset($exportPdf)
-                        <img style="width:100%" src="{{ $record->getFirstMedia('waist_up_photo')?->getPath() }}" />
-                    @else
-                        {{ $record->getFirstMedia('waist_up_photo') }}
-                    @endisset
-
+                <td style="width: 25%">
+                    <span class="label">Competition</span>
+                    <div class="value">{{ $record->competition?->name }}</div>
                 </td>
-                <td class="mt-5">
-                    <label class="block font-medium">Passport Copy</label>
-                    @isset($exportPdf)
-                        <img  style="width:100%" src="{{ $record->getFirstMedia('passport_copy')?->getPath() }}" />
-                    @else
-                        {{ $record->getFirstMedia('passport_copy') }}
-                    @endisset
-
+                <td style="width: 25%">
+                    <span class="label">Full Name</span>
+                    <div class="value">{{ $record['first_name'] }} {{ $record['last_name'] }}</div>
+                </td>
+                <td style="width: 25%">
+                    <span class="label">Email</span>
+                    <div class="value">{{ $record['email'] }}</div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <span class="label">Phone</span>
+                    <div class="value">{{ $record['phone'] }}</div>
                 </td>
             </tr>
         </table>
-
     </div>
 
+    <!-- Address -->
+    <div class="section">
+        <h2>Address</h2>
+        <table class="data-table">
+            <tr>
+                <td style="width: 25%">
+                    <span class="label">Address Line 1</span>
+                    <div class="value">{{ $record['address']['address_line_1'] }}</div>
+                </td>
+                <td style="width: 25%">
+                    <span class="label">City</span>
+                    <div class="value">{{ $record['address']['city'] }}</div>
+                </td>
+                <td style="width: 25%">
+                    <span class="label">State</span>
+                    <div class="value">{{ $record['address']['state'] }}</div>
+                </td>
+                <td style="width: 25%">
+                    <span class="label">ZIP Code</span>
+                    <div class="value">{{ $record['address']['zip'] }}</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Dynamic Sections -->
+    <div class="section">
+        <h2>Personal Background</h2>
+        <table class="data-table">
+            @foreach ($record['meta']['personal_background'] as $subKey => $subValue)
+            <tr>
+                <td>
+                    <span class="label">{{ ucwords(str_replace('_', ' ', $subKey)) }}</span>
+                    <div class="value">{!! nl2br($subValue) !!}</div>
+                </td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Outlook</h2>
+        <table class="data-table">
+            @foreach ($record['meta']['outlook'] as $subKey => $subValue)
+            <tr>
+                <td>
+                    <span class="label">{{ ucwords(str_replace('_', ' ', $subKey)) }}</span>
+                    <div class="value">{!! nl2br($subValue) !!}</div>
+                </td>
+            </tr>
+            @endforeach
+        </table>
+    </div>
+
+    <!-- Documents -->
+    <div class="section">
+        <table class="photo-row">
+            <tr>
+                <td class="photo-cell">
+                    <span class="label">Headshot</span>
+                    @isset($exportPdf)
+                        <img src="{{ $record->getFirstMedia('headshot_photo')?->getPath() }}">
+                    @else
+                        {{ $record->getFirstMedia('headshot_photo') }}
+                    @endisset
+                </td>
+                <td class="photo-cell">
+                    <span class="label">Waist-up Photo</span>
+                    @isset($exportPdf)
+                        <img src="{{ $record->getFirstMedia('waist_up_photo')?->getPath() }}">
+                    @else
+                        {{ $record->getFirstMedia('waist_up_photo') }}
+                    @endisset
+                </td>
+                <td class="photo-cell">
+                    <span class="label">Passport Copy</span>
+                    @isset($exportPdf)
+                        <img src="{{ $record->getFirstMedia('passport_copy')?->getPath() }}">
+                    @else
+                        {{ $record->getFirstMedia('passport_copy') }}
+                    @endisset
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 @endif
+@endforeach
+</div>

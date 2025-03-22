@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
-    public function castVote(\App\Models\Candidate $candidate)
+    public function castVote(\App\Models\Contestant $contestant)
     {
         try {
-            $candidate->increment('votes');
+            $contestant->increment('votes');
             return response()->json([
                 'success' => true,
-                'votes' => $candidate->votes,
+                'votes' => $contestant->votes,
                 'message' => 'Vote cast successfully!'
             ]);
         } catch (\Exception $e) {
@@ -44,13 +44,13 @@ class FrontendController extends Controller
 
         return $countries;
     }
-    public function show(\App\Models\Candidate $candidate)
+    public function show(\App\Models\Contestant $contestant)
     {
         $event = Event::latest()->first();
 
 
         return view('frontend.contestant-detail', [
-            'candidate' => $candidate,
+            'contestant' => $contestant,
             'event' => $event
         ]);
     }
@@ -67,27 +67,27 @@ class FrontendController extends Controller
     }
     public function vote()
     {
-        $candidates = \App\Models\Candidate::orderBy('votes', 'desc')
+        $contestants = \App\Models\Contestant::orderBy('votes', 'desc')
             ->get()
-            ->map(function($candidate) {
+            ->map(function($contestant) {
                 return [
-                    'id' => $candidate->id,
-                    'name' => $candidate->name,
-                    'country' => $candidate->country,
-                    'country_code' => $candidate->country_code,
-                    'title' => $candidate->title,
-                    'focus_area' => $candidate->focus_area,
-                    'bio' => $candidate->bio,
-                    'votes' => $candidate->votes,
-                    'is_featured' => $candidate->is_featured,
-                    'image_url' => $candidate->image_url
+                    'id' => $contestant->id,
+                    'name' => $contestant->name,
+                    'country' => $contestant->country,
+                    'country_code' => $contestant->country_code,
+                    'title' => $contestant->title,
+                    'focus_area' => $contestant->focus_area,
+                    'bio' => $contestant->bio,
+                    'votes' => $contestant->votes,
+                    'is_featured' => $contestant->is_featured,
+                    'image_url' => $contestant->image_url
                 ];
             });
 
         $event = Event::with('competitions')->latest()->first();
 
 
-        return view('frontend.vote', compact('candidates'), [
+        return view('frontend.vote', compact('contestants'), [
             'event' => $event
         ]);
     }

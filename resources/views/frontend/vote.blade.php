@@ -34,7 +34,7 @@
             animation: spin-slow 10s linear infinite;
         }
     </style>
-    <div x-data="voting()" data-votes='{{ $candidates->pluck('votes', 'id')->toJson() }}'>
+    <div x-data="voting()" data-votes='{{ $contestants->pluck('votes', 'id')->toJson() }}'>
 
         @php
             $start_date = \Carbon\Carbon::parse($event->voting_start_date);
@@ -311,7 +311,7 @@
                                 <div class="relative">
                                     <div
                                         class="text-gold bg-gradient-to-r from-amber-200 to-yellow-500 bg-clip-text text-3xl font-bold text-transparent transition-all duration-300 group-hover:scale-110 sm:text-4xl lg:text-5xl">
-                                        {{ $candidates->count() }}</div>
+                                        {{ $contestants->count() }}</div>
                                     <div
                                         class="text-gold/40 group-hover:text-gold/60 absolute -right-3 top-0 text-lg transition-all duration-300 group-hover:rotate-12 group-hover:scale-110">
                                         ✨</div>
@@ -354,7 +354,7 @@
 
                     <!-- Title Holders Grid -->
                     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                        @foreach ($candidates->where('is_featured', true)->take(3) as $index => $candidate)
+                        @foreach ($contestants->where('is_featured', true)->take(3) as $index => $contestant)
                             <!-- Title Holder Card -->
                             <div class="group relative transform-gpu transition-all duration-500 hover:scale-[1.02]">
                                 <!-- Rank Badge -->
@@ -421,7 +421,7 @@
 
                                     <!-- Image Section -->
                                     <div class="relative aspect-[3/4] overflow-hidden">
-                                        <img src="{{ $candidate['image_url'] }}" alt="{{ $candidate['name'] }}"
+                                        <img src="{{ $contestant['image_url'] }}" alt="{{ $contestant['name'] }}"
                                             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110">
 
                                         <!-- Gradient Overlay -->
@@ -434,15 +434,15 @@
                                             <!-- Name and Title -->
                                             <div class="mb-4">
                                                 <div class="mb-1 flex items-center justify-center gap-2">
-                                                    <img src="https://flagcdn.com/w40/{{ strtolower($candidate['country_code']) }}.png"
-                                                        alt="{{ $candidate['country'] }} flag"
+                                                    <img src="https://flagcdn.com/w40/{{ strtolower($contestant['country_code']) }}.png"
+                                                        alt="{{ $contestant['country'] }} flag"
                                                         class="h-5 w-7 rounded shadow-lg">
                                                 </div>
                                                 <h3 class="font-playfair mb-2 text-2xl font-bold text-white">
-                                                    {{ $candidate['name'] }}</h3>
+                                                    {{ $contestant['name'] }}</h3>
                                                 <p class="text-gold text-lg font-medium">Currently #{{ $index + 1 }}
                                                 </p>
-                                                <p class="text-gold/80 text-sm">{{ $candidate['title'] }}</p>
+                                                <p class="text-gold/80 text-sm">{{ $contestant['title'] }}</p>
                                             </div>
 
                                             <!-- Vote Stats -->
@@ -480,17 +480,17 @@
                     </div>
                 </div>
 
-                <!-- Candidates Grid -->
+                <!-- Contestants Grid -->
                 <!-- Featured Contestants -->
                 <div class="mb-12">
                     {{-- <h2 class="font-playfair text-gold mb-6 text-center text-2xl font-bold">Current Title Holders</h2> --}}
                     <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                        @foreach ($candidates->where('is_featured', true) as $index => $candidate)
+                        @foreach ($contestants->where('is_featured', true) as $index => $contestant)
                             <div class="pageant-card group relative overflow-hidden {{ $index < 2 ? 'sm:col-span-1' : '' }}"
-                                :class="{ 'animate-glow': loading && selectedCandidate === {{ $index + 1 }} }">
+                                :class="{ 'animate-glow': loading && selectedContestant === {{ $index + 1 }} }">
                                 <div class="relative aspect-[3/4] overflow-hidden">
-                                    <img src="{{ $candidate['image_url'] ?? 'https://heritagepageant.com/wp-content/uploads/2024/05/Picture1.png' }}"
-                                        alt="{{ $candidate['name'] }}"
+                                    <img src="{{ $contestant['image_url'] ?? 'https://heritagepageant.com/wp-content/uploads/2024/05/Picture1.png' }}"
+                                        alt="{{ $contestant['name'] }}"
                                         class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
                                     <!-- Always visible on mobile, hover on desktop -->
                                     <div
@@ -499,13 +499,13 @@
                                     <div
                                         class="absolute bottom-0 left-0 right-0 transform-none p-4 transition-transform duration-300 sm:translate-y-full sm:p-6 sm:group-hover:translate-y-0">
                                         <div class="mb-2 flex items-center gap-2">
-                                            <img src="https://flagcdn.com/w40/{{ strtolower($candidate['country_code']) }}.png"
-                                                alt="{{ $candidate['country'] }} flag" class="h-4 w-6 rounded shadow">
+                                            <img src="https://flagcdn.com/w40/{{ strtolower($contestant['country_code']) }}.png"
+                                                alt="{{ $contestant['country'] }} flag" class="h-4 w-6 rounded shadow">
                                             <h3 class="font-playfair text-gold text-xl font-bold sm:text-2xl">
-                                                {{ $candidate['name'] }}</h3>
+                                                {{ $contestant['name'] }}</h3>
                                         </div>
-                                        <p class="text-gold/80 mb-1 text-sm sm:text-base">{{ $candidate['title'] }}</p>
-                                        <p class="text-xs text-white/70 sm:text-sm">Focus: {{ $candidate['focus_area'] }}
+                                        <p class="text-gold/80 mb-1 text-sm sm:text-base">{{ $contestant['title'] }}</p>
+                                        <p class="text-xs text-white/70 sm:text-sm">Focus: {{ $contestant['focus_area'] }}
                                         </p>
                                         <div class="mt-2 flex flex-wrap gap-2 sm:mt-3">
                                             <span class="bg-gold/10 text-gold/90 rounded-full px-2 py-1 text-xs">PETCH
@@ -529,7 +529,7 @@
                                     </div>
 
                                     <button :id="'vote-button-' + {{ $index + 1 }}"
-                                        @click="castVote({{ $index + 1 }}); selectedCandidate = {{ $index + 1 }}"
+                                        @click="castVote({{ $index + 1 }}); selectedContestant = {{ $index + 1 }}"
                                         :disabled="loading"
                                         class="vote-button flex w-full items-center justify-center space-x-2 text-sm disabled:cursor-not-allowed disabled:opacity-50">
                                         <span>Vote Now</span>
@@ -544,13 +544,13 @@
                 <!-- Other Contestants -->
                 <h2 class="font-playfair text-gold mb-6 text-center text-2xl font-bold">Regional Title Holders</h2>
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    @foreach ($candidates->where('is_featured', false) as $index => $candidate)
+                    @foreach ($contestants->where('is_featured', false) as $index => $contestant)
                         <div class="pageant-card group"
-                            :class="{ 'animate-glow': loading && selectedCandidate === {{ $index + 1 }} }">
-                            <a href="{{ route('vote.show', $candidate['id']) }}" class="block">
+                            :class="{ 'animate-glow': loading && selectedContestant === {{ $index + 1 }} }">
+                            <a href="{{ route('vote.show', $contestant['id']) }}" class="block">
                                 <div class="relative overflow-hidden">
-                                    <img src="{{ $candidate['image_url'] ?? 'https://heritagepageant.com/wp-content/uploads/2024/05/Picture1.png' }}"
-                                        alt="{{ $candidate['name'] }}"
+                                    <img src="{{ $contestant['image_url'] ?? 'https://heritagepageant.com/wp-content/uploads/2024/05/Picture1.png' }}"
+                                        alt="{{ $contestant['name'] }}"
                                         class="h-80 w-full object-cover transition-transform duration-500 group-hover:scale-105">
                                     <div
                                         class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -558,13 +558,13 @@
                                     <div
                                         class="absolute bottom-0 left-0 right-0 translate-y-full p-6 transition-transform duration-300 group-hover:translate-y-0">
                                         <div class="mb-2 flex items-center gap-2">
-                                            <img src="https://flagcdn.com/w40/{{ strtolower($candidate['country_code']) }}.png"
-                                                alt="{{ $candidate['country'] }} flag" class="h-4 w-6 rounded shadow">
+                                            <img src="https://flagcdn.com/w40/{{ strtolower($contestant['country_code']) }}.png"
+                                                alt="{{ $contestant['country'] }} flag" class="h-4 w-6 rounded shadow">
                                             <h3 class="font-playfair text-gold text-2xl font-bold">
-                                                {{ $candidate['name'] }}</h3>
+                                                {{ $contestant['name'] }}</h3>
                                         </div>
-                                        <p class="text-gold/80 mb-1">{{ $candidate['title'] }}</p>
-                                        <p class="text-sm text-white/70">Focus: {{ $candidate['focus_area'] }}</p>
+                                        <p class="text-gold/80 mb-1">{{ $contestant['title'] }}</p>
+                                        <p class="text-sm text-white/70">Focus: {{ $contestant['focus_area'] }}</p>
                                         <div class="mt-3 flex gap-2">
                                             <span class="bg-gold/10 text-gold/90 rounded-full px-2 py-1 text-xs">PETCH
                                                 Ambassador</span>
@@ -590,7 +590,7 @@
                                     </div>
 
                                     <button :id="'vote-button-' + {{ $index + 1 }}"
-                                        @click="castVote({{ $index + 1 }}); selectedCandidate = {{ $index + 1 }}"
+                                        @click="castVote({{ $index + 1 }}); selectedContestant = {{ $index + 1 }}"
                                         :disabled="loading"
                                         class="vote-button flex w-full items-center justify-center space-x-2 disabled:cursor-not-allowed disabled:opacity-50">
                                         <span>Vote Now</span>
@@ -613,10 +613,10 @@
                 Alpine.data('votingData', () => ({
                     totalVotes: 500,
                     showDetailModal: false,
-                    selectedCandidate: null,
-                    candidates: @json($candidates),
-                    showCandidateDetail(candidateData) {
-                        this.selectedCandidate = JSON.parse(candidateData);
+                    selectedContestant: null,
+                    contestants: @json($contestants),
+                    showContestantDetail(contestantData) {
+                        this.selectedContestant = JSON.parse(contestantData);
                         this.showDetailModal = true;
                     },
                     updateChart() {

@@ -85,6 +85,12 @@ class OurEventResource extends Resource
                 ]),
             ]);
     }
+    public static function getRelations(): array
+    {
+        return [
+            \App\Filament\Resources\OurEventResource\RelationManagers\ApplicationsRelationManager::class,
+        ];
+    }
 
     public static function getPages(): array
     {

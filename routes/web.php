@@ -24,8 +24,8 @@ Route::get('countryOptions',[FrontendController::class, 'countryOptions'])->name
 Route::get('application-form', [FrontendController::class, 'applicationForm'])->name('application-form');
 Route::post('application-form', [FrontendController::class, 'applicationFormSubmit'])->name('application-form-submit');
 Route::get('vote', [FrontendController::class, 'vote'])->name('vote.index');
-Route::get('vote/{candidate}', [FrontendController::class, 'show'])->name('vote.show');
-Route::post('vote/{candidate}', [FrontendController::class, 'castVote'])->name('cast.vote');
+Route::get('vote/{contestant}', [FrontendController::class, 'show'])->name('vote.show');
+Route::post('vote/{contestant}', [FrontendController::class, 'castVote'])->name('cast.vote');
 
 
 Route::view('mail-template', 'emails.template');
