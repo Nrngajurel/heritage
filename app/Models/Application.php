@@ -13,16 +13,18 @@ class Application extends Model implements HasMedia
     use HasFactory, InteractsWithMedia, Notifiable;
 
     protected $fillable = [
-        'competition_id',
         'event_id',
+        'competition_id',
+        'country',
         'first_name',
         'last_name',
-        'address',
-        'country',
         'email',
         'phone',
-        'avatar',
+        'address',
         'meta',
+        'headshot_photo',
+        'waist_up_photo',
+        'passport_copy',
         'status',
     ];
 
