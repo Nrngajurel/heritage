@@ -44,5 +44,8 @@
         @livewireScripts
         @filamentScripts
         @stack('scripts')
+
+        <!-- Add this line for notifications -->
+        <x-filament-notifications::notifications />
     </body>
 </html>

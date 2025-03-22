@@ -32,6 +32,7 @@ class GalleryResource extends Resource
                     ->label('Gallery Images')
                     ->multiple()
                     ->image()
+                    ->panelLayout('grid')
                     ->directory('gallery')
                     ->reorderable()
                     ->columnSpanFull(),

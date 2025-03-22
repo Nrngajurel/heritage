@@ -123,7 +123,7 @@
                 <!-- Logo Section -->
                 <div class="flex items-center space-x-4">
                     <a href="/" class="logo-glow group flex items-center space-x-3">
-                        <img src="https://heritagepageant.com/wp-content/uploads/2023/06/logo-1-68x65.png"
+                        <img src="/logo.png"
                             alt="Heritage Pageants Logo"
                             class="h-12 w-auto transition-transform duration-300 group-hover:scale-110">
                         <div>
@@ -151,14 +151,41 @@
                                 class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">Gallery</span>
                         </span>
                     </a>
-                    <a href="/events" class="nav-link-hover group px-4 py-2">
-                        <span class="relative">
-                            <span
-                                class="bg-gold absolute inset-x-0 -bottom-1 h-0.5 origin-left scale-x-0 transform transition-transform duration-300 group-hover:scale-x-100"></span>
-                            <span
-                                class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">Events</span>
-                        </span>
-                    </a>
+                    
+                    <!-- Events Dropdown -->
+                    <div class="relative" x-data="{ open: false }" @click.away="open = false">
+                        <button @click="open = !open" class="nav-link-hover group px-4 py-2">
+                            <span class="relative inline-flex items-center">
+                                <span class="bg-gold absolute inset-x-0 -bottom-1 h-0.5 origin-left scale-x-0 transform transition-transform duration-300 group-hover:scale-x-100"></span>
+                                <span class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">Events</span>
+                                <svg class="group-hover:text-gold ml-1 h-4 w-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </span>
+                        </button>
+                        
+                        <!-- Dropdown Menu -->
+                        <div x-show="open" 
+                             x-transition:enter="transition ease-out duration-200"
+                             x-transition:enter-start="opacity-0 translate-y-1"
+                             x-transition:enter-end="opacity-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-150"
+                             x-transition:leave-start="opacity-100 translate-y-0"
+                             x-transition:leave-end="opacity-0 translate-y-1"
+                             class="absolute left-0 mt-2 w-64 rounded-md bg-gray-900 py-2 shadow-xl">
+                            @foreach($events as $event)
+                                <a href="{{ route('events.show', $event->id) }}" 
+                                   class="hover:bg-gold/10 hover:text-gold block px-4 py-3 text-sm text-gray-300">
+                                    {{ $event->name }}
+                                </a>
+                                @unless($loop->last)
+                                    <div class="my-0.5 border-t border-gray-700"></div>
+                                @endunless
+                            @endforeach
+                           
+                        </div>
+                    </div>
+
                     <a href="/vote" class="nav-button group relative px-6 py-2">
                         <span class="from-gold/20 to-gold/0 absolute inset-0 rounded-full bg-gradient-to-r"></span>
                         <span class="text-gold relative font-medium">Vote Now</span>
@@ -183,13 +210,34 @@
                     </button>
                 </div>
             </div>
-
             <!-- Mobile Menu -->
             <div class="sm:hidden" x-show="mobileMenu" x-transition>
                 <div class="space-y-1 pb-3 pt-2">
                     <a href="/" class="hover:text-gold block px-3 py-2 text-gray-300">Home</a>
                     <a href="/gallery" class="hover:text-gold block px-3 py-2 text-gray-300">Gallery</a>
-                    <a href="/events" class="hover:text-gold block px-3 py-2 text-gray-300">Events</a>
+                    
+                    <!-- Mobile Events Dropdown -->
+                    <div x-data="{ open: false }">
+                        <button @click="open = !open" class="hover:text-gold flex w-full items-center justify-between px-3 py-2 text-gray-300">
+                            <span>Events</span>
+                            <svg class="h-4 w-4" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div x-show="open" class="pl-4">
+                            @foreach($events as $event)
+                                <a href="{{ route('events.show', $event->id) }}" 
+                                   class="hover:text-gold block px-3 py-2 text-sm text-gray-300">
+                                    {{ $event->name }}
+                                </a>
+                                @unless($loop->last)
+                                    <div class="my-0.5 border-t border-gray-700"></div>
+                                @endunless
+                            @endforeach
+                            
+                        </div>
+                    </div>
+
                     <a href="/vote" class="text-gold block px-3 py-2 font-medium">Vote Now</a>
                     <a href="/contact" class="hover:text-gold block px-3 py-2 text-gray-300">Contact</a>
                 </div>

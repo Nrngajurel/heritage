@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Competition;
 use App\Models\Event;
+use App\Models\Gallery;
 use App\Notifications\ApplicationSubmitted;
 use Illuminate\Http\Request;
 
@@ -59,7 +61,7 @@ class FrontendController extends Controller
     {
         $event = Event::with('competitions')->latest()->first();
         return view('frontend.new-application-form', [
-            'event' =>$event,
+            'event' => $event,
         ]);
     }
 
@@ -77,7 +79,7 @@ class FrontendController extends Controller
     {
         $contestants = \App\Models\Contestant::orderBy('votes', 'desc')
             ->get()
-            ->map(function($contestant) {
+            ->map(function ($contestant) {
                 return [
                     'id' => $contestant->id,
                     'name' => $contestant->name,
@@ -142,5 +144,19 @@ class FrontendController extends Controller
 
 
         return response()->json(['message' => "Thank you. We have sent you an email to {$data['email']} about status of the application"]);
+    }
+
+
+    public function gallery()
+    {
+        $gallery = Gallery::orderBy('created_at', 'desc')
+            ->get();
+
+        return view('frontend.gallery', compact('gallery'));
+    }
+
+    public function event(Competition $event)
+    {
+        return view('frontend.event', compact('event'));
     }
 }

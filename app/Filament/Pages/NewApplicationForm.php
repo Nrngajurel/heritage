@@ -104,10 +104,11 @@ class NewApplicationForm extends Component implements HasForms
             ->schema([
                 Wizard::make([
                     Step::make('Event Selection')
-                        ->icon('heroicon-o-calendar')
+                        ->icon('heroicon-m-calendar-days')
                         ->schema([
                             Section::make()
                                 ->description(new HtmlString($this->getEventHeader()))
+                                ->icon('heroicon-o-globe-alt')
                                 ->schema([
                                     Select::make('country')
                                         ->label('Select Your Country')
@@ -128,10 +129,11 @@ class NewApplicationForm extends Component implements HasForms
                         ]),
 
                     Step::make('Personal Information')
-                        ->icon('heroicon-o-user')
+                        ->icon('heroicon-m-user-circle')
                         ->schema([
                             Section::make()
                                 ->columns(2)
+                                ->icon('heroicon-o-identification')
                                 ->schema([
                                     TextInput::make('first_name')
                                         ->required()
@@ -175,9 +177,10 @@ class NewApplicationForm extends Component implements HasForms
                         ]),
 
                     Step::make('Background & Statistics')
-                        ->icon('heroicon-o-clipboard-document-list')
+                        ->icon('heroicon-m-clipboard-document-list')
                         ->schema([
                             Section::make('Vital Statistics')
+                                ->icon('heroicon-o-chart-bar')
                                 ->columns(3)
                                 ->schema([
                                     DatePicker::make('meta.personal_background.date_of_birth')
@@ -212,6 +215,7 @@ class NewApplicationForm extends Component implements HasForms
                                 ]),
 
                             Section::make('Education & Achievements')
+                                ->icon('heroicon-o-academic-cap')
                                 ->schema([
                                     TextInput::make('meta.personal_background.Attended School/College Name')
                                         ->label('School/College Name')
@@ -228,9 +232,10 @@ class NewApplicationForm extends Component implements HasForms
                         ]),
 
                     Step::make('Personal Profile')
-                        ->icon('heroicon-o-heart')
+                        ->icon('heroicon-m-heart')
                         ->schema([
                             Section::make('Social Media & Preferences')
+                                ->icon('heroicon-o-share')
                                 ->columns(2)
                                 ->schema([
                                     Textarea::make('meta.more.social_links')
@@ -248,14 +253,16 @@ class NewApplicationForm extends Component implements HasForms
                                 ]),
 
                             Section::make('Personal Outlook')
+                                ->icon('heroicon-o-sparkles')
                                 ->columns(2)
                                 ->schema($this->getPersonalOutlookFields()),
                         ]),
 
-                    Step::make('Documents')
-                        ->icon('heroicon-o-camera')
+                    Step::make('Documents & Terms')
+                        ->icon('heroicon-m-document-text')
                         ->schema([
                             Section::make('Photos & Documents')
+                                ->icon('heroicon-o-camera')
                                 ->description('Please upload clear, high-quality images')
                                 ->schema([
                                     Grid::make(3)
@@ -265,7 +272,6 @@ class NewApplicationForm extends Component implements HasForms
                                                 ->image()
                                                 ->imageEditor()
                                                 ->imageEditorAspectRatios(['1:1'])
-                                                ->image()
                                                 ->directory('contestants/images')
                                                 ->required()
                                                 ->maxSize(1024),
@@ -275,7 +281,6 @@ class NewApplicationForm extends Component implements HasForms
                                                 ->image()
                                                 ->imageEditor()
                                                 ->imageEditorAspectRatios(['1:1'])
-                                                ->image()
                                                 ->directory('contestants/images')
                                                 ->required()
                                                 ->maxSize(1024),
@@ -284,7 +289,6 @@ class NewApplicationForm extends Component implements HasForms
                                                 ->label('Passport Copy')
                                                 ->image()
                                                 ->imageEditor()
-                                                ->image()
                                                 ->directory('contestants/documents')
                                                 ->required()
                                                 ->maxSize(1024),
@@ -292,6 +296,7 @@ class NewApplicationForm extends Component implements HasForms
                                 ]),
 
                             Section::make('Personal Statement')
+                                ->icon('heroicon-o-document-text')
                                 ->schema([
                                     RichEditor::make('meta.personal_statement')
                                         ->label('Personal Statement')
@@ -305,17 +310,14 @@ class NewApplicationForm extends Component implements HasForms
                                         ])
                                         ->columnSpanFull(),
                                 ]),
-                        ]),
 
-                    Step::make('Terms & Conditions')
-                        ->icon('heroicon-o-document-check')
-                        ->schema([
-                            Section::make()
+                            Section::make('Terms & Conditions')
+                                ->icon('heroicon-o-clipboard-document-check')
                                 ->schema($this->getTermsAndConditionsFields()),
                         ]),
                 ])
                 ->skippable(false)
-                ->submitAction(new HtmlString('<button type="submit" class="inline-flex justify-center items-center gap-1 bg-primary-600 hover:bg-primary-500 focus:bg-primary-700 shadow px-4 py-2 border border-transparent rounded-lg outline-none focus:ring-2 focus:ring-white focus:ring-inset focus:ring-offset-2 focus:ring-offset-primary-700 min-h-[2.25rem] filament-button-size-md font-medium text-white text-sm transition-colors filament-button">Submit Application</button>')),
+                ->submitAction(new HtmlString('<button type="submit" class="inline-flex justify-center items-center gap-1 bg-primary-600 hover:bg-primary-500 focus:bg-primary-700 shadow px-4 py-2 border border-transparent rounded-lg outline-none focus:ring-2 focus:ring-white focus:ring-inset focus:ring-offset-2 focus:ring-offset-primary-700 min-h-[2.25rem] filament-button-size-md font-medium text-white text-sm transition-colors filament-button"><span class="heroicon-m-paper-airplane"></span>Submit Application</button>')),
             ]);
     }
 
@@ -455,17 +457,53 @@ class NewApplicationForm extends Component implements HasForms
 
             DB::commit();
 
+            // reset data
+            $this->data = [
+                'country' => '',
+                'competition_id' => '',
+                'first_name' => '',
+                'last_name' => '',
+                'email' => '',
+                'phone' => '',
+                'address' => [
+                    'address_line_1' => '',
+                    'city' => '',
+                    'state' => '',
+                    'zip' => ''
+                ],
+                'meta' => [
+                    'personal_background' => [
+                        'date_of_birth' => '',
+                        'age' => '',
+                        'height' => '',
+                        'weight' => '',
+                        'dress_size' => '',
+                        'shoe_size' => ''
+                    ],
+                    'personal_statement' => ''
+                ],
+                'headshot_photo' => '',
+                'waist_up_photo' => '',
+                'passport_copy' => '',
+                'terms_acceptance_a' => false,
+                'terms_acceptance_b' => false,
+                'terms_acceptance_c' => false,
+                'terms_acceptance_d' => false
+            ];
+            $this->form->fill();
+            $this->wizard->setCurrentStep('step-1');
+
             Notification::make()
                 ->title('Application Submitted Successfully')
                 ->success()
                 ->send();
 
         
-
+            
         } catch (\Exception $e) {
             DB::rollBack();
 
-            dd($e);
+            
             
             Notification::make()
                 ->title('Error Submitting Application')

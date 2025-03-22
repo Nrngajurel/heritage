@@ -8,13 +8,13 @@
                     <div class="text-sm">Form Close Date: {{ $event->form_end_date->format('M d, Y') }}</div>
                 </div>
 
-                @if(config('app.debug'))
+                {{-- @if(config('app.debug'))
                     <div class="mb-4 rounded bg-gray-100 p-4">
                         <p class="font-mono text-sm">Current Form State:</p>
                         <pre>{{ json_encode($this->data, JSON_PRETTY_PRINT) }}</pre>
                     </div>
                     @dump($errors->all())
-                @endif
+                @endif --}}
 
                 <form wire:submit.prevent="submit">
                     {{ $this->form }}

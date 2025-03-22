@@ -187,25 +187,25 @@
                 <td class="photo-cell">
                     <span class="label">Headshot</span>
                     @isset($exportPdf)
-                        <img src="{{ $record->getFirstMedia('headshot_photo')?->getPath() }}">
+                        <img src="{{ $record->headshot_photo?\public_path(\Storage::url($record->headshot_photo)): $record->getFirstMedia('headshot_photo')?->getPath() }}">
                     @else
-                        {{ $record->getFirstMedia('headshot_photo') }}
+                        {{  $record->headshot_photo?\Storage::url($record->headshot_photo): $record->getFirstMedia('headshot_photo') }}
                     @endisset
                 </td>
                 <td class="photo-cell">
                     <span class="label">Waist-up Photo</span>
                     @isset($exportPdf)
-                        <img src="{{ $record->getFirstMedia('waist_up_photo')?->getPath() }}">
+                        <img src="{{ $record->waist_up_photo?public_path(\Storage::url($record->waist_up_photo)): $record->getFirstMedia('waist_up_photo')?->getPath() }}">
                     @else
-                        {{ $record->getFirstMedia('waist_up_photo') }}
+                        {{ $record->waist_up_photo?\Storage::url($record->waist_up_photo): $record->getFirstMedia('waist_up_photo') }}
                     @endisset
                 </td>
                 <td class="photo-cell">
                     <span class="label">Passport Copy</span>
                     @isset($exportPdf)
-                        <img src="{{ $record->getFirstMedia('passport_copy')?->getPath() }}">
+                        <img src="{{ $record->passport_copy?public_path(\Storage::url($record->passport_copy)): $record->getFirstMedia('passport_copy')?->getPath() }}">
                     @else
-                        {{ $record->getFirstMedia('passport_copy') }}
+                        {{ $record->passport_copy?\Storage::url($record->passport_copy): $record->getFirstMedia('passport_copy') }}
                     @endisset
                 </td>
             </tr>

@@ -611,7 +611,7 @@
                     </div>
 
                     <!-- Social Media Links -->
-                    @if ($contestant->social_media)
+                    {{-- @if ($contestant->social_media)
                         <div class="flex justify-center gap-4 py-4">
                             @foreach (json_decode($contestant->social_media, true) as $platform => $link)
                                 <a href="{{ $link }}" target="_blank" rel="noopener noreferrer"
@@ -620,7 +620,7 @@
                                 </a>
                             @endforeach
                         </div>
-                    @endif
+                    @endif --}}
 
                     <!-- Voting Section -->
 
