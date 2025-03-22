@@ -431,7 +431,7 @@
 @section('content')
     <div class="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900" 
          x-data="{ 
-            activeImage: '{{ $contestant->image_url }}', 
+            activeImage: '{{ Storage::url($contestant->image_url) }}', 
             voting: voting(),
             initMouseMove() {
                 document.addEventListener('mousemove', (e) => {
@@ -453,7 +453,7 @@
         x-init="voting.votes = {{ json_encode([$contestant->id => $contestant->votes]) }}">
         <!-- Hero Section with Background -->
         <div class="hero-background relative min-h-[50vh] w-full overflow-hidden"
-            style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)), url('{{ $contestant->image_url }}') center/cover no-repeat;">
+            style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)), url('{{ Storage::url($contestant->image_url) }}') center/cover no-repeat;">
             <!-- Decorative Overlay -->
             <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/50"></div>
 

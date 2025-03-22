@@ -79,6 +79,9 @@ class ApplicationsRelationManager extends RelationManager
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+            ])
             ->actions([
                 Tables\Actions\Action::make('pdf')
                     ->label('PDF Download')

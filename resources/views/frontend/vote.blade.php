@@ -421,7 +421,7 @@
 
                                     <!-- Image Section -->
                                     <div class="relative aspect-[3/4] overflow-hidden">
-                                        <img src="{{ $contestant['image_url'] }}" alt="{{ $contestant['name'] }}"
+                                        <img src="{{ \Storage::url($contestant['image_url']) }}" alt="{{ $contestant['name'] }}"
                                             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110">
 
                                         <!-- Gradient Overlay -->
