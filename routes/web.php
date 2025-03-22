@@ -5,6 +5,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Livewire\Pages\Admin\DashboardPage;
 use App\Livewire\Pages\Admin\EventPage;
 use App\Livewire\Pages\Events\Index;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,3 +34,6 @@ Route::get('events/{event}', [FrontendController::class, 'event'])->name('events
 
 Route::view('mail-template', 'emails.template');
 Route::view('mail-template1', 'emails.template1');
+
+Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
