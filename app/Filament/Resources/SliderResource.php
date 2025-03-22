@@ -28,7 +28,7 @@ class SliderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
 
-    protected static ?string $navigationGroup = 'Content';
+    protected static ?string $navigationGroup = 'CMS';
 
     public static function form(Form $form): Form
     {

@@ -116,36 +116,27 @@ class ContestantsRelationManager extends RelationManager
                         ->icon('heroicon-o-pencil-square')
                         ->modalHeading('Bulk Edit Contestants')
                         ->modalSubmitActionLabel('Save Changes')
-                        ->modalWidth('7xl')
+                        ->modalWidth('full')
                         ->form(fn($records) => [
                             Forms\Components\Repeater::make('records')
                                 ->schema([
                                     Forms\Components\Hidden::make('id'),
-                                    Forms\Components\Section::make()
+                                    Forms\Components\Grid::make()
                                         ->schema([
-                                            Forms\Components\Grid::make()
-                                                ->schema([
-                                                    Forms\Components\FileUpload::make('image_url')
-                                                        ->image()
-                                                        ->imageEditor()
-                                                        ->directory('contestants/images')
-                                                        ->columnSpan(1),
-                                                    Forms\Components\TextInput::make('name')
-                                                        ->required()
-                                                        ->columnSpan(1),
-                                                    Forms\Components\TextInput::make('country')
-                                                        ->required()
-                                                        ->columnSpan(1),
-                                                    Forms\Components\TextInput::make('title')
-                                                        ->required()
-                                                        ->columnSpan(1),
-                                                    Forms\Components\Toggle::make('is_featured')
-                                                        ->inline()
-                                                        ->columnSpan(1),
-                                                ])
-                                                ->columns(6)
-                                                ->columnSpanFull(),
+                                            Forms\Components\FileUpload::make('image_url')
+                                                ->image()
+                                                ->imageEditor()
+                                                ->directory('contestants/images'),
+                                            Forms\Components\TextInput::make('name')
+                                                ->required(),
+                                            Forms\Components\TextInput::make('country')
+                                                ->required(),
+                                            Forms\Components\TextInput::make('title')
+                                                ->required(),
+                                            Forms\Components\Toggle::make('is_featured')
+                                                ->inline(),
                                         ])
+                                        ->columns(5)
                                 ])
                                 ->grid(1)
                                 ->columnSpanFull()

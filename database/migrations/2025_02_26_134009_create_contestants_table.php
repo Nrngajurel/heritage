@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('image_url')->nullable();
             $table->integer('votes')->default(0);
             $table->boolean('is_featured')->default(false);
-            $table->string('social_media')->nullable();
+            $table->text('social_media')->nullable();
             $table->timestamps();
         });
     }

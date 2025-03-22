@@ -65,7 +65,7 @@ class Application extends Model implements HasMedia
             ];
         })->where('country', $this->country)->first();
 
-        $this->contestant()->create([
+        $this->contestant()->updateOrCreate([
             'competition_id' => $this->competition_id,
             'event_id' => $this->event_id,
             'name' => $this->full_name,

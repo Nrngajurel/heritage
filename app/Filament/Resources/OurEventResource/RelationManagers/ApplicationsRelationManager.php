@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\OurEventResource\RelationManagers;
 
+use App\Filament\Resources\EventApplicationResource;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -21,38 +22,20 @@ class ApplicationsRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                // Forms\Components\TextInput::make('first_name')
-                //     ->required()
-                //     ->maxLength(255),
-                // Forms\Components\TextInput::make('last_name')
-                //     ->required()
-                //     ->maxLength(255),
-                // Forms\Components\TextInput::make('address')
-                //     ->required(),
-                // Forms\Components\TextInput::make('country')
-                //     ->required()
-                //     ->maxLength(255),
-                // Forms\Components\TextInput::make('email')
-                //     ->email()
-                //     ->maxLength(255),
-                // Forms\Components\TextInput::make('phone')
-                //     ->tel()
-                //     ->maxLength(255),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->maxLength(255)
-                    ->default('pending'),
-            ]);
+        return EventApplicationResource::form($form);
+    }
+    public function getPages(): array
+    {
+        return EventApplicationResource::getPages();
     }
 
     public function table(Table $table): Table
     {
+
+        // return EventApplicationResource::table($table);
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('event.name')
-                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('competition.name')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('first_name')
@@ -79,9 +62,6 @@ class ApplicationsRelationManager extends RelationManager
             ->filters([
                 //
             ])
-            ->headerActions([
-                Tables\Actions\CreateAction::make(),
-            ])
             ->actions([
                 Tables\Actions\Action::make('pdf')
                     ->label('PDF Download')
@@ -90,33 +70,14 @@ class ApplicationsRelationManager extends RelationManager
                         return response()->streamDownload(function () use ($record) {
                             echo Pdf::loadHtml(
                                 Blade::render('filament.resources.application.pages.view-application', [
-                                    'records' => [$record],
-                                    'exportPdf'=> true
+                                    'record' => $record,
+                                    'exportPdf' => true
                                 ])
                             )->stream();
                         }, $record->id . 'application-form.pdf');
                     }),
-                Tables\Actions\Action::make('make_contestant')
-                    ->label('Make Contestant')
-                    ->icon('heroicon-o-user-plus')
-                    ->action(function (Model $record) {
-                        $record->registerAsContestant();;
-                        
-                    })
-                    ->successNotification(
-                        Notification::make()
-                            ->success()
-                            ->title('Contestant created')
-                            ->body('The contestant has been created successfully.')
-                    ),
                 Tables\Actions\ActionGroup::make([
-                    Tables\Actions\ViewAction::make()
-                        ->label('View')
-                        ->icon('heroicon-o-eye')
-                        ->modalContent(fn (Model $record) => view(
-                            'filament.resources.application.pages.view-application',
-                            ['records' => [$record], 'exportPdf' => false]
-                        )),
+                    Tables\Actions\ViewAction::make(),
                     Tables\Actions\EditAction::make(),
                 ])->label('Action')
             ])
@@ -136,7 +97,7 @@ class ApplicationsRelationManager extends RelationManager
                             return response()->streamDownload(function () use ($pdf) {
                                 echo $pdf->stream();
                             }, 'applications.pdf');
-                        }),
+                        })->deselectRecordsAfterCompletion(),
                     Tables\Actions\BulkAction::make('make_contestants')
                         ->label('Make Contestants')
                         ->icon('heroicon-o-users')
@@ -151,6 +112,7 @@ class ApplicationsRelationManager extends RelationManager
                                 ->title('Contestants created')
                                 ->body('The contestants have been created successfully.')
                         )
+                        ->deselectRecordsAfterCompletion()
                 ]),
             ]);
     }
