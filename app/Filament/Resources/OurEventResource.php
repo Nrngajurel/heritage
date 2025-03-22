@@ -30,9 +30,10 @@ class OurEventResource extends Resource
                 Forms\Components\DateTimePicker::make('form_end_date'),
                 Forms\Components\DateTimePicker::make('voting_start_date'),
                 Forms\Components\DateTimePicker::make('voting_end_date'),
-                Forms\Components\Textarea::make('description')
+                Forms\Components\RichEditor::make('description')
                     ->required()
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->placeholder('Write your event description here...'),
 
                 Forms\Components\CheckboxList::make('competitions')
                     ->columns(2)
@@ -89,6 +90,7 @@ class OurEventResource extends Resource
     {
         return [
             'index' => Pages\ManageOurEvents::route('/'),
+            'view' => Pages\ViewOurEvent::route('/{record}'),
         ];
     }
 }

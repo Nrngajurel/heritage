@@ -25,6 +25,8 @@ class EventApplicationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
+
+
     public static function form(Form $form): Form
     {
         return $form
@@ -124,112 +126,6 @@ class EventApplicationResource extends Resource
             //
         ];
     }
-
-    // public static function infolist(Infolist $infolist): Infolist
-    // {
-    //     return $infolist
-    //         ->schema([
-    //             // Basic Information
-    //             // Heading::make('Basic Information')->size('xl')->weight('semibold'),
-    //             Grid::make(4)
-    //                 ->schema([
-    //                     TextEntry::make('country')
-    //                         ->label('Country'),
-    //                     TextEntry::make('competition.name')
-    //                         ->label('Competition Name'),
-    //                     TextEntry::make('full_name')
-    //                         ->label('Full Name'),
-    //                     TextEntry::make('email')
-    //                     ->label('Email'),
-    //                     TextEntry::make('phone')
-    //                     ->label('Phone'),
-    //                 ]),
-
-    //             // Address
-    //             // Heading::make('Address')->size('xl')->weight('semibold')->extraAttributes(['class' => 'mt-5']),
-    //             Grid::make(4)
-    //                 ->schema([
-    //                     TextEntry::make('address.address_line_1')
-    //                     ->label('Address Line 1'),
-    //                     TextEntry::make('address.city')
-    //                     ->label('City'),
-    //                     TextEntry::make('address.state')
-    //                     ->label('State'),
-    //                     TextEntry::make('address.zip')
-    //                     ->label('ZIP Code'),
-    //                 ]),
-
-    //             // Personal Background
-    //             // Heading::make('PERSONAL BACKGROUND')->size('xl')->weight('semibold')->extraAttributes(['class' => 'mt-5']),
-    //             // Grid::make(3)
-    //             //     ->schema(
-    //             //         array_map(
-    //             //             fn($subKey, $subValue) => TextEntry::make($subKey)
-    //             //                 ->label(ucwords(str_replace('_', ' ', $subKey)))
-    //             //                 ->value(fn() => $subValue)
-    //             //                 ->extraAttributes(['class' => 'border-b-2 p-3 mt-2']),
-    //             //             array_keys($this->record['meta']['personal_background']),
-    //             //             $this->record['meta']['personal_background']
-    //             //         )
-    //             //     ),
-
-    //             // Outlook
-    //             // Heading::make('OUTLOOK')->size('xl')->weight('semibold')->extraAttributes(['class' => 'mt-5']),
-    //             // Grid::make(3)
-    //             //     ->schema(
-    //             //         array_map(
-    //             //             fn($subKey, $subValue) => TextEntry::make($subKey)
-    //             //                 ->label(ucwords(str_replace('_', ' ', $subKey)))
-    //             //                 ->value(fn() => $subValue)
-    //             //                 ->extraAttributes(['class' => 'border-b-2 p-3 mt-2']),
-    //             //             array_keys($this->record['meta']['outlook']),
-    //             //             $this->record['meta']['outlook']
-    //             //         )
-    //             //     ),
-
-    //             // More
-    //             // Heading::make('MORE')->size('xl')->weight('semibold')->extraAttributes(['class' => 'mt-5']),
-    //             // Grid::make(3)
-    //             //     ->schema(
-    //             //         array_map(
-    //             //             fn($subKey, $subValue) => TextEntry::make($subKey)
-    //             //                 ->label(ucwords(str_replace('_', ' ', $subKey)))
-    //             //                 ->value(fn() => $subValue)
-    //             //                 ->extraAttributes(['class' => 'border-b-2 p-3 mt-2']),
-    //             //             array_keys($this->record['meta']['more']),
-    //             //             $this->record['meta']['more']
-    //             //         )
-    //             //     ),
-
-    //             // Personal Statement
-    //             // Heading::make('PERSONAL STATEMENT')->size('xl')->weight('semibold')->extraAttributes(['class' => 'mt-5']),
-    //             // TextEntry::make('personal_statement')
-    //             // ->label('Personal Statement')
-    //             // ->value(fn() => $this->record['meta']['personal_statement'])
-    //             // ->extraAttributes(['class' => 'border-b-2 p-3 mt-2']),
-
-    //             // Media
-    //             // Grid::make(3)
-    //             //     ->schema([
-    //             //         MediaEntry::make('headshot_photo')
-    //             //         ->label('HeadShot')
-    //             //         ->value(fn() => $this->record->getFirstMedia('headshot_photo'))
-    //             //         ->extraAttributes(['class' => 'mt-5']),
-    //             //         MediaEntry::make('waist_up_photo')
-    //             //         ->label('Waist up photo')
-    //             //         ->value(fn() => $this->record->getFirstMedia('waist_up_photo'))
-    //             //         ->extraAttributes(['class' => 'mt-5']),
-    //             //         MediaEntry::make('passport_copy')
-    //             //         ->label('Passport Copy')
-    //             //         ->value(fn() => $this->record->getFirstMedia('passport_copy'))
-    //             //         ->extraAttributes(['class' => 'mt-5']),
-    //             //     ]),
-    //         ]);
-    // }
-
-
-
-
 
     public static function getPages(): array
     {
