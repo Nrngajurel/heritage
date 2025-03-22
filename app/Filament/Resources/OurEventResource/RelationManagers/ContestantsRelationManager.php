@@ -9,7 +9,7 @@ use Filament\Tables\Table;
 use Filament\Resources\RelationManagers\RelationManager;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Notifications\Notification;
-
+use Illuminate\Support\Facades\Http;
 class ContestantsRelationManager extends RelationManager
 {
     protected static string $relationship = 'contestants';
@@ -97,6 +97,7 @@ class ContestantsRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
+                
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
