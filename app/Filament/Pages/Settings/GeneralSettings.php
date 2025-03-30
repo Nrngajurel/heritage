@@ -9,9 +9,8 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Form;
-use Filament\Pages\SettingsPage;
 
-class GeneralSettings extends SettingsPage
+class GeneralSettings
 {
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
     protected static ?string $navigationLabel = 'Site Settings';
