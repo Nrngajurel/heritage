@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Event;
 use App\Models\Contestant;
+use App\Models\Post;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 
@@ -14,8 +16,15 @@ class HomeController extends Controller
     {
         $sliders = Slider::all();
 
-        return $sliders;
+        $external_news = Post::whereHas('category', function ($query) {
+            $query->where('type', Category::TYPE_EXTERNAL);
+        })->get();
 
-        return view('frontend.home');
+        $blog_news = Post::whereHas('category', function ($query) {
+            $query->where('type', Category::TYPE_REGULAR);
+        })->get();
+        
+
+        return view('frontend.home', compact('sliders', 'external_news', 'blog_news'));
     }
 }

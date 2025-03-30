@@ -62,10 +62,10 @@
         <div class="relative overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800 pt-24">
             <div class="swiper hero-slider">
                 <div class="swiper-wrapper">
-                    @foreach (['https://heritagepageant.com/wp-content/uploads/2025/01/MHI_Web-Banner-1250x390.jpg', 'https://heritagepageant.com/wp-content/uploads/2025/01/MHI_Web-Banner_-1250x390.jpg', 'https://heritagepageant.com/wp-content/uploads/2025/02/MHI_Web-Banner_-copy-1250x390.jpg'] as $image)
+                    @foreach ($sliders->where('location', 'main')->pluck('image_path') as $image)
                         <div class="swiper-slide">
                             <div class="relative w-full">
-                                <img src="{{ $image }}" class="min-h-[400px] w-full object-cover"
+                                <img src="{{ asset('storage/' . $image) }}" class="min-h-[400px] w-full object-cover"
                                     alt="Heritage Pageant">
                             </div>
                         </div>
@@ -232,12 +232,12 @@
                     <p class="text-gold/70 mb-8 text-center text-lg italic">Capturing the Magic and Elegance of Heritage
                         Pageants</p>
                     <div class="grid grid-cols-1 gap-4 md:grid-cols-5">
-                        @foreach ([['https://mrsheritageinternational.com/wp-content/uploads/2024/04/Peace.jpg', 'PEACE'], ['https://mrsheritageinternational.com/wp-content/uploads/2024/04/1C1A5078-1-scaled.jpg', 'ENVIRONMENT'], ['https://mrsheritageinternational.com/wp-content/uploads/2024/04/benGGy2202.jpg', 'TOURISM'], ['https://mrsheritageinternational.com/wp-content/uploads/2024/04/hERITAGE.jpg', 'CULTURE'], ['https://mrsheritageinternational.com/wp-content/uploads/2024/04/hERITAGE-copy.jpg', 'HERITAGE']] as [$image, $label])
+                        @foreach ($sliders->where('location', 'moment') as $key => $image)
                             <div
                                 class="group relative cursor-pointer overflow-hidden rounded-lg transition-all duration-500 hover:flex-grow">
-                                <img src="{{ $image }}"
+                                <img src="{{ asset('storage/' . $image->image_path) }}"
                                     class="h-96 w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                    alt="{{ $label }}">
+                                    alt="{{ $image->title }}">
                                 {{-- <div
                                 class="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/80 to-transparent p-6">
                                 <h3 class="text-2xl font-bold text-[#e4cb86]">{{ $label }}</h3>
@@ -258,11 +258,11 @@
                     </p>
                     <div class="swiper highlights-slider">
                         <div class="swiper-wrapper">
-                            @foreach (['https://heritagepageant.com/wp-content/uploads/2023/11/WhatsApp-Image-2023-11-14-at-10.26.33-PM-2.jpeg', 'https://heritagepageant.com/wp-content/uploads/2023/11/WhatsApp-Image-2023-11-14-at-10.26.33-PM-3.jpeg', 'https://heritagepageant.com/wp-content/uploads/2023/11/WhatsApp-Image-2023-11-14-at-10.26.34-PM-1.jpeg'] as $image)
+                            @foreach ($sliders->where('location', 'highlight') as $key => $image)
                                 <div class="swiper-slide">
                                     <div class="group relative overflow-hidden rounded-lg">
-                                        <img src="{{ $image }}" class="h-[400px] w-full object-cover"
-                                            alt="Heritage Highlight">
+                                        <img src="{{ asset('storage/' . $image->image_path) }}" class="h-[400px] w-full object-cover"
+                                            alt="{{ $image->title }}">
                                         <div
                                             class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                                         </div>
@@ -285,46 +285,17 @@
                         <h2 class="mb-8 text-3xl font-bold text-white">HERITAGE PAGEANTS 2023</h2>
                     </div>
                     <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
-                        @foreach ([
-            [
-                'image' => 'https://heritagepageant.com/wp-content/uploads/2023/12/1c1a7795-1_orig.jpg',
-                'title' => 'Venezuela wins MRS. HERITAGE while Japan bags MISS HERITAGE INTERNATIONAL 2023',
-                'source' => 'world fashion media news magazine',
-            ],
-            [
-                'image' => 'https://heritagepageant.com/wp-content/uploads/2023/12/IMG_4627-1.jpeg',
-                'title' => 'Two beautiful beauties from Japan and Venezuela won the Miss/Mrs. Heritage International 2023 crown.',
-                'source' => 'TV Pool',
-            ],
-            [
-                'image' => 'https://heritagepageant.com/wp-content/uploads/2023/12/www.tingbt.com-img-1435-696x463-1.jpeg',
-                'title' => 'International beauty pageant, Heritage Pageants 2023, announces readiness',
-                'source' => 'TBT News',
-            ],
-            [
-                'image' => 'https://heritagepageant.com/wp-content/uploads/2023/12/1c1a7795-1_orig.jpg',
-                'title' => 'Venezuela wins MRS. HERITAGE while Japan bags MISS HERITAGE INTERNATIONAL 2023',
-                'source' => 'world fashion media news magazine',
-            ],
-            [
-                'image' => 'https://heritagepageant.com/wp-content/uploads/2023/12/IMG_4627-1.jpeg',
-                'title' => 'Two beautiful beauties from Japan and Venezuela won the Miss/Mrs. Heritage International 2023 crown.',
-                'source' => 'TV Pool',
-            ],
-            [
-                'image' => 'https://heritagepageant.com/wp-content/uploads/2023/12/www.tingbt.com-img-1435-696x463-1.jpeg',
-                'title' => 'International beauty pageant, Heritage Pageants 2023, announces readiness',
-                'source' => 'TBT News',
-            ],
-        ] as $article)
-                            <div class="overflow-hidden rounded-lg bg-gray-800">
-                                <img src="{{ $article['image'] }}" class="h-48 w-full object-cover"
-                                    alt="{{ $article['title'] }}">
-                                <div class="p-4">
-                                    <h3 class="mb-2 text-lg font-medium text-white">{{ $article['title'] }}</h3>
-                                    <p class="text-sm text-gray-400">{{ $article['source'] }}</p>
+                        @foreach ($external_news as $article)
+                            <a href="{{ $article->external_link }}" target="_blank" class="block">
+                                <div class="overflow-hidden rounded-lg bg-gray-800">
+                                    <img src="{{ asset('storage/' . $article->image) }}" class="h-48 w-full object-cover"
+                                        alt="{{ $article->title }}">
+                                    <div class="p-4">
+                                        <h3 class="mb-2 text-lg font-medium text-white">{{ $article->title }}</h3>
+                                        <p class="text-sm text-gray-400">{{ $article->source }}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         @endforeach
                     </div>
                     <div class="mt-8 text-center">
@@ -347,44 +318,13 @@
                             Pageants</p>
                     </div>
                     <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
-                        @foreach ([
-            [
-                'image' => 'https://heritagepageant.com/wp-content/uploads/2023/09/International-Beauty.webp',
-                'title' => 'मिस हेरिटेज इन्टरनेसनलमा सहभागि हुन अन्तर्राष्ट्रिय सुन्दरीहरु नेपालमा',
-                'excerpt' => 'मिस हेरिटेज इन्टरनेसनलमा सहभागि हुन अन्तर्राष्ट्रिय सुन्दरीहरु नेपालमा\'बुद्ध र सगरमाथा नेपालीको पहिचान...',
-            ],
-            [
-                'image' => 'https://heritagepageant.com/wp-content/uploads/2023/09/Miss-Heritage-International-2015-winners.webp',
-                'title' => 'Nepali belle wins titles in Miss Heritage Int\'l',
-                'excerpt' => 'Miss Heritage International 2015, a beauty pageant initiated to preserve the UNESCO heritage and cultural sites...',
-            ],
-            [
-                'image' => 'https://heritagepageant.com/wp-content/uploads/2023/09/Award.webp',
-                'title' => 'Santosh Sapkota receives International Award',
-                'excerpt' => 'Eplanet Nepal one of the leading beauty pageant organizer and management company of Nepal...',
-            ],
-            [
-                'image' => 'https://heritagepageant.com/wp-content/uploads/2023/09/International-Beauty.webp',
-                'title' => 'मिस हेरिटेज इन्टरनेसनलमा सहभागि हुन अन्तर्राष्ट्रिय सुन्दरीहरु नेपालमा',
-                'excerpt' => 'मिस हेरिटेज इन्टरनेसनलमा सहभागि हुन अन्तर्राष्ट्रिय सुन्दरीहरु नेपालमा\'बुद्ध र सगरमाथा नेपालीको पहिचान...',
-            ],
-            [
-                'image' => 'https://heritagepageant.com/wp-content/uploads/2023/09/Miss-Heritage-International-2015-winners.webp',
-                'title' => 'Nepali belle wins titles in Miss Heritage Int\'l',
-                'excerpt' => 'Miss Heritage International 2015, a beauty pageant initiated to preserve the UNESCO heritage and cultural sites...',
-            ],
-            [
-                'image' => 'https://heritagepageant.com/wp-content/uploads/2023/09/Award.webp',
-                'title' => 'Santosh Sapkota receives International Award',
-                'excerpt' => 'Eplanet Nepal one of the leading beauty pageant organizer and management company of Nepal...',
-            ],
-        ] as $post)
+                        @foreach ($blog_news as $post)
                             <div class="overflow-hidden rounded-lg bg-gray-800">
-                                <img src="{{ $post['image'] }}" class="h-48 w-full object-cover"
-                                    alt="{{ $post['title'] }}">
+                                <img src="{{ asset('storage/' . $post->image) }}" class="h-48 w-full object-cover"
+                                    alt="{{ $post->title }}">
                                 <div class="p-4">
-                                    <h3 class="mb-2 text-lg font-medium text-white">{{ $post['title'] }}</h3>
-                                    <p class="mb-4 text-gray-400">{{ $post['excerpt'] }}</p>
+                                    <h3 class="mb-2 text-lg font-medium text-white">{{ $post->title }}</h3>
+                                    <p class="mb-4 text-gray-400"{{ $post->title }}</p>
                                     <a href="#" class="text-white hover:underline">Read More →</a>
                                 </div>
                             </div>

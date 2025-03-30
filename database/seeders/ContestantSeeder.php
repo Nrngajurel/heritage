@@ -219,9 +219,9 @@ class ContestantSeeder extends Seeder
             ]
         ];
 
-        foreach ($contestants as $contestant) {
-            \App\Models\Contestant::create($contestant);
-        }
+        // foreach ($contestants as $contestant) {
+        //     \App\Models\Contestant::create($contestant);
+        // }
         //
     }
 }

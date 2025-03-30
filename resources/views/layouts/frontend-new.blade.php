@@ -190,6 +190,10 @@
                         <span class="from-gold/20 to-gold/0 absolute inset-0 rounded-full bg-gradient-to-r"></span>
                         <span class="text-gold relative font-medium">Vote Now</span>
                     </a>
+                    <a href="/apply" class="nav-button group relative px-6 py-2">
+                        <span class="from-gold/20 to-gold/0 absolute inset-0 rounded-full bg-gradient-to-r"></span>
+                        <span class="text-gold relative font-medium">Apply Now</span>
+                    </a>
                     <a href="/contact" class="nav-link-hover group px-4 py-2">
                         <span class="relative">
                             <span

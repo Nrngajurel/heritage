@@ -70,6 +70,7 @@ class SliderResource extends Resource
                                 ->label('Slider Image')
                                 ->image()
                                 ->imagePreviewHeight('250')
+                                ->directory('slider')
                                 ->required(),
                             Select::make('location')
                                 ->label('Display Location')
@@ -91,6 +92,8 @@ class SliderResource extends Resource
     {
         return $table
             ->columns([
+                ImageColumn::make('image_path')
+                    ->label('Image'),
                 TextColumn::make('title')
                     ->searchable(),
                 TextColumn::make('location')

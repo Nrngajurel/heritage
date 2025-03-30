@@ -1,20 +1,7 @@
-<div class="min-h-screen bg-gray-100 py-12">
+<div class="min-h-screen py-12">
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg">
+        <div class="overflow-hidden shadow-xl sm:rounded-lg">
             <div class="space-y-6 p-6">
-                <div class="mb-8 text-center">
-                    <h1 class="text-2xl font-bold">{{ $event->name }}</h1>
-                    <div>Application Form</div>
-                    <div class="text-sm">Form Close Date: {{ $event->form_end_date->format('M d, Y') }}</div>
-                </div>
-
-                {{-- @if(config('app.debug'))
-                    <div class="mb-4 rounded bg-gray-100 p-4">
-                        <p class="font-mono text-sm">Current Form State:</p>
-                        <pre>{{ json_encode($this->data, JSON_PRETTY_PRINT) }}</pre>
-                    </div>
-                    @dump($errors->all())
-                @endif --}}
 
                 <form wire:submit.prevent="submit">
                     {{ $this->form }}
