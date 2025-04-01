@@ -29,6 +29,11 @@ Route::get('vote', [FrontendController::class, 'vote'])->name('vote.index');
 Route::get('vote/{contestant}', [FrontendController::class, 'show'])->name('vote.show');
 Route::post('vote/{contestant}', [FrontendController::class, 'castVote'])->name('cast.vote');
 
+// blog
+Route::get('blog', [FrontendController::class, 'blog'])->name('blog');
+Route::get('blog/{post}', [FrontendController::class, 'blogPost'])->name('blog.show');
+
+
 Route::get('gallery', [FrontendController::class, 'gallery'])->name('gallery');
 Route::get('events/{event}', [FrontendController::class, 'event'])->name('events.show');
 

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Category;
 use App\Models\Competition;
 use App\Models\Event;
 use App\Models\Gallery;
+use App\Models\Post;
 use App\Notifications\ApplicationSubmitted;
 use Illuminate\Http\Request;
 
@@ -63,6 +65,21 @@ class FrontendController extends Controller
         return view('frontend.new-application-form', [
             'event' => $event,
         ]);
+    }
+
+
+    public function blog()
+    {
+        $blog_news = Post::whereHas('category', function ($query) {
+            $query->where('type', request()->type);
+        })->paginate();
+
+        return view('frontend.blog', compact(var_name: 'blog_news'));
+    }
+
+    public function blogPost(Post $post)
+    {
+        return view('frontend.blog-post', compact('post'));
     }
 
     public function applicationForm()

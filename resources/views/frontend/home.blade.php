@@ -286,20 +286,11 @@
                     </div>
                     <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                         @foreach ($external_news as $article)
-                            <a href="{{ $article->external_link }}" target="_blank" class="block">
-                                <div class="overflow-hidden rounded-lg bg-gray-800">
-                                    <img src="{{ asset('storage/' . $article->image) }}" class="h-48 w-full object-cover"
-                                        alt="{{ $article->title }}">
-                                    <div class="p-4">
-                                        <h3 class="mb-2 text-lg font-medium text-white">{{ $article->title }}</h3>
-                                        <p class="text-sm text-gray-400">{{ $article->source }}</p>
-                                    </div>
-                                </div>
-                            </a>
+                            @include('frontend.partials.post-card', ['post' => $article])
                         @endforeach
                     </div>
                     <div class="mt-8 text-center">
-                        <a href="/news"
+                        <a href="{{ route('blog', ['type' => 'external']) }}"
                             class="inline-block border border-white px-6 py-2 text-white transition-colors hover:bg-white hover:text-black">
                             View More News
                         </a>
@@ -312,24 +303,22 @@
                 <div class="container mx-auto px-4">
                     <div class="text-left uppercase">
                         <h2 class="text-gold/70 text-xl">Latest Blog Posts</h2>
-                        <h2 class="mb-2 text-3xl font-bold text-white">HERITAGE PAGEANTS 2023</h2>
+                        <h2 class="mb-2 text-3xl font-bold text-white">HERITAGE PAGEANTS 2025</h2>
                         <p class="mb-8 text-sm normal-case text-gray-400">Stay updated with our latest stories from
                             Heritage
                             Pageants</p>
                     </div>
                     <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
                         @foreach ($blog_news as $post)
-                            <div class="overflow-hidden rounded-lg bg-gray-800">
-                                <img src="{{ asset('storage/' . $post->image) }}" class="h-48 w-full object-cover"
-                                    alt="{{ $post->title }}">
-                                <div class="p-4">
-                                    <h3 class="mb-2 text-lg font-medium text-white">{{ $post->title }}</h3>
-                                    <p class="mb-4 text-gray-400"{{ $post->title }}</p>
-                                    <a href="#" class="text-white hover:underline">Read More →</a>
-                                </div>
-                            </div>
+                            @include('frontend.partials.post-card', ['post' => $post])
                         @endforeach
                     </div>
+                </div>
+                <div class="mt-8 text-center">
+                    <a href="{{ route('blog', ['type' => 'regular']) }}"
+                        class="inline-block border border-white px-6 py-2 text-white transition-colors hover:bg-white hover:text-black">
+                        View More
+                    </a>
                 </div>
             </section>
         </div>

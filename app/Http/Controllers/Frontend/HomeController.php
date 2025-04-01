@@ -18,11 +18,15 @@ class HomeController extends Controller
 
         $external_news = Post::whereHas('category', function ($query) {
             $query->where('type', Category::TYPE_EXTERNAL);
-        })->get();
+        })
+            ->limit(15)
+            ->get();
 
         $blog_news = Post::whereHas('category', function ($query) {
             $query->where('type', Category::TYPE_REGULAR);
-        })->get();
+        })
+        ->limit(3)
+        ->get();
         
 
         return view('frontend.home', compact('sliders', 'external_news', 'blog_news'));
