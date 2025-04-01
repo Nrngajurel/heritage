@@ -8,12 +8,14 @@ use App\Models\Event;
 use App\Models\Contestant;
 use App\Models\Post;
 use App\Models\Slider;
+use App\Settings\GeneralSettings;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
+
         $sliders = Slider::all();
 
         $external_news = Post::whereHas('category', function ($query) {
