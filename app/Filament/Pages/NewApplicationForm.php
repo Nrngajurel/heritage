@@ -464,24 +464,24 @@ class NewApplicationForm extends Component implements HasForms
             DB::beginTransaction();
 
             // Create application using the form data
-            // $application = \App\Models\Application::create([
-            //     'event_id' => $this->event->id,
-            //     'country' => $data['country'],
-            //     'competition_id' => $data['competition_id'],
-            //     'first_name' => $data['first_name'],
-            //     'last_name' => $data['last_name'],
-            //     'email' => $data['email'],
-            //     'phone' => $data['phone'],
-            //     'address' => $data['address'],
-            //     'meta' => $data['meta'],
-            //     'headshot_photo' => $data['headshot_photo'],
-            //     'waist_up_photo' => $data['waist_up_photo'],
-            //     'passport_copy' => $data['passport_copy'],
-            //     'terms_acceptance_a' => $data['terms_acceptance_a'],
-            //     'terms_acceptance_b' => $data['terms_acceptance_b'], 
-            //     'terms_acceptance_c' => $data['terms_acceptance_c'],
-            //     'terms_acceptance_d' => $data['terms_acceptance_d'],
-            // ]);
+            $application = \App\Models\Application::create([
+                'event_id' => $this->event->id,
+                'country' => $data['country'],
+                'competition_id' => $data['competition_id'],
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'address' => $data['address'],
+                'meta' => $data['meta'],
+                'headshot_photo' => $data['headshot_photo'],
+                'waist_up_photo' => $data['waist_up_photo'],
+                'passport_copy' => $data['passport_copy'],
+                'terms_acceptance_a' => $data['terms_acceptance_a'],
+                'terms_acceptance_b' => $data['terms_acceptance_b'], 
+                'terms_acceptance_c' => $data['terms_acceptance_c'],
+                'terms_acceptance_d' => $data['terms_acceptance_d'],
+            ]);
 
             DB::commit();
 
