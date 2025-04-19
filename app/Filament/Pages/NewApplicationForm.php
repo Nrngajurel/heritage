@@ -32,6 +32,8 @@ class NewApplicationForm extends Component implements HasForms
     public $event;
     public ?array $data = [];
 
+    public $submitted = false;
+
     public function mount($event)
     {
         $this->event = $event;
@@ -116,7 +118,8 @@ class NewApplicationForm extends Component implements HasForms
                                         ->required()
                                         ->live()
                                         ->options($this->getCountryOptions())
-                                        ->preload(),
+                                        ->preload()
+                                        ->columnSpanFull(),
 
                                     Radio::make('competition_id')
                                         ->label('Select Competition')
@@ -132,7 +135,10 @@ class NewApplicationForm extends Component implements HasForms
                         ->icon('heroicon-m-user-circle')
                         ->schema([
                             Section::make()
-                                ->columns(2)
+                                ->columns([
+                                    'default' => 1,
+                                    'sm' => 2,
+                                ])
                                 ->icon('heroicon-o-identification')
                                 ->schema([
                                     TextInput::make('first_name')
@@ -158,20 +164,26 @@ class NewApplicationForm extends Component implements HasForms
                                         ->required()
                                         ->placeholder('+1234567890'),
 
-                                    Grid::make(4)
+                                    Grid::make()
+                                        ->columns([
+                                            'default' => 1,
+                                            'sm' => 2,
+                                            'md' => 4
+                                        ])
                                         ->columnSpanFull()
                                         ->schema([
                                             TextInput::make('address.address_line_1')
                                                 ->label('Address Line 1')
                                                 ->required()
-                                                ->columnSpan(2),
+                                                ->columnSpan([
+                                                    'sm' => 2
+                                                ]),
                                             TextInput::make('address.city')
                                                 ->required(),
                                             TextInput::make('address.state')
                                                 ->required(),
                                             TextInput::make('address.zip')
-                                                ->required()
-                                                ->columnSpan(1),
+                                                ->required(),
                                         ]),
                                 ]),
                         ]),
@@ -181,7 +193,11 @@ class NewApplicationForm extends Component implements HasForms
                         ->schema([
                             Section::make('Vital Statistics')
                                 ->icon('heroicon-o-chart-bar')
-                                ->columns(3)
+                                ->columns([
+                                    'default' => 1,
+                                    'sm' => 2,
+                                    'md' => 3
+                                ])
                                 ->schema([
                                     DatePicker::make('meta.personal_background.date_of_birth')
                                         ->label('Date of Birth')
@@ -236,7 +252,10 @@ class NewApplicationForm extends Component implements HasForms
                         ->schema([
                             Section::make('Social Media & Preferences')
                                 ->icon('heroicon-o-share')
-                                ->columns(2)
+                                ->columns([
+                                    'default' => 1,
+                                    'sm' => 2
+                                ])
                                 ->schema([
                                     Textarea::make('meta.more.social_links')
                                         ->label('Social Media Links')
@@ -254,7 +273,10 @@ class NewApplicationForm extends Component implements HasForms
 
                             Section::make('Personal Outlook')
                                 ->icon('heroicon-o-sparkles')
-                                ->columns(2)
+                                ->columns([
+                                    'default' => 1,
+                                    'sm' => 2
+                                ])
                                 ->schema($this->getPersonalOutlookFields()),
                         ]),
 
@@ -265,7 +287,12 @@ class NewApplicationForm extends Component implements HasForms
                                 ->icon('heroicon-o-camera')
                                 ->description('Please upload clear, high-quality images')
                                 ->schema([
-                                    Grid::make(3)
+                                    Grid::make()
+                                        ->columns([
+                                            'default' => 1,
+                                            'sm' => 2,
+                                            'md' => 3
+                                        ])
                                         ->schema([
                                             FileUpload::make('headshot_photo')
                                                 ->label('Professional Headshot')
@@ -301,6 +328,7 @@ class NewApplicationForm extends Component implements HasForms
                                     RichEditor::make('meta.personal_statement')
                                         ->label('Personal Statement')
                                         ->required()
+                                        ->default('')
                                         ->toolbarButtons([
                                             'bold',
                                             'italic',
@@ -436,28 +464,28 @@ class NewApplicationForm extends Component implements HasForms
             DB::beginTransaction();
 
             // Create application using the form data
-            $application = \App\Models\Application::create([
-                'event_id' => $this->event->id,
-                'country' => $data['country'],
-                'competition_id' => $data['competition_id'],
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'email' => $data['email'],
-                'phone' => $data['phone'],
-                'address' => $data['address'],
-                'meta' => $data['meta'],
-                'headshot_photo' => $data['headshot_photo'],
-                'waist_up_photo' => $data['waist_up_photo'],
-                'passport_copy' => $data['passport_copy'],
-                'terms_acceptance_a' => $data['terms_acceptance_a'],
-                'terms_acceptance_b' => $data['terms_acceptance_b'], 
-                'terms_acceptance_c' => $data['terms_acceptance_c'],
-                'terms_acceptance_d' => $data['terms_acceptance_d'],
-            ]);
+            // $application = \App\Models\Application::create([
+            //     'event_id' => $this->event->id,
+            //     'country' => $data['country'],
+            //     'competition_id' => $data['competition_id'],
+            //     'first_name' => $data['first_name'],
+            //     'last_name' => $data['last_name'],
+            //     'email' => $data['email'],
+            //     'phone' => $data['phone'],
+            //     'address' => $data['address'],
+            //     'meta' => $data['meta'],
+            //     'headshot_photo' => $data['headshot_photo'],
+            //     'waist_up_photo' => $data['waist_up_photo'],
+            //     'passport_copy' => $data['passport_copy'],
+            //     'terms_acceptance_a' => $data['terms_acceptance_a'],
+            //     'terms_acceptance_b' => $data['terms_acceptance_b'], 
+            //     'terms_acceptance_c' => $data['terms_acceptance_c'],
+            //     'terms_acceptance_d' => $data['terms_acceptance_d'],
+            // ]);
 
             DB::commit();
 
-            // reset data
+            // // reset data
             $this->data = [
                 'country' => '',
                 'competition_id' => '',
@@ -490,18 +518,22 @@ class NewApplicationForm extends Component implements HasForms
                 'terms_acceptance_c' => false,
                 'terms_acceptance_d' => false
             ];
-            $this->form->fill();
-            $this->wizard->setCurrentStep('step-1');
+            // $this->form->fill();
+            // $this->wizard->setCurrentStep('step-1');
 
             Notification::make()
                 ->title('Application Submitted Successfully')
                 ->success()
                 ->send();
 
+            $this->submitted = true;
+
             $this->dispatch('application-submitted');
             
         } catch (\Exception $e) {
             DB::rollBack();
+
+            dd($e);
             
             Notification::make()
                 ->title('Error Submitting Application')
@@ -522,7 +554,6 @@ class NewApplicationForm extends Component implements HasForms
 
     public function render()
     {
-        $this->dispatch('application-submitted');
         return view('filament.pages.new-application-form');
     }
 } 
