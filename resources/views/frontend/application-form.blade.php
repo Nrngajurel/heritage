@@ -1,74 +1,80 @@
-@extends('layouts.frontend-new')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@push('styles')
-<link rel="preconnect" href="https://fonts.bunny.net">
+    <title>Application Form - Pageant Of Heritage </title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.3.2/build/css/intlTelInput.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@23.3.2/build/css/intlTelInput.css">
 
-<style>
-    [x-cloak] {
-        display: none;
-    }
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        [x-cloak] {
+            display: none;
+        }
 
-    [type="checkbox"] {
-        box-sizing: border-box;
-        padding: 0;
-    }
+        [type="checkbox"] {
+            box-sizing: border-box;
+            padding: 0;
+        }
 
-    .form-checkbox,
-    .form-radio {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        -webkit-print-color-adjust: exact;
-        color-adjust: exact;
-        display: inline-block;
-        vertical-align: middle;
-        background-origin: border-box;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        flex-shrink: 0;
-        color: currentColor;
-        background-color: #fff;
-        border-color: #e2e8f0;
-        border-width: 1px;
-        height: 1.4em;
-        width: 1.4em;
-    }
+        .form-checkbox,
+        .form-radio {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            -webkit-print-color-adjust: exact;
+            color-adjust: exact;
+            display: inline-block;
+            vertical-align: middle;
+            background-origin: border-box;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            flex-shrink: 0;
+            color: currentColor;
+            background-color: #fff;
+            border-color: #e2e8f0;
+            border-width: 1px;
+            height: 1.4em;
+            width: 1.4em;
+        }
 
-    .form-checkbox {
-        border-radius: 0.25rem;
-    }
+        .form-checkbox {
+            border-radius: 0.25rem;
+        }
 
-    .form-radio {
-        border-radius: 50%;
-    }
+        .form-radio {
+            border-radius: 50%;
+        }
 
-    .form-checkbox:checked {
-        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
-        border-color: transparent;
-        background-color: currentColor;
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
+        .form-checkbox:checked {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
+            border-color: transparent;
+            background-color: currentColor;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
 
-    .form-radio:checked {
-        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
-        border-color: transparent;
-        background-color: currentColor;
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-</style>
-@endpush
-@section('content')
+        .form-radio:checked {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
+            border-color: transparent;
+            background-color: currentColor;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
 
-<div class="relative overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800 pb-12 pt-24" x-data="application_form()" x-cloak>
+<body class="relative antialiased" x-data="application_form()" x-cloak>
     @php
         $start_date = \Carbon\Carbon::parse($event->form_end_date);
     @endphp
@@ -89,14 +95,12 @@
     </div>
 
     <div x-show="!loading"
-        class="bg-dots-darker dark:bg-dots-lighter relative min-h-screen bg-center selection:bg-red-500 selection:text-white dark:bg-gray-900 sm:flex sm:items-center sm:justify-center">
+        class="bg-dots-darker dark:bg-dots-lighter relative min-h-screen bg-gray-100 bg-center selection:bg-red-500 selection:text-white dark:bg-gray-900 sm:flex sm:items-center sm:justify-center">
         <div class="mx-auto w-full p-6 lg:p-8">
             <h1 class="text-center text-2xl font-bold">{{ $event->name }}</h1>
             <div class="text-center">Application Form</div>
 
             <div class="text-center text-sm">Form Close Date: {{ $start_date->format('M d, Y') }} </div>
-
-            
             <div class="mt-4 flex items-center justify-center space-x-4" x-data="timer({{ $start_date->timestamp * 1000 }})"
                 x-init="init();">
                 <div class="flex flex-col items-center px-2 md:px-4">
@@ -127,9 +131,8 @@
                     <div class="mx-auto w-full px-4 py-5">
                         <div class="grid grid-cols-3 gap-5" x-show.transition.in="step == 0">
                             <div class="col-span-3 md:col-span-1">
-                                <x-select id="country" name="country" label="Select Your Country"
-                                    placeholder="Select a country" :async-data="route('countryOptions')" option-label="country"
-                                    option-value="code" hide-empty-message name="country"
+                                <x-select id="country" name="country" label="Select Your Country" placeholder="Select a country" :async-data="route('countryOptions')"
+                                    option-label="country" option-value="code" hide-empty-message name="country"
                                     x-bind:class="{ 'border-red-500': errors.country }" required
                                     x-on:selected="selectCountry">
                                 </x-select>
@@ -357,7 +360,8 @@
                                     <div x-show.transition.in="step === 3">
                                         <div class="mb-4">
                                             <x-textarea id="social_links" name="meta[more][social_links]"
-                                                rows="4" x-model="form.meta.more.social_links"
+                                                rows="4"
+                                                x-model="form.meta.more.social_links"
                                                 label="Are You on FB/Twitter/Instagram? Please provide links" />
                                         </div>
 
@@ -365,7 +369,8 @@
 
                                             <div class="mb-4">
                                                 <x-input id="favorite_color" name="meta[more][favorite_color]"
-                                                    label="Favorite Color" x-model="form.meta.more.favorite_color" />
+                                                    label="Favorite Color"
+                                                    x-model="form.meta.more.favorite_color" />
                                             </div>
 
                                             <div class="mb-4">
@@ -375,7 +380,8 @@
                                             </div>
                                             <div class="mb-4">
                                                 <x-input id="favorite_spot" name="meta[more][favorite_spot]"
-                                                    label="Favourite Sports" x-model="form.meta.more.favorite_spot" />
+                                                    label="Favourite Sports"
+                                                    x-model="form.meta.more.favorite_spot" />
                                             </div>
                                         </div>
                                     </div>
@@ -457,8 +463,8 @@
                                                 <div x-data="{ photoName: null, photoPreview: null }"
                                                     class="col-span-6 ml-2 sm:col-span-4 md:mr-3">
                                                     <!-- Photo File Input -->
-                                                    <input id="headshot_photo" name="headshot_photo" type="file"
-                                                        class="hidden" x-ref="photo"
+                                                    <input id="headshot_photo" name="headshot_photo" type="file" class="hidden"
+                                                        x-ref="photo"
                                                         accept="image/png, image/gif, image/jpeg"
                                                         x-on:change="
                                                                     photoName = $refs.photo.files[0].name;
@@ -508,8 +514,8 @@
                                                 <div x-data="{ photoName: null, photoPreview: null }"
                                                     class="col-span-6 ml-2 sm:col-span-4 md:mr-3">
                                                     <!-- Photo File Input -->
-                                                    <input id="waist_up_photo" name="waist_up_photo" type="file"
-                                                        class="hidden" x-ref="photo"
+                                                    <input id="waist_up_photo" name="waist_up_photo" type="file" class="hidden"
+                                                        x-ref="photo"
                                                         accept="image/png, image/gif, image/jpeg"
                                                         x-on:change="
                                                                         photoName = $refs.photo.files[0].name;
@@ -524,7 +530,7 @@
                                                     <label
                                                         class="mb-2 block text-center text-sm font-bold text-gray-700"
                                                         for="waist_up_photo">
-                                                        Upload Your Passport Size Photo Colour (Maximum Size 1 MB)
+                                                       Upload Your Passport Size Photo Colour (Maximum Size 1 MB)
                                                         <span class="text-red-600"> </span>
                                                     </label>
 
@@ -557,8 +563,8 @@
                                                 <div x-data="{ photoName: null, photoPreview: null }"
                                                     class="col-span-6 ml-2 sm:col-span-4 md:mr-3">
                                                     <!-- Photo File Input -->
-                                                    <input id="passport_copy" name="passport_copy" type="file"
-                                                        class="hidden" x-ref="photo"
+                                                    <input id="passport_copy" name="passport_copy" type="file" class="hidden"
+                                                        x-ref="photo"
                                                         accept="image/png, image/gif, image/jpeg"
                                                         x-on:change="
                                                                 photoName = $refs.photo.files[0].name;
@@ -573,8 +579,9 @@
                                                     <label
                                                         class="mb-2 block text-center text-sm font-bold text-gray-700"
                                                         for="passport_copy">
-                                                        Upload Your Passport Copy (Data Page Only) (Maximum Size 1 MB)
-                                                        <span class="text-red-600"> </span>
+                                                         Upload Your Passport Copy (Data Page Only) (Maximum Size 1 MB)
+                                                         <span
+                                                            class="text-red-600"> </span>
                                                     </label>
 
                                                     <div class="text-center">
@@ -674,14 +681,8 @@
             </div>
         </div>
     </div>
-    {{-- @livewireScripts --}}
-    
-   
-
-
-
-
-
+    @livewireScripts
+    <wireui:scripts />
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@23.3.2/build/js/intlTelInput.min.js"></script>
     <script>
         const phone_number = document.querySelector("#phone_number");
@@ -690,7 +691,7 @@
             initialCountry: "sg",
         });
     </script>
-    
+
     <script>
         function application_form() {
             return {
@@ -750,7 +751,7 @@
                     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     return re.test(String(email).toLowerCase());
                 },
-    
+
                 validateStep(step) {
                     let isValid = true;
                     switch (step) {
@@ -765,7 +766,7 @@
                             }
                             break;
                         case 1:
-                            this.form.phone = iti.getNumber();
+                            this.form.phone= iti.getNumber();
                             if (!this.form.first_name) {
                                 this.errors.first_name = 'First name is required.';
                                 isValid = false;
@@ -799,7 +800,7 @@
                                 isValid = false;
                             }
                             // email should  email
-    
+
                             if (!this.form.phone) {
                                 this.errors.phone = 'Phone number is required.';
                                 isValid = false;
@@ -847,25 +848,25 @@
                 },
                 selectCountry(event) {
                     if (event.detail) {
-    
+
                         this.form.country = event.detail.country;
                     }
                 },
-    
+
                 nextStep() {
                     this.errors = {}; // Reset errors
                     if (this.validateStep(this.step)) {
                         this.step++;
                     }
                 },
-    
+
                 previousStep() {
                     if (this.step > 1) {
                         this.step--;
                     }
                 },
                 submitApplication() {
-    
+
                     this.errors = {}; // Reset errors before validation
                     const formData = new FormData();
                     const appendData = (data, parentKey = '') => {
@@ -881,7 +882,7 @@
                             }
                         }
                     };
-    
+
                     appendData(this.form);
                     var self = this;
                     this.loading = true;
@@ -904,12 +905,13 @@
                             self.loading = false;
                             // Handle error response
                         });
-    
+
                 }
-    
+
             }
         }
-    
+    </script>
+    <script>
         function timer(expiry) {
             return {
                 expiry: expiry,
@@ -961,5 +963,10 @@
             }
         }
     </script>
-</div>
-@endsection
+
+
+
+
+</body>
+
+</html>

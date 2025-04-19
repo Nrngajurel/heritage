@@ -104,9 +104,12 @@
         }
     </style>
     @stack('styles')
-    @livewireStyles
-    <wireui:scripts />
-    @vite(['resources/css/app.css', 'resources/css/pageant.css', 'resources/js/app.js'])
+
+    @if (!request()->is('apply'))
+        @vite(['resources/css/app.css', 'resources/css/pageant.css', 'resources/js/app.js'])
+    @else
+        @vite(['resources/css/app.css', 'resources/css/pageant.css'])
+    @endif
 
 </head>
 
@@ -190,7 +193,7 @@
                         <span class="from-gold/20 to-gold/0 absolute inset-0 rounded-full bg-gradient-to-r"></span>
                         <span class="text-gold relative font-medium">Vote Now</span>
                     </a>
-                    <a href="/apply" class="nav-button group relative px-6 py-2">
+                    <a href="{{ route('newApplicationForm') }}" class="nav-button group relative px-6 py-2">
                         <span class="from-gold/20 to-gold/0 absolute inset-0 rounded-full bg-gradient-to-r"></span>
                         <span class="text-gold relative font-medium">Apply Now</span>
                     </a>
@@ -253,8 +256,6 @@
 
     @yield('content')
 
-    @stack('scripts')
-
 
 
     <script>
@@ -311,7 +312,7 @@
     </script>
 
     @include('layouts.partials.footer')
-    @livewireScripts
+    @stack('scripts')
 </body>
 
 </html>

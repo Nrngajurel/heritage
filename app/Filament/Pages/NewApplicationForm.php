@@ -498,12 +498,10 @@ class NewApplicationForm extends Component implements HasForms
                 ->success()
                 ->send();
 
-        
+            $this->dispatch('application-submitted');
             
         } catch (\Exception $e) {
             DB::rollBack();
-
-            
             
             Notification::make()
                 ->title('Error Submitting Application')
@@ -524,6 +522,7 @@ class NewApplicationForm extends Component implements HasForms
 
     public function render()
     {
+        $this->dispatch('application-submitted');
         return view('filament.pages.new-application-form');
     }
 } 

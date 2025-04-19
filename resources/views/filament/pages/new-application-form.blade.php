@@ -11,7 +11,7 @@
     </div>
 </div>
 
-@push('scripts')
+{{-- @push('scripts')
 <script>
     function timer(expiry) {
         return {
@@ -64,4 +64,4 @@
         }
     }
 </script>
-@endpush 
+@endpush  --}}

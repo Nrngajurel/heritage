@@ -22,9 +22,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('countryOptions',[FrontendController::class, 'countryOptions'])->name('countryOptions');
-Route::get('apply', [FrontendController::class, 'newApplicationForm'])->name('newApplicationForm');
-Route::get('application-form', [FrontendController::class, 'applicationForm'])->name('application-form');
-Route::post('application-form', [FrontendController::class, 'applicationFormSubmit'])->name('application-form-submit');
+Route::get( 'application-form', [FrontendController::class, 'newApplicationForm'])->name('newApplicationForm');
+// Route::get('application-form', [FrontendController::class, 'applicationForm'])->name('application-form');
+// Route::post('application-form', [FrontendController::class, 'applicationFormSubmit'])->name('application-form-submit');
 Route::get('vote', [FrontendController::class, 'vote'])->name('vote.index');
 Route::get('vote/{contestant}', [FrontendController::class, 'show'])->name('vote.show');
 Route::post('vote/{contestant}', [FrontendController::class, 'castVote'])->name('cast.vote');
