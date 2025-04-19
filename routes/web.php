@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::redirect('/', '/application-form');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('countryOptions',[FrontendController::class, 'countryOptions'])->name('countryOptions');
 Route::get( 'application-form', [FrontendController::class, 'newApplicationForm'])->name('newApplicationForm');
