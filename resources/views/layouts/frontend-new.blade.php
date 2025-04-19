@@ -105,7 +105,7 @@
     </style>
     @stack('styles')
 
-    @if (!request()->is('apply'))
+    @if (!request()->is('application-form'))
         @vite(['resources/css/app.css', 'resources/css/pageant.css', 'resources/js/app.js'])
     @else
         @vite(['resources/css/app.css', 'resources/css/pageant.css'])
