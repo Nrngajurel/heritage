@@ -1,4 +1,4 @@
-<div class="min-h-screen py-12">
+<div class="min-h-screen py-0 md:py-12">
     @error('form')
         <div class="alert alert-danger">
             {{ $message }}
