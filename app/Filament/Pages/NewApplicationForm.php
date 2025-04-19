@@ -108,7 +108,7 @@ class NewApplicationForm extends Component implements HasForms
                     Step::make('Event Selection')
                         ->icon('heroicon-m-calendar-days')
                         ->schema([
-                            Section::make()
+                            Section::make('Event Selection')
                                 ->description(new HtmlString($this->getEventHeader()))
                                 ->icon('heroicon-o-globe-alt')
                                 ->schema([
@@ -134,7 +134,7 @@ class NewApplicationForm extends Component implements HasForms
                     Step::make('Personal Information')
                         ->icon('heroicon-m-user-circle')
                         ->schema([
-                            Section::make()
+                            Section::make('Personal Information')
                                 ->columns([
                                     'default' => 1,
                                     'sm' => 2,
