@@ -61,11 +61,11 @@
         <!-- Hero Slider Section -->
         <div class="relative overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800 pt-24">
             <div class="swiper hero-slider">
-                <div class="swiper-wrapper max-h-[50vh] md:max-h-[70vh]">
+                <div class="swiper-wrapper max-h-[200px] md:max-h-[70vh]">
                     @foreach ($sliders->where('location', 'main')->pluck('image_path') as $image)
                         <div class="swiper-slide">
                             <div class="relative w-full">
-                                <img src="{{ asset('storage/' . $image) }}" class="min-h-[400px] w-full object-cover"
+                                <img src="{{ asset('storage/' . $image) }}" class="w-full object-cover"
                                     alt="Heritage Pageant">
                             </div>
                         </div>
