@@ -146,14 +146,7 @@
                                 class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">Home</span>
                         </span>
                     </a>
-                    <a href="{{ route('gallery') }}" class="nav-link-hover group px-4 py-2">
-                        <span class="relative">
-                            <span
-                                class="bg-gold absolute inset-x-0 -bottom-1 h-0.5 origin-left scale-x-0 transform transition-transform duration-300 group-hover:scale-x-100"></span>
-                            <span
-                                class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">Gallery</span>
-                        </span>
-                    </a>
+                    
                     
                     <!-- Events Dropdown -->
                     <div class="relative" x-data="{ open: false }" @click.away="open = false">
@@ -189,14 +182,34 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('vote.index') }}" class="nav-button group relative px-6 py-2">
-                        <span class="from-gold/20 to-gold/0 absolute inset-0 rounded-full bg-gradient-to-r"></span>
-                        <span class="text-gold relative font-medium">Vote Now</span>
+                    <a href="{{ route('gallery') }}" class="nav-link-hover group px-4 py-2">
+                        <span class="relative">
+                            <span
+                                class="bg-gold absolute inset-x-0 -bottom-1 h-0.5 origin-left scale-x-0 transform transition-transform duration-300 group-hover:scale-x-100"></span>
+                            <span
+                                class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">Gallery</span>
+                        </span>
+                    </a>
+
+
+                    <a href="{{ route('home') }}" class="nav-link-hover group px-4 py-2">
+                        <span class="relative">
+                            <span
+                                class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">Team</span>
+                        </span>
                     </a>
                     <a href="{{ route('newApplicationForm') }}" class="nav-button group relative px-6 py-2">
                         <span class="from-gold/20 to-gold/0 absolute inset-0 rounded-full bg-gradient-to-r"></span>
                         <span class="text-gold relative font-medium">Apply Now</span>
                     </a>
+
+                    <a href="{{ asset('heritage_pageants_2025.pdf') }}" target="_blank" class="nav-link-hover group px-4 py-2">
+                        <span class="relative">
+                            <span
+                                class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">MHI 2025</span>
+                        </span>
+                    </a>
+
                     <a href="/contact" class="nav-link-hover group px-4 py-2">
                         <span class="relative">
                             <span
@@ -204,6 +217,10 @@
                             <span
                                 class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">Contact</span>
                         </span>
+                    </a>
+                    <a href="{{ route('vote.index') }}" class="nav-button group relative px-6 py-2">
+                        <span class="from-gold/20 to-gold/0 absolute inset-0 rounded-full bg-gradient-to-r"></span>
+                        <span class="text-gold relative font-medium">Vote Now</span>
                     </a>
                 </div>
 
