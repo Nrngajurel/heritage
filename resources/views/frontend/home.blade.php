@@ -61,7 +61,7 @@
         <!-- Hero Slider Section -->
         <div class="relative overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800 pt-24">
             <div class="swiper hero-slider">
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper max-h-[50vh] md:max-h-[70vh]">
                     @foreach ($sliders->where('location', 'main')->pluck('image_path') as $image)
                         <div class="swiper-slide">
                             <div class="relative w-full">
@@ -193,7 +193,7 @@
                     <p class="text-gold/70 mb-8 text-center text-lg italic">Celebrating the Legacy of Excellence and Grace
                     </p>
 
-                    <div class="swiper title-holders-slider">
+                    <div class="swiper title-holders-slider max-h-[500px]">
                         <div class="swiper-wrapper">
                             @foreach (['https://heritagepageant.com/wp-content/uploads/2024/04/Mis-Heritage-2014-200x300.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/04/2015-200x300.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/04/Miss-2016-200x300.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/04/2019-1-200x300.jpg', 'https://heritagepageant.com/wp-content/uploads/2023/09/Russia-8-200x300.jpg', 'https://heritagepageant.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-01-at-5.52.50-PM-300x300.jpeg', 'https://heritagepageant.com/wp-content/uploads/2024/06/MISS-HERITAGE-INTERNATIONAL-2023.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/06/MRS-HERITAGE-INTERNATIONAL-2016.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/06/MRS-HERITAGE-INTERNATIONAL-2019.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/06/MRS-HERITAGE-INTERNATIONAL-2022.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/06/MRS-HERITAGE-INTERNATIONAL-2023.jpg'] as $index => $image)
                                 <div class="swiper-slide">
@@ -256,7 +256,7 @@
                         Heritage Highlights</h2>
                     <p class="text-gold/70 mb-8 text-center text-lg italic">Celebrating Our Most Memorable Heritage Moments
                     </p>
-                    <div class="swiper highlights-slider">
+                    <div class="swiper highlights-slider max-h-[500px]">
                         <div class="swiper-wrapper">
                             @foreach ($sliders->where('location', 'highlight') as $key => $image)
                                 <div class="swiper-slide">

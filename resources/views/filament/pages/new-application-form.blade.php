@@ -1,11 +1,36 @@
 <div class="min-h-screen py-0 md:py-12">
+
     @error('form')
         <div class="alert alert-danger">
             {{ $message }}
         </div>
     @enderror
+
+    <!-- Submitting Overlay -->
+    <div wire:loading.delay
+    wire:target="submit"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 backdrop-blur-md">
+        <!-- Shimmering Gradient Ring -->
+        <div class="relative">
+            <div
+                class="absolute inset-0 animate-pulse rounded-full bg-gradient-to-tr from-pink-500/20 via-purple-500/20 to-fuchsia-500/20 blur-xl">
+            </div>
+
+            <!-- Spinner & Text -->
+            <div class="relative z-10 flex flex-col items-center space-y-6 px-6 py-10 text-white">
+                <!-- Custom Spinner -->
+                <div class="h-16 w-16 animate-spin rounded-full border-4 border-pink-500 border-t-transparent"></div>
+
+                <!-- Elegant Heading -->
+                <div class="text-center">
+                    <h2 class="text-2xl font-semibold tracking-wider text-pink-300">Hold on, gorgeous ✨</h2>
+                    <p class="mt-2 text-sm text-gray-300">We’re submitting your stunning application...</p>
+                </div>
+            </div>
+        </div>
+    </div>
     @if ($submitted)
-        <div >
+        <div x-init="window.scrollTo(0, 0)">
             <div class="flex items-center justify-center rounded-lg bg-white p-10 shadow">
                 <div>
                     <svg class="mx-auto mb-4 h-20 w-20 text-green-500" viewBox="0 0 20 20" fill="currentColor">

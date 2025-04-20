@@ -40,5 +40,5 @@ Route::get('events/{event}', [FrontendController::class, 'event'])->name('events
 Route::view('mail-template', 'emails.template');
 Route::view('mail-template1', 'emails.template1');
 
-Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
+Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');

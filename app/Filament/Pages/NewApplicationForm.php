@@ -2,6 +2,9 @@
 
 namespace App\Filament\Pages;
 
+use App\Models\Application;
+use App\Notifications\ApplicationSubmitted;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
@@ -19,9 +22,12 @@ use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class NewApplicationForm extends Component implements HasForms
@@ -345,7 +351,7 @@ class NewApplicationForm extends Component implements HasForms
                         ]),
                 ])
                 ->skippable(false)
-                ->submitAction(new HtmlString('<button type="submit" class="inline-flex justify-center items-center gap-1 bg-primary-600 hover:bg-primary-500 focus:bg-primary-700 shadow px-4 py-2 border border-transparent rounded-lg outline-none focus:ring-2 focus:ring-white focus:ring-inset focus:ring-offset-2 focus:ring-offset-primary-700 min-h-[2.25rem] filament-button-size-md font-medium text-white text-sm transition-colors filament-button"><span class="heroicon-m-paper-airplane"></span>Submit Application</button>')),
+                ->submitAction(new HtmlString('<button type="submit" wire:loading.attr="disabled" class="inline-flex justify-center items-center gap-1 bg-primary-800 hover:bg-primary-700 focus:bg-primary-900 disabled:opacity-70 shadow px-4 py-2 border border-transparent rounded-lg outline-none focus:ring-2 focus:ring-white focus:ring-inset focus:ring-offset-2 focus:ring-offset-primary-900 min-h-[2.25rem] filament-button-size-md font-medium text-white text-sm transition-colors disabled:cursor-not-allowed filament-button"><span class="heroicon-m-paper-airplane"></span>Submit Application</button>')),
             ]);
     }
 
@@ -483,43 +489,66 @@ class NewApplicationForm extends Component implements HasForms
                 'terms_acceptance_d' => $data['terms_acceptance_d'],
             ]);
 
-            DB::commit();
+            // DB::commit();
 
             // // reset data
-            $this->data = [
-                'country' => '',
-                'competition_id' => '',
-                'first_name' => '',
-                'last_name' => '',
-                'email' => '',
-                'phone' => '',
-                'address' => [
-                    'address_line_1' => '',
-                    'city' => '',
-                    'state' => '',
-                    'zip' => ''
-                ],
-                'meta' => [
-                    'personal_background' => [
-                        'date_of_birth' => '',
-                        'age' => '',
-                        'height' => '',
-                        'weight' => '',
-                        'dress_size' => '',
-                        'shoe_size' => ''
-                    ],
-                    'personal_statement' => ''
-                ],
-                'headshot_photo' => '',
-                'waist_up_photo' => '',
-                'passport_copy' => '',
-                'terms_acceptance_a' => false,
-                'terms_acceptance_b' => false,
-                'terms_acceptance_c' => false,
-                'terms_acceptance_d' => false
-            ];
+            // $this->data = [
+            //     'country' => '',
+            //     'competition_id' => '',
+            //     'first_name' => '',
+            //     'last_name' => '',
+            //     'email' => '',
+            //     'phone' => '',
+            //     'address' => [
+            //         'address_line_1' => '',
+            //         'city' => '',
+            //         'state' => '',
+            //         'zip' => ''
+            //     ],
+            //     'meta' => [
+            //         'personal_background' => [
+            //             'date_of_birth' => '',
+            //             'age' => '',
+            //             'height' => '',
+            //             'weight' => '',
+            //             'dress_size' => '',
+            //             'shoe_size' => ''
+            //         ],
+            //         'personal_statement' => ''
+            //     ],
+            //     'headshot_photo' => '',
+            //     'waist_up_photo' => '',
+            //     'passport_copy' => '',
+            //     'terms_acceptance_a' => false,
+            //     'terms_acceptance_b' => false,
+            //     'terms_acceptance_c' => false,
+            //     'terms_acceptance_d' => false
+            // ];
             // $this->form->fill();
             // $this->wizard->setCurrentStep('step-1');
+
+            try{
+                $application->notify(new ApplicationSubmitted());
+
+                // send pdf to admin
+                $pdf = Pdf::loadHtml(
+                    Blade::render('filament.resources.application.pages.view-application', [
+                        'records' =>[ $application->refresh()],
+                        'exportPdf' => true
+                    ])
+                );
+                // send pdf to admin directly inline mail statement
+                Mail::raw('Please find the application attached', function ($message) use ($pdf) {
+                    $message->to('pageantofheritage@gmail.com')
+                            ->subject('New Application Submission')
+                            ->attachData($pdf->output(), 'application.pdf');
+                });
+            }catch(\Exception $e){
+                
+
+                Log::error($e);
+                
+            }
 
             Notification::make()
                 ->title('Application Submitted Successfully')
@@ -533,7 +562,7 @@ class NewApplicationForm extends Component implements HasForms
         } catch (\Exception $e) {
             DB::rollBack();
 
-            dd($e);
+            Log::error($e);
             
             Notification::make()
                 ->title('Error Submitting Application')

@@ -138,7 +138,7 @@
 
                 <!-- Desktop Navigation -->
                 <div class="hidden sm:flex sm:items-center sm:space-x-1">
-                    <a href="/" class="nav-link-hover group px-4 py-2">
+                    <a href="{{ route('home') }}" class="nav-link-hover group px-4 py-2">
                         <span class="relative">
                             <span
                                 class="bg-gold absolute inset-x-0 -bottom-1 h-0.5 origin-left scale-x-0 transform transition-transform duration-300 group-hover:scale-x-100"></span>
@@ -146,7 +146,7 @@
                                 class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">Home</span>
                         </span>
                     </a>
-                    <a href="/gallery" class="nav-link-hover group px-4 py-2">
+                    <a href="{{ route('gallery') }}" class="nav-link-hover group px-4 py-2">
                         <span class="relative">
                             <span
                                 class="bg-gold absolute inset-x-0 -bottom-1 h-0.5 origin-left scale-x-0 transform transition-transform duration-300 group-hover:scale-x-100"></span>
@@ -189,7 +189,7 @@
                         </div>
                     </div>
 
-                    <a href="/vote" class="nav-button group relative px-6 py-2">
+                    <a href="{{ route('vote.index') }}" class="nav-button group relative px-6 py-2">
                         <span class="from-gold/20 to-gold/0 absolute inset-0 rounded-full bg-gradient-to-r"></span>
                         <span class="text-gold relative font-medium">Vote Now</span>
                     </a>
@@ -220,8 +220,8 @@
             <!-- Mobile Menu -->
             <div class="sm:hidden" x-show="mobileMenu" x-transition>
                 <div class="space-y-1 pb-3 pt-2">
-                    <a href="/" class="hover:text-gold block px-3 py-2 text-gray-300">Home</a>
-                    <a href="/gallery" class="hover:text-gold block px-3 py-2 text-gray-300">Gallery</a>
+                    <a href="{{ route('home') }}" class="hover:text-gold block px-3 py-2 text-gray-300">Home</a>
+                    <a href="{{ route('gallery') }}" class="hover:text-gold block px-3 py-2 text-gray-300">Gallery</a>
                     
                     <!-- Mobile Events Dropdown -->
                     <div x-data="{ open: false }">
@@ -245,8 +245,9 @@
                         </div>
                     </div>
 
-                    <a href="/vote" class="text-gold block px-3 py-2 font-medium">Vote Now</a>
-                    <a href="/contact" class="hover:text-gold block px-3 py-2 text-gray-300">Contact</a>
+                    <a href="{{ route('vote.index') }}" class="text-gold block px-3 py-2 font-medium">Vote Now</a>
+                    <a href="{{ route('newApplicationForm') }}" class="text-gold block px-3 py-2 font-medium">Apply Now</a>
+                    <a href="{{ route('contact') }}" class="hover:text-gold block px-3 py-2 text-gray-300">Contact</a>
                 </div>
             </div>
         </div>
