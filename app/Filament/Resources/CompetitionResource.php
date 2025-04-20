@@ -26,8 +26,13 @@ class CompetitionResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('description')
+                Forms\Components\Textarea::make('description')
                     ->maxLength(255),
+
+                Forms\Components\TextInput::make('sort_order')
+                    ->numeric()
+                    ->default(0)
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -39,15 +44,14 @@ class CompetitionResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('sort_order')->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+
             ])
+            ->defaultSort('sort_order', 'asc')
             ->filters([
                 //
             ])
@@ -62,7 +66,8 @@ class CompetitionResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->reorderable('sort_order');
     }
 
     public static function getPages(): array

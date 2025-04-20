@@ -19,6 +19,7 @@
         "openspout/openspout": "^4.24",
         "power-components/livewire-powergrid": "^5.1",
         "psr/simple-cache": "^2.0",
+        "spatie/eloquent-sortable": "^4.4",
         "spatie/laravel-medialibrary": "^10.0.0",
         "wireui/wireui": "^1.19"
     },
