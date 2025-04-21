@@ -53,7 +53,7 @@
             </div>
         </div>
     @else
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="dark mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="space-y-6">
 

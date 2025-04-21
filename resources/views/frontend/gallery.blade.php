@@ -19,7 +19,7 @@
         </div>
 
         <!-- Gallery Content -->
-        <div class="container mx-auto px-4 py-8">
+        <div class="mx-auto max-w-7xl px-4 py-8">
             @foreach ($gallery as $item)
                 <div class="mb-8">
                     <!-- Section Title -->

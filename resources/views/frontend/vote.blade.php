@@ -592,7 +592,7 @@
                                     </div>
 
                                     <button :id="'vote-button-' + {{ $index + 1 }}"
-                                        @click="castVote({{ $index + 1 }}); selectedContestant = {{ $index + 1 }}"
+                                        @click.prevent="castVote({{ $index + 1 }}); selectedContestant = {{ $index + 1 }}"
                                         :disabled="loading"
                                         class="vote-button flex w-full items-center justify-center space-x-2 disabled:cursor-not-allowed disabled:opacity-50">
                                         <span>Vote Now</span>

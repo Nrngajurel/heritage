@@ -114,7 +114,7 @@
 </head>
 
 
-<body class="min-h-screen bg-gray-900 text-gray-100 antialiased" x-data="{ mobileMenu: false }">
+<body class="min-h-screen bg-gray-900 text-gray-100 antialiased" x-data="{ mobileMenu: false }" x-cloak>
 
 
     <!-- Navigation -->
@@ -169,15 +169,17 @@
                              x-transition:leave-start="opacity-100 translate-y-0"
                              x-transition:leave-end="opacity-0 translate-y-1"
                              class="absolute left-0 mt-2 w-64 rounded-md bg-gray-900 py-2 shadow-xl">
-                            @foreach($events as $event)
-                                <a href="{{ route('events.show', $event->id) }}" 
-                                   class="hover:bg-gold/10 hover:text-gold block px-4 py-3 text-sm text-gray-300">
-                                    {{ $event->name }}
-                                </a>
-                                @unless($loop->last)
-                                    <div class="my-0.5 border-t border-gray-700"></div>
-                                @endunless
-                            @endforeach
+                            <div class="max-h-96 overflow-y-auto">
+                                @foreach($events as $event)
+                                    <a href="{{ route('events.show', $event->id) }}" 
+                                       class="hover:bg-gold/10 hover:text-gold block px-4 py-3 text-sm text-gray-300">
+                                        {{ $event->name }}
+                                    </a>
+                                    @unless($loop->last)
+                                        <div class="my-0.5 border-t border-gray-700"></div>
+                                    @endunless
+                                @endforeach
+                            </div>
                            
                         </div>
                     </div>
@@ -236,7 +238,7 @@
             </div>
             <!-- Mobile Menu -->
             <div class="sm:hidden" x-show="mobileMenu" x-transition>
-                <div class="space-y-1 pb-3 pt-2">
+                <div class="space-y-1 overflow-auto pb-3 pt-2">
                     <a href="{{ route('home') }}" class="hover:text-gold block px-3 py-2 text-gray-300">Home</a>
                     
                     <!-- Mobile Events Dropdown -->
@@ -247,7 +249,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
-                        <div x-show="open" class="pl-4">
+                        <div x-show="open" class="max-h-60 overflow-auto pl-4">
                             @foreach($events as $event)
                                 <a href="{{ route('events.show', $event->id) }}" 
                                    class="hover:text-gold block px-3 py-2 text-sm text-gray-300">
