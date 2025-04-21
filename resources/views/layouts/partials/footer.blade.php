@@ -102,7 +102,7 @@
 
                 <!-- Facebook Feed -->
                 <div class="mt-12 xl:mt-0">
-                    <iframe 
+                    {{-- <iframe 
                         name="f47feba4b8e50ef63" 
                         width="300" 
                         height="400" 
@@ -115,7 +115,7 @@
                         allow="encrypted-media" 
                         src="https://www.facebook.com/v18.0/plugins/page.php?adapt_container_width=true&amp;app_id=448669870225600&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Dfb133308fe1764147%26domain%3Dheritagepageant.com%26is_canvas%3Dfalse%26origin%3Dhttps%253A%252F%252Fheritagepageant.com%252Ff3bec6ac9aff8b4b5%26relation%3Dparent.parent&amp;container_width=503&amp;hide_cover=false&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpageantofheritage&amp;locale=en_US&amp;sdk=joey&amp;show_facepile=true&amp;small_header=false&amp;tabs=timeline&amp;width="
                         class="w-full">
-                    </iframe>
+                    </iframe> --}}
                 </div>
             </div>
 
