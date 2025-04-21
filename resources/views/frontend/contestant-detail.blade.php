@@ -1,4 +1,5 @@
 @extends('layouts.frontend-new')
+@section('title', "{$contestant->name} Profile")
 
 @push('styles')
     <style>

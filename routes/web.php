@@ -36,6 +36,7 @@ Route::get('blog/{post}', [FrontendController::class, 'blogPost'])->name('blog.s
 
 Route::get('gallery', [FrontendController::class, 'gallery'])->name('gallery');
 Route::get('events/{event}', [FrontendController::class, 'event'])->name('events.show');
+Route::get('team', [FrontendController::class, 'team'])->name('team');
 
 Route::view('mail-template', 'emails.template');
 Route::view('mail-template1', 'emails.template1');

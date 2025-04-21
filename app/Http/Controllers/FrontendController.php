@@ -92,6 +92,11 @@ class FrontendController extends Controller
             'event' => $event
         ]);
     }
+    public function team()
+    {
+        return view('frontend.team');
+    }
+
     public function vote()
     {
         $contestants = \App\Models\Contestant::orderBy('votes', 'desc')

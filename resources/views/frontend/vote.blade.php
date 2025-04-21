@@ -1,5 +1,7 @@
 @extends('layouts.frontend-new')
 
+@section('title', "Voting")
+
 @section('content')
     <style>
         @keyframes float {

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Miss Heritage International 2025 - Heritage Pageants</title>
+    <title>@yield('title', 'Miss Heritage International 2025') - Heritage Pageants</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -192,7 +192,7 @@
                     </a>
 
 
-                    <a href="{{ route('home') }}" class="nav-link-hover group px-4 py-2">
+                    <a href="{{ route('team') }}" class="nav-link-hover group px-4 py-2">
                         <span class="relative">
                             <span
                                 class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">Team</span>
@@ -238,7 +238,6 @@
             <div class="sm:hidden" x-show="mobileMenu" x-transition>
                 <div class="space-y-1 pb-3 pt-2">
                     <a href="{{ route('home') }}" class="hover:text-gold block px-3 py-2 text-gray-300">Home</a>
-                    <a href="{{ route('gallery') }}" class="hover:text-gold block px-3 py-2 text-gray-300">Gallery</a>
                     
                     <!-- Mobile Events Dropdown -->
                     <div x-data="{ open: false }">
@@ -258,13 +257,15 @@
                                     <div class="my-0.5 border-t border-gray-700"></div>
                                 @endunless
                             @endforeach
-                            
                         </div>
                     </div>
 
-                    <a href="{{ route('vote.index') }}" class="text-gold block px-3 py-2 font-medium">Vote Now</a>
+                    <a href="{{ route('gallery') }}" class="hover:text-gold block px-3 py-2 text-gray-300">Gallery</a>
+                    <a href="{{ route('team') }}" class="hover:text-gold block px-3 py-2 text-gray-300">Team</a>
                     <a href="{{ route('newApplicationForm') }}" class="text-gold block px-3 py-2 font-medium">Apply Now</a>
-                    <a href="{{ route('contact') }}" class="hover:text-gold block px-3 py-2 text-gray-300">Contact</a>
+                    <a href="{{ asset('heritage_pageants_2025.pdf') }}" target="_blank" class="hover:text-gold block px-3 py-2 text-gray-300">MHI 2025</a>
+                    <a href="/contact" class="hover:text-gold block px-3 py-2 text-gray-300">Contact</a>
+                    <a href="{{ route('vote.index') }}" class="text-gold block px-3 py-2 font-medium">Vote Now</a>
                 </div>
             </div>
         </div>
