@@ -116,7 +116,9 @@
                         <div class="flex-shrink-0">
                             <img src="https://heritagepageant.com/wp-content/uploads/2023/08/Screenshot-2023-08-24-190015.png" 
                                  alt="Santosh Sapkota" 
-                                 class="profile-image">
+                                 class="profile-image"
+                                 loading="lazy"
+                                 >
                         </div>
                     </div>
                 </div>
@@ -127,7 +129,9 @@
                         <div class="flex-shrink-0">
                             <img src="https://heritagepageant.com/wp-content/uploads/2023/09/WhatsApp-Image-2023-08-29-at-6.24.46-PM-1024x1024.jpeg" 
                                  alt="Susan Koh" 
-                                 class="profile-image">
+                                 class="profile-image"
+                                 loading="lazy"
+                                 >
                         </div>
                         <div class="flex-1">
                             <h2 class="text-gold mb-4 text-4xl font-bold">SUSAN SANFURNI KOH</h2>
@@ -174,7 +178,9 @@
                         <div class="flex-shrink-0">
                             <img src="https://heritagepageant.com/wp-content/uploads/2023/09/WhatsApp-Image-2023-08-29-at-6.25.22-PM-1024x1024.jpeg" 
                                  alt="Culvin Mavunga" 
-                                 class="profile-image">
+                                 class="profile-image"
+                                 loading="lazy"
+                                 >
                         </div>
                     </div>
                 </div>
@@ -231,6 +237,7 @@
                         <div class="relative overflow-hidden">
                             <img src="{{ $member['image'] }}" 
                                  alt="{{ $member['name'] }}" 
+                                 loading="lazy"
                                  class="member-image w-full object-cover transition-transform duration-300">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                             <div class="absolute bottom-0 left-0 right-0 translate-y-4 p-6 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
