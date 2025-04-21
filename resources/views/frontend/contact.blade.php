@@ -71,7 +71,7 @@
                         <h3 class="text-lg font-semibold text-white">Follow Us</h3>
                         <div class="mt-4 flex space-x-4">
                             @foreach(setting()->social_links as $link)
-                                @if($link['url'])
+                                @if(isset($link['url']) && $link['url'])
                                     <a href="{{ $link['url'] }}" class="bg-gold/10 text-gold hover:bg-gold rounded-full p-3 transition-all hover:text-white" target="_blank" rel="noopener noreferrer">
                                         <span class="sr-only">{{ ucfirst($link['platform']) }}</span>
                                         @if($link['platform'] == 'facebook')

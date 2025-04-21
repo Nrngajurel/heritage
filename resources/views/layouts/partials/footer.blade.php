@@ -75,8 +75,9 @@
                     
 
                     <div class="mt-6 flex space-x-6">
+                        {{ throw new \Exception('something') }}
                         @foreach(setting()->social_links as $link)
-                        @if($link['url'])
+                        @if(isset($link['url']) && $link['url'])
                         <a href="{{ $link['url'] }}" class="hover:text-gold pr-2 text-gray-400" target="_blank" rel="noopener noreferrer">
                             <span class="sr-only">{{ ucfirst($link['platform']) }}</span>
 
