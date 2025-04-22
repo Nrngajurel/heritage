@@ -65,8 +65,7 @@
                     @foreach ($sliders->where('location', 'main')->pluck('image_path') as $image)
                         <div class="swiper-slide">
                             <div class="relative w-full">
-                                <img src="{{ asset('storage/' . $image) }}" class="w-full object-cover"
-                                    alt="Heritage Pageant">
+                                <img src="{{ asset('storage/' . $image) }}" class="w-full object-cover" alt="Heritage Pageant">
                             </div>
                         </div>
                     @endforeach
@@ -81,42 +80,47 @@
             <!-- Introduction Section -->
             <section class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 px-4 py-12 text-center sm:px-6 lg:px-8">
                 <div class="container mx-auto px-4">
-                    <h1
-                        class="pageant-heading mb-4 text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
+                    <h1 class="pageant-heading animate-fade-in-up mb-4 text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
                         PAGEANT OF HERITAGE</h1>
                     <div class="mx-auto mb-12 text-white">
-                        <p class="mb-6 mt-10 text-gray-200">Pageant of Heritage is an ultimate international beauty pageant
-                            that
-                            endeavours to promote
-                            Peace, Environment, Tourism, Culture and above all global Heritage (P.E.T.C.H.) from a global
+                        <p class="animate-fade-in-up mb-6 mt-10 text-gray-200" style="animation-delay: 0.2s">Pageant of Heritage is an ultimate international beauty pageant
+                            that endeavours to promote Peace, Environment, Tourism, Culture and above all global Heritage (P.E.T.C.H.) from a global
                             perspective. The Heritage Pageants beauty pageant was founded in 2011 by Eplanet private limited
-                            (Turning Events into Indelible Memories) entity upon the apprehension of the Indispensable
-                            rationale
-                            of
-                            beauty pageants in promoting fundamental global agendas. Pageant of Heritage also known as
-                            Heritage
-                            pageants.</p>
+                            (Turning Events into Indelible Memories) entity upon the apprehension of the Indispensable rationale
+                            of beauty pageants in promoting fundamental global agendas. Pageant of Heritage also known as
+                            Heritage pageants.</p>
                     </div>
                     <div class="relative z-10">
-                        <h2 class="mb-4 mt-24 text-4xl font-bold uppercase opacity-60">Heritage Pageants celebrate peace,
-                            environmental awareness,
-                            tourism, culture, and heritage.</h2>
+                        <h2 class="animate-fade-in-up mb-4 mt-24 font-serif text-4xl uppercase leading-normal opacity-80" style="animation-delay: 0.4s">
+                            Heritage Pageants celebrate peace,<br />
+                            environmental awareness, tourism, culture,<br />
+                            and heritage.
+                        </h2>
                     </div>
-                    <div class="my-5 -mt-5 grid grid-cols-1 gap-8 md:grid-cols-3">
+                    <div class="my-5 -mt-5 grid grid-cols-1 gap-12 md:grid-cols-3">
                         @foreach (['https://heritagepageant.com/wp-content/uploads/elementor/thumbs/1C1A8662-qmmw96uotbwh9pa0ive1p04cq70qg3di2h23s001rw.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/04/1C1A9041.jpg', 'https://heritagepageant.com/wp-content/uploads/2023/11/WhatsApp-Image-2023-11-14-at-10.21.15-PM.jpeg'] as $key => $image)
-                            <div
-                                class="fade-up group relative overflow-hidden rounded-lg {{ $key === 1 ? 'md:-mt-8' : '' }}">
-                                <img src="{{ $image }}"
-                                    class="-z-10 w-full object-cover transition-transform duration-300 group-hover:scale-110 {{ $key === 1 ? 'h-[850px]' : 'h-[650px]' }} bottom-0"
-                                    alt="Heritage Pageant">
-                                <div
-                                    class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            <div>
+                                <div class="fade-up group relative {{ $key === 1 ? 'md:-mt-8' : '' }} animate-fade-in-up" style="animation-delay: {{ $key * 0.2 + 0.6 }}s">
+                                    <img src="{{ $image }}"
+                                        class="-z-10 w-full object-cover transition-transform duration-300 {{ $key === 1 ? '-mt-[100px]' : '' }} h-[650px] bottom-0 hover:scale-105"
+                                        alt="Heritage Pageant">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
                     </div>
+
+                    <div class="animate-fade-in-up relative -mt-24 font-serif text-5xl font-bold uppercase tracking-widest text-gray-100" style="animation-delay: 1.2s">
+                        Discover the best of Heritage Queens
+                    </div>
+
+                    <div class="animate-fade-in-up relative z-10 mt-14 font-serif text-7xl font-bold uppercase text-gray-400" style="animation-delay: 1.4s">
+                        Heritage Pageants
+                    </div>
                 </div>
             </section>
+
 
             <!-- Video Section -->
             <section class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 px-4 py-12 sm:px-6 lg:px-8">
@@ -261,8 +265,8 @@
                             @foreach ($sliders->where('location', 'highlight') as $key => $image)
                                 <div class="swiper-slide">
                                     <div class="group relative overflow-hidden rounded-lg">
-                                        <img src="{{ asset('storage/' . $image->image_path) }}" class="h-[400px] w-full object-cover"
-                                            alt="{{ $image->title }}">
+                                        <img src="{{ asset('storage/' . $image->image_path) }}"
+                                            class="h-[400px] w-full object-cover" alt="{{ $image->title }}">
                                         <div
                                             class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                                         </div>
