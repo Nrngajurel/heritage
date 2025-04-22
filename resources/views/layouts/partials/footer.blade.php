@@ -6,8 +6,6 @@
             <div class="bg-gold/5 absolute -bottom-1/4 -right-1/4 h-96 w-96 rounded-full blur-3xl"></div>
         </div>
 
-
-
         <div class="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
             <div class="xl:grid xl:grid-cols-5 xl:gap-8">
                 <!-- About Us Section -->
@@ -40,7 +38,6 @@
                     <div class="mt-6 grid grid-cols-1 gap-6">
                         <!-- Office Locations -->
                         <div class="space-y-4">
-
                             <div class="space-y-3">
                                 <div class="flex items-center space-x-3 text-sm text-gray-400">
                                     <svg class="text-gold/60 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -52,36 +49,24 @@
                                     <svg class="text-gold/60 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                     </svg>
-                                    <span>
-                                        {{ setting()->email }}
-                                    </span>
+                                    <span>{{ setting()->email }}</span>
                                 </div>
-
-                                {{-- puy rmsil --}}
-
-                                
                                 <div class="flex items-start space-x-3 text-sm text-gray-400">
                                     <svg class="text-gold/60 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    <span>
-                                        {!! nl2br(setting()->address) !!}
-                                    </span>
+                                    <span>{!! nl2br(setting()->address) !!}</span>
                                 </div>
                             </div>
                         </div>
-                        
                     </div>
-
-                    
 
                     <div class="mt-6 flex space-x-6">
                         @foreach(setting()->social_links as $link)
-                        @if(isset($link['url']) && $link['url'])
-                        <a href="{{ $link['url'] }}" class="hover:text-gold pr-2 text-gray-400" target="_blank" rel="noopener noreferrer">
-                            <span class="sr-only">{{ ucfirst($link['platform']) }}</span>
-
+                            @if(isset($link['url']) && $link['url'])
+                                <a href="{{ $link['url'] }}" class="hover:text-gold pr-2 text-gray-400" target="_blank" rel="noopener noreferrer">
+                                    <span class="sr-only">{{ ucfirst($link['platform']) }}</span>
                                     @if($link['platform'] == 'facebook')
                                         <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
@@ -99,12 +84,11 @@
                             @endif
                         @endforeach
                     </div>
-                    
                 </div>
 
                 <!-- Facebook Feed -->
                 <div class="mt-12 xl:mt-0">
-                    {{-- <iframe 
+                    <iframe 
                         name="f47feba4b8e50ef63" 
                         width="300" 
                         height="400" 
@@ -117,28 +101,29 @@
                         allow="encrypted-media" 
                         src="https://www.facebook.com/v18.0/plugins/page.php?adapt_container_width=true&amp;app_id=448669870225600&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Dfb133308fe1764147%26domain%3Dheritagepageant.com%26is_canvas%3Dfalse%26origin%3Dhttps%253A%252F%252Fheritagepageant.com%252Ff3bec6ac9aff8b4b5%26relation%3Dparent.parent&amp;container_width=503&amp;hide_cover=false&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpageantofheritage&amp;locale=en_US&amp;sdk=joey&amp;show_facepile=true&amp;small_header=false&amp;tabs=timeline&amp;width="
                         class="w-full">
-                    </iframe> --}}
+                    </iframe>
                 </div>
             </div>
-                    <!-- Visitor Counter -->
-        <div class="relative mx-auto max-w-7xl px-4 py-8">
-            <div class="flex items-center justify-center">
-                <div class="group relative overflow-hidden rounded-2xl bg-black/40 p-6 backdrop-blur-sm">
-                    <div class="from-gold/10 absolute inset-0 bg-gradient-to-r to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-                    <div class="relative z-10 flex items-center space-x-4">
-                        <div class="bg-gold/10 flex h-12 w-12 items-center justify-center rounded-full">
-                            <svg class="text-gold h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                            </svg>
-                        </div>
-                        <div class="text-center">
-                            <p class="text-sm text-gray-400">Total Visitors</p>
-                            <p class="font-playfair text-gold text-2xl font-bold">{{ formattedNumber(setting()->visitor_count) }}</p>
+
+            <!-- Visitor Counter -->
+            <div class="relative mx-auto mt-12 max-w-7xl px-4 py-8">
+                <div class="flex items-center justify-center">
+                    <div class="group relative overflow-hidden rounded-2xl bg-black/40 p-6 backdrop-blur-sm transition-all duration-500" id="visitor-counter">
+                        <div class="from-gold/10 absolute inset-0 bg-gradient-to-r to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+                        <div class="relative z-10 flex items-center space-x-4">
+                            <div class="bg-gold/10 flex h-12 w-12 items-center justify-center rounded-full">
+                                <svg class="text-gold h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-sm text-gray-400">Total Visitors</p>
+                                <p class="font-playfair text-gold text-2xl font-bold" id="counter">{{ number_format(setting()->visitor_count) }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
             <!-- Copyright -->
             <div class="border-gold/20 mt-12 border-t pt-8">
@@ -146,3 +131,45 @@
             </div>
         </div>
     </footer>
+
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const counterElement = document.getElementById('counter');
+            const visitorCounter = document.getElementById('visitor-counter');
+            const targetNumber = parseInt(counterElement.textContent.replace(/,/g, ''));
+            let currentNumber = 0;
+            let animationStarted = false;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !animationStarted) {
+                        animationStarted = true;
+                        startCounter();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(visitorCounter);
+
+            function startCounter() {
+                const duration = 2000; // 2 seconds
+                const steps = 60;
+                const increment = targetNumber / steps;
+                const stepDuration = duration / steps;
+
+                const animate = () => {
+                    currentNumber += increment;
+                    if (currentNumber < targetNumber) {
+                        counterElement.textContent = Math.floor(currentNumber).toLocaleString();
+                        setTimeout(animate, stepDuration);
+                    } else {
+                        counterElement.textContent = targetNumber.toLocaleString();
+                    }
+                };
+
+                animate();
+            }
+        });
+    </script>
+    @endpush

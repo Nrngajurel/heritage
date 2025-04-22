@@ -171,7 +171,7 @@ class FrontendController extends Controller
 
     public function gallery()
     {
-        $gallery = Gallery::orderBy('created_at', 'desc')
+        $gallery = Gallery::orderBy('sort_order')
             ->get();
 
         return view('frontend.gallery', compact('gallery'));
