@@ -10,6 +10,7 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\Http;
+
 class ContestantsRelationManager extends RelationManager
 {
     protected static string $relationship = 'contestants';
@@ -29,8 +30,8 @@ class ContestantsRelationManager extends RelationManager
                 ->imageCropAspectRatio('1:1')
                 ->required(),
             Forms\Components\Grid::make([
-                'default' => 2,
-                'sm' => 3,
+                'default' => 1,
+                'sm' => 2,
             ])->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
@@ -45,9 +46,19 @@ class ContestantsRelationManager extends RelationManager
                     ->required()
                     ->maxLength(2)
                     ->placeholder('US'),
+                Forms\Components\TextInput::make('focus_area')
+                    ->required()
+                    ->maxLength(255)
+                    ->label('Focus Area'),
                 Forms\Components\TextInput::make('social_media')
                     ->maxLength(255)
                     ->url(),
+                Forms\Components\Select::make('competition_id')
+                    ->relationship('competition', 'name')
+                    ->required()
+                    ->preload()
+                    ->searchable()
+                    ->label('Competition'),
                 Forms\Components\Toggle::make('is_featured')
                     ->default(false)
                     ->inline(false),
@@ -97,7 +108,7 @@ class ContestantsRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
-                
+
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
@@ -164,7 +175,7 @@ class ContestantsRelationManager extends RelationManager
                                     ]);
                                 }
                             }
-    
+
                             Notification::make()
                                 ->success()
                                 ->title('Contestants updated')

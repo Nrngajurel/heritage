@@ -32,5 +32,17 @@ class Contestant extends Model
         'social_media' => 'json',
         'gallery' => 'array',
     ];
+
     use HasFactory;
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_id');
+    }
+
+    public function competition()
+    {
+        return $this->belongsTo(Competition::class, 'competition_id');
+    }
+
 }

@@ -6,6 +6,8 @@
             <div class="bg-gold/5 absolute -bottom-1/4 -right-1/4 h-96 w-96 rounded-full blur-3xl"></div>
         </div>
 
+
+
         <div class="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
             <div class="xl:grid xl:grid-cols-5 xl:gap-8">
                 <!-- About Us Section -->
@@ -118,6 +120,25 @@
                     </iframe> --}}
                 </div>
             </div>
+                    <!-- Visitor Counter -->
+        <div class="relative mx-auto max-w-7xl px-4 py-8">
+            <div class="flex items-center justify-center">
+                <div class="group relative overflow-hidden rounded-2xl bg-black/40 p-6 backdrop-blur-sm">
+                    <div class="from-gold/10 absolute inset-0 bg-gradient-to-r to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+                    <div class="relative z-10 flex items-center space-x-4">
+                        <div class="bg-gold/10 flex h-12 w-12 items-center justify-center rounded-full">
+                            <svg class="text-gold h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm text-gray-400">Total Visitors</p>
+                            <p class="font-playfair text-gold text-2xl font-bold">{{ formattedNumber(setting()->visitor_count) }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
             <!-- Copyright -->
             <div class="border-gold/20 mt-12 border-t pt-8">

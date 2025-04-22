@@ -123,8 +123,9 @@ class NewApplicationForm extends Component implements HasForms
                                         ->searchable()
                                         ->required()
                                         ->live()
-                                        ->options($this->getCountryOptions())
                                         ->preload()
+                                        ->options($this->getCountryOptions())
+                                        ->optionsLimit(249)
                                         ->columnSpanFull(),
 
                                     Radio::make('competition_id')

@@ -17,6 +17,8 @@ class GeneralSettings extends Settings
     public string $email;
     public array $social_links;
 
+    public int $visitor_count;
+
     public static function group(): string
     {
         return 'general';
@@ -39,6 +41,7 @@ class GeneralSettings extends Settings
                 'instagram' => 'https://instagram.com',
                 'twitter' => 'https://twitter.com',
             ],
+            "visitor_count"=> 2900000
         ];
     }
 } 
