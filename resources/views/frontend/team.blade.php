@@ -114,7 +114,7 @@
                             </ul>
                         </div>
                         <div class="flex-shrink-0">
-                            <img src="https://heritagepageant.com/wp-content/uploads/2023/08/Screenshot-2023-08-24-190015.png" 
+                            <img src="/assets/images/team/chairman_santosh_sapkota.png" 
                                  alt="Santosh Sapkota" 
                                  class="profile-image"
                                  loading="lazy"
@@ -127,7 +127,7 @@
                 <div class="group relative overflow-hidden rounded-2xl p-8 transition-all duration-500">
                     <div class="relative z-10 flex items-center gap-12">
                         <div class="flex-shrink-0">
-                            <img src="https://heritagepageant.com/wp-content/uploads/2023/09/WhatsApp-Image-2023-08-29-at-6.24.46-PM-1024x1024.jpeg" 
+                            <img src="/assets/images/team/director_susan.jpeg" 
                                  alt="Susan Koh" 
                                  class="profile-image"
                                  loading="lazy"
@@ -176,7 +176,7 @@
                             <p class="text-lg text-gray-300">About President<br>Heritage Pageants President<br>& International Relation<br>CEO- Sipiti Media, Zimbabwe<br>Founding President- Fashion League</p>
                         </div>
                         <div class="flex-shrink-0">
-                            <img src="https://heritagepageant.com/wp-content/uploads/2023/09/WhatsApp-Image-2023-08-29-at-6.25.22-PM-1024x1024.jpeg" 
+                            <img src="/assets/images/team/president_culvin.jpeg" 
                                  alt="Culvin Mavunga" 
                                  class="profile-image"
                                  loading="lazy"
@@ -192,7 +192,7 @@
                     [
                         'name' => 'Santosh Sapkota',
                         'position' => 'Founder/Chairman/CEO',
-                        'image' => 'https://heritagepageant.com/wp-content/uploads/2023/08/Screenshot-2023-08-24-190015.png',
+                        'image' => '/assets/images/team/chairman_santosh_sapkota.png',
                         'social' => [
                             'facebook' => 'https://www.facebook.com/Santo.17sapkota',
                             'instagram' => 'https://www.instagram.com/santoshsapkota_/',
@@ -202,7 +202,7 @@
                     [
                         'name' => 'Susan Koh',
                         'position' => 'International Event Director',
-                        'image' => 'https://heritagepageant.com/wp-content/uploads/2023/09/WhatsApp-Image-2023-08-29-at-6.24.46-PM-1024x1024.jpeg',
+                        'image' => '/assets/images/team/director_susan.jpeg',
                         'social' => [
                             'facebook' => 'https://www.facebook.com/profile.php?id=61553774173217',
                             'instagram' => 'https://www.instagram.com/susankoh666/'
@@ -211,7 +211,7 @@
                     [
                         'name' => 'Culvin Mavunga',
                         'position' => 'President',
-                        'image' => 'https://heritagepageant.com/wp-content/uploads/2023/09/WhatsApp-Image-2023-08-29-at-6.25.22-PM-1024x1024.jpeg',
+                        'image' => '/assets/images/team/president_culvin.jpeg',
                         'social' => [
                             'facebook' => '#',
                             'instagram' => '#'
@@ -220,7 +220,7 @@
                     [
                         'name' => 'Durga Bishural',
                         'position' => 'Director',
-                        'image' => 'https://heritagepageant.com/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-11-at-12.30.16-PM-1-5.jpeg',
+                        'image' => '/assets/images/team/director_durga.jpeg',
                         'social' => [
                             'facebook' => '#',
                             'instagram' => '#'
