@@ -80,42 +80,56 @@
             <!-- Introduction Section -->
             <section class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 px-4 py-12 text-center sm:px-6 lg:px-8">
                 <div class="container mx-auto px-4">
-                    <h1 class="pageant-heading animate-fade-in-up mb-4 text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
+                    <h1
+                        class="pageant-heading animate-fade-in-up mb-4 text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
                         PAGEANT OF HERITAGE</h1>
                     <div class="mx-auto mb-12 text-white">
-                        <p class="animate-fade-in-up mb-6 mt-10 text-gray-200" style="animation-delay: 0.2s">Pageant of Heritage is an ultimate international beauty pageant
-                            that endeavours to promote Peace, Environment, Tourism, Culture and above all global Heritage (P.E.T.C.H.) from a global
+                        <p class="animate-fade-in-up mb-6 mt-10 text-gray-200" style="animation-delay: 0.2s">Pageant of
+                            Heritage is an ultimate international beauty pageant
+                            that endeavours to promote Peace, Environment, Tourism, Culture and above all global Heritage
+                            (P.E.T.C.H.) from a global
                             perspective. The Heritage Pageants beauty pageant was founded in 2011 by Eplanet private limited
-                            (Turning Events into Indelible Memories) entity upon the apprehension of the Indispensable rationale
+                            (Turning Events into Indelible Memories) entity upon the apprehension of the Indispensable
+                            rationale
                             of beauty pageants in promoting fundamental global agendas. Pageant of Heritage also known as
                             Heritage pageants.</p>
                     </div>
                     <div class="relative z-10">
-                        <h2 class="animate-fade-in-up mb-4 mt-24 font-serif text-4xl uppercase leading-normal opacity-80" style="animation-delay: 0.4s">
+                        <h2 class="animate-fade-in-up mb-4 mt-24 font-serif text-4xl uppercase leading-normal opacity-80"
+                            style="animation-delay: 0.4s">
                             Heritage Pageants celebrate peace,<br />
                             environmental awareness, tourism, culture,<br />
                             and heritage.
                         </h2>
                     </div>
                     <div class="my-5 -mt-5 grid grid-cols-1 gap-12 md:grid-cols-3">
-                        @foreach (['https://heritagepageant.com/wp-content/uploads/elementor/thumbs/1C1A8662-qmmw96uotbwh9pa0ive1p04cq70qg3di2h23s001rw.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/04/1C1A9041.jpg', 'https://heritagepageant.com/wp-content/uploads/2023/11/WhatsApp-Image-2023-11-14-at-10.21.15-PM.jpeg'] as $key => $image)
+                        {{-- /assets/images/section1/1.jpg --}}
+                        @foreach ([
+                            '/assets/images/section1/1.jpg',
+                            '/assets/images/section1/2.jpg',
+                            '/assets/images/section1/3.jpg',
+                         ] as $key => $image)
                             <div>
-                                <div class="fade-up group relative {{ $key === 1 ? 'md:-mt-8' : '' }} animate-fade-in-up" style="animation-delay: {{ $key * 0.2 + 0.6 }}s">
+                                <div class="fade-up group relative {{ $key === 1 ? 'md:-mt-8' : '' }} animate-fade-in-up"
+                                    style="animation-delay: {{ $key * 0.2 + 0.6 }}s">
                                     <img src="{{ $image }}"
                                         class="-z-10 w-full object-cover transition-transform duration-300 {{ $key === 1 ? '-mt-[100px]' : '' }} h-[650px] bottom-0 hover:scale-105"
                                         alt="Heritage Pageant">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                                    <div
+                                        class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                                     </div>
                                 </div>
                             </div>
                         @endforeach
                     </div>
 
-                    <div class="animate-fade-in-up relative -mt-24 font-serif text-5xl font-bold uppercase tracking-widest text-gray-100" style="animation-delay: 1.2s">
+                    <div class="animate-fade-in-up relative -mt-24 font-serif text-5xl font-bold uppercase tracking-widest text-gray-100"
+                        style="animation-delay: 1.2s">
                         Discover the best of Heritage Queens
                     </div>
 
-                    <div class="animate-fade-in-up relative z-10 mt-14 font-serif text-7xl font-bold uppercase text-gray-400" style="animation-delay: 1.4s">
+                    <div class="animate-fade-in-up relative z-10 mt-14 font-serif text-7xl font-bold uppercase text-gray-400"
+                        style="animation-delay: 1.4s">
                         Heritage Pageants
                     </div>
                 </div>
@@ -199,20 +213,75 @@
 
                     <div class="swiper title-holders-slider max-h-[500px]">
                         <div class="swiper-wrapper">
-                            @foreach (['https://heritagepageant.com/wp-content/uploads/2024/04/Mis-Heritage-2014-200x300.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/04/2015-200x300.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/04/Miss-2016-200x300.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/04/2019-1-200x300.jpg', 'https://heritagepageant.com/wp-content/uploads/2023/09/Russia-8-200x300.jpg', 'https://heritagepageant.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-01-at-5.52.50-PM-300x300.jpeg', 'https://heritagepageant.com/wp-content/uploads/2024/06/MISS-HERITAGE-INTERNATIONAL-2023.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/06/MRS-HERITAGE-INTERNATIONAL-2016.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/06/MRS-HERITAGE-INTERNATIONAL-2019.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/06/MRS-HERITAGE-INTERNATIONAL-2022.jpg', 'https://heritagepageant.com/wp-content/uploads/2024/06/MRS-HERITAGE-INTERNATIONAL-2023.jpg'] as $index => $image)
+                            @foreach ([
+            [
+                'title' => 'MISS HERITAGE INTERNATIONAL 2023',
+                'slug' => 'miss-heritage-international-2023',
+                'image' => 'https://voting.heritagepageant.com/wp-content/uploads/2024/06/MISS-HERITAGE-INTERNATIONAL-2023.jpg',
+            ],
+            [
+                'title' => 'MRS HERITAGE INTERNATIONAL 2016',
+                'slug' => 'mrs-heritage-international-2016',
+                'image' => 'https://voting.heritagepageant.com/wp-content/uploads/2024/06/MRS-HERITAGE-INTERNATIONAL-2016.jpg',
+            ],
+            [
+                'title' => 'MRS HERITAGE INTERNATIONAL 2019',
+                'slug' => 'mrs-heritage-international-2019',
+                'image' => 'https://voting.heritagepageant.com/wp-content/uploads/2024/06/MRS-HERITAGE-INTERNATIONAL-2019.jpg',
+            ],
+            [
+                'title' => 'MRS HERITAGE INTERNATIONAL 2022',
+                'slug' => 'mrs-heritage-international-2022',
+                'image' => 'https://voting.heritagepageant.com/wp-content/uploads/2024/06/MRS-HERITAGE-INTERNATIONAL-2022.jpg',
+            ],
+            [
+                'title' => 'MRS HERITAGE INTERNATIONAL 2023',
+                'slug' => 'mrs-heritage-international-2023',
+                'image' => 'https://voting.heritagepageant.com/wp-content/uploads/2024/06/MRS-HERITAGE-INTERNATIONAL-2023.jpg',
+            ],
+            [
+                'title' => 'Mis Heritage 2014',
+                'slug' => 'mis-heritage-2014',
+                'image' => 'https://voting.heritagepageant.com/wp-content/uploads/2024/04/Mis-Heritage-2014-200x300.jpg',
+            ],
+            [
+                'title' => '2015',
+                'slug' => '2015',
+                'image' => 'https://voting.heritagepageant.com/wp-content/uploads/2024/04/2015-200x300.jpg',
+            ],
+            [
+                'title' => 'Miss 2016',
+                'slug' => 'miss-2016',
+                'image' => 'https://voting.heritagepageant.com/wp-content/uploads/2024/04/Miss-2016-200x300.jpg',
+            ],
+            [
+                'title' => '2019-1',
+                'slug' => '2019-1',
+                'image' => 'https://voting.heritagepageant.com/wp-content/uploads/2024/04/2019-1-200x300.jpg',
+            ],
+            [
+                'title' => 'Russia 8',
+                'slug' => 'russia-8',
+                'image' => 'https://voting.heritagepageant.com/wp-content/uploads/2023/09/Russia-8-200x300.jpg',
+            ],
+            [
+                'title' => 'WhatsApp Image 2023-10-01 at 5.52.50 PM',
+                'slug' => 'whatsapp-image-2023-10-01-at-5-52-50-pm',
+                'image' => 'https://voting.heritagepageant.com/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-01-at-5.52.50-PM-300x300.jpeg',
+            ],
+        ] as $index => $image)
                                 <div class="swiper-slide">
                                     <div
                                         class="group relative transform overflow-hidden transition-transform duration-300 hover:z-10 hover:scale-105">
-                                        <img src="{{ $image }}"
+                                        <img src="{{ $image['image'] }}"
                                             class="h-[450px] w-full object-cover transition-all duration-300 group-hover:brightness-110"
                                             alt="Title Holder">
                                         <div
                                             class="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/80 to-transparent p-6 opacity-0 transition-all duration-300 group-hover:opacity-100">
                                             <div
                                                 class="translate-y-4 transform text-center transition-transform duration-300 group-hover:translate-y-0">
-                                                <h3 class="text-xl font-semibold text-[#e4cb86] drop-shadow-lg">Heritage
-                                                    Queen
-                                                    {{ 2024 - $index }}
+                                                <h3 class="text-xl font-semibold text-[#e4cb86] drop-shadow-lg">
+                                                    {{ $image['title'] }}
                                                 </h3>
                                             </div>
                                         </div>
