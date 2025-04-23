@@ -21,7 +21,7 @@ class HomeController extends Controller
         $external_news = Post::whereHas('category', function ($query) {
             $query->where('type', Category::TYPE_EXTERNAL);
         })
-            ->limit(15)
+            ->limit(9)
             ->get();
 
         $blog_news = Post::whereHas('category', function ($query) {
