@@ -1,8 +1,31 @@
 @extends('layouts.frontend-new')
 
-@section('title', "Voting")
+@section('title', 'Voting')
 @push('styles')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
+
+    <style>
+        /* shimmer effect */
+        .shimmer {
+            background: linear-gradient(to right,
+                    #2a2a2a 8%,
+                    #3a3a3a 18%,
+                    #2a2a2a 33%);
+            background-size: 1200px 100%;
+            animation: shimmer 1.2s infinite linear;
+            min-height: 150px;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1200px 0;
+            }
+
+            100% {
+                background-position: 1200px 0;
+            }
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -28,18 +51,11 @@
                     <!-- Image Grid -->
                     <div class="grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
                         @foreach ($item->images as $key => $image)
-                            <a 
-                                href="{{ \Storage::url($image) }}"
-                                data-fancybox="gallery-{{ $item->id }}"
-                                data-caption="{{ $item->title }}"
-                                class="cursor-pointer overflow-hidden"
-                            >
-                                <img 
-                                    src="{{ \Storage::url($image) }}" 
-                                    alt="{{ $item->title }}"
-                                    class="h-full w-full object-cover"
-                                    loading="lazy"
-                                >
+                            <a href="{{ \Storage::url($image) }}" data-fancybox="gallery-{{ $item->id }}"
+                                data-caption="{{ $item->title }}" class="cursor-pointer overflow-hidden">
+                                <img data-src="{{ \Storage::url($image) }}"
+                                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+                                    alt="{{ $item->title }}" class="lazy-img shimmer h-full w-full object-cover">
                             </a>
                         @endforeach
                     </div>
@@ -49,28 +65,54 @@
     </div>
 
     @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
-    <script>
-        Fancybox.bind("[data-fancybox]", {
-            // Custom options
-            Toolbar: {
-                display: {
-                    left: [],
-                    middle: [],
-                    right: ["close"],
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+        <script>
+            Fancybox.bind("[data-fancybox]", {
+                // Custom options
+                Toolbar: {
+                    display: {
+                        left: [],
+                        middle: [],
+                        right: ["close"],
+                    },
                 },
-            },
-            Images: {
-                zoom: true,
-            },
-            Carousel: {
-                transition: "slide",
-            },
-            // Custom styling
-            template: {
-                // Customize Fancybox UI elements here if needed
-            },
-        });
-    </script>
+                Images: {
+                    zoom: true,
+                },
+                Carousel: {
+                    transition: "slide",
+                },
+                // Custom styling
+                template: {
+                    // Customize Fancybox UI elements here if needed
+                },
+            });
+        </script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const images = document.querySelectorAll('img.lazy-img');
+
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            const src = img.getAttribute('data-src');
+                            if (src) {
+                                img.src = src;
+                                img.onload = () => img.classList.remove('shimmer');
+                                img.removeAttribute('data-src');
+                            }
+                            obs.unobserve(img);
+                        }
+                    });
+                }, {
+                    rootMargin: '0px 0px 200px 0px', // preload before user sees it
+                    threshold: 0.1
+                });
+
+                images.forEach(img => observer.observe(img));
+            });
+        </script>
     @endpush
 @endsection
