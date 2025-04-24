@@ -6,7 +6,7 @@
     <div class="relative overflow-hidden pb-16 pt-32">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="relative z-10 text-center">
-                <h1 class="pageant-heading mb-4 text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
+                <h1 class="pageant-heading">
                     Contact Us
                 </h1>
                 <p class="mx-auto mt-4 max-w-2xl text-xl text-gray-300">
@@ -17,7 +17,7 @@
     </div>
 
     <!-- Contact Section -->
-    <div class="container mx-auto px-4 py-16">
+    <div class="container mx-auto max-w-7xl px-4 py-16">
         <div class="mx-auto max-w-7xl">
             <div class="grid gap-12 lg:grid-cols-2">
                 <!-- Contact Information -->

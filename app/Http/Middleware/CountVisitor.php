@@ -16,15 +16,15 @@ class CountVisitor
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!session()->has('has_visited')) {
-            session(['has_visited' => true]);
+        // if (!session()->has('has_visited')) {
+        //     session(['has_visited' => true]);
 
             $settings = setting();
             
             $settings->visitor_count += 1;
             $settings->save();
 
-        }
+        // }
         return $next($request);
     }
 }

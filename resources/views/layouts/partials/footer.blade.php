@@ -117,8 +117,13 @@
                                 </svg>
                             </div>
                             <div class="text-center">
-                                <p class="text-sm text-gray-400">Total Visitors</p>
-                                <p class="font-playfair text-gold text-2xl font-bold" id="counter">{{ number_format(setting()->visitor_count) }}</p>
+                                <p class="mb-3 text-sm text-gray-400">Total Visitors</p>
+                                
+                                <p class="font-playfair text-gold text-2xl font-bold" id="counter" data-number="{{ setting()->visitor_count }}">
+                                    @foreach(str_split(setting()->visitor_count) as $digit)
+                                        <span class="inline-block rounded bg-blue-500 px-1">{{ $digit }}</span>
+                                    @endforeach
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -134,42 +139,41 @@
 
     @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const counterElement = document.getElementById('counter');
-            const visitorCounter = document.getElementById('visitor-counter');
-            const targetNumber = parseInt(counterElement.textContent.replace(/,/g, ''));
-            let currentNumber = 0;
-            let animationStarted = false;
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !animationStarted) {
-                        animationStarted = true;
-                        startCounter();
+        document.addEventListener('DOMContentLoaded', function () {
+            const counterContainer = document.getElementById('counter');
+            const targetNumber = parseInt(counterContainer.dataset.number);
+            const digitsLength = targetNumber.toString().length;
+            const duration = 2000;
+            const steps = 60;
+            const stepDuration = duration / steps;
+            let current = 0;
+        
+            function updateDigits(num) {
+                const digits = num.toString().padStart(digitsLength, '0').split('');
+                const spans = counterContainer.querySelectorAll('span');
+        
+                digits.forEach((digit, index) => {
+                    if (spans[index]) {
+                        spans[index].textContent = digit;
                     }
                 });
-            }, { threshold: 0.5 });
-
-            observer.observe(visitorCounter);
-
-            function startCounter() {
-                const duration = 2000; // 2 seconds
-                const steps = 60;
-                const increment = targetNumber / steps;
-                const stepDuration = duration / steps;
-
-                const animate = () => {
-                    currentNumber += increment;
-                    if (currentNumber < targetNumber) {
-                        counterElement.textContent = Math.floor(currentNumber).toLocaleString();
-                        setTimeout(animate, stepDuration);
-                    } else {
-                        counterElement.textContent = targetNumber.toLocaleString();
-                    }
-                };
-
-                animate();
             }
+        
+            function animate() {
+                const increment = targetNumber / steps;
+                const interval = setInterval(() => {
+                    current += increment;
+                    if (current >= targetNumber) {
+                        updateDigits(targetNumber);
+                        clearInterval(interval);
+                    } else {
+                        updateDigits(Math.floor(current));
+                    }
+                }, stepDuration);
+            }
+        
+            animate();
         });
-    </script>
+        </script>
+        
     @endpush

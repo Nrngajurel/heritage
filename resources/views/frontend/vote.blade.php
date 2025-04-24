@@ -48,7 +48,7 @@
         <div class="relative overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800 pb-12 pt-24">
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="relative z-10 text-center">
-                    <h1 class="pageant-heading mb-4 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl">
+                    <h1 class="pageant-heading">
                         {{ $event->name }}
                     </h1>
                     <p class="mt-2 text-xl text-gray-300">Cast your vote for the next heritage queen</p>
@@ -99,8 +99,8 @@
 
                             <!-- Crown Image -->
                             <div class="group relative transition-transform duration-300 hover:scale-105">
-                                <img src="{{ asset('assets/images/crown.png') }}" alt="Crown"
-                                    class="z-100 h-32 w-32 object-contain brightness-105 drop-shadow-[0_0_10px_rgba(255,215,0,0.4)] filter" />
+                                {{-- <img src="{{ asset('assets/images/crown.png') }}" alt="Crown"
+                                    class="z-100 h-32 w-32 object-contain brightness-105 drop-shadow-[0_0_10px_rgba(255,215,0,0.4)] filter" /> --}}
 
                                 <!-- Animated Sparkles -->
                                 <div class="pointer-events-none absolute left-0 top-0 h-full w-full">
@@ -115,11 +115,11 @@
                         </div>
                     </div>
                     <div class="mb-6 flex items-center justify-center gap-2">
-                        <img src="https://heritagepageant.com/wp-content/uploads/2023/06/logo-1-68x65.png"
+                        <img src="{{ asset('logo.png') }}"
                             alt="Heritage Pageants Logo" class="h-20 sm:h-32 md:h-32">
                     </div>
                     <h1
-                        class="pageant-heading mb-4 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+                        class="pageant-heading">
                         Miss Heritage International 2025
                     </h1>
                     <p class="text-gold/80 mx-auto mb-4 max-w-3xl text-xl font-light">
@@ -358,6 +358,7 @@
                     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                         @foreach ($contestants->where('is_featured', true)->take(3) as $index => $contestant)
                             <!-- Title Holder Card -->
+                            <a href="{{ route('vote.show', $contestant['id']) }}" class="block">
                             <div class="group relative transform-gpu transition-all duration-500 hover:scale-[1.02]">
                                 <!-- Rank Badge -->
                                 <div class="absolute -right-4 -top-4 z-20">
@@ -423,7 +424,7 @@
 
                                     <!-- Image Section -->
                                     <div class="relative aspect-[3/4] overflow-hidden">
-                                        <img src="{{ \Storage::url($contestant['image_url']) }}" alt="{{ $contestant['name'] }}"
+                                        <img src="{{ \Storage::url($contestant['image_url']) }}" loading="lazy" alt="{{ $contestant['name'] }}"
                                             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110">
 
                                         <!-- Gradient Overlay -->
@@ -452,21 +453,23 @@
                                                 <div class="mb-2 flex items-center justify-between">
                                                     <span class="text-gold/60 text-sm">Total Votes</span>
                                                     <span class="text-gold font-bold"
-                                                        x-text="formatNumber(votes[{{ $index + 1 }}])">0</span>
+                                                        x-text="formatNumber(votes[{{ $contestant['id'] }}])">0</span>
                                                 </div>
                                                 <div class="relative h-2 overflow-hidden rounded-full bg-black/30">
                                                     <div class="absolute inset-0 bg-gradient-to-r {{ $style['bg'] }}"
-                                                        :style="'width: ' + getVotePercentage({{ $index + 1 }}) + '%'"
+                                                        :style="'width: ' + getVotePercentage({{ $contestant['id'] }}) + '%'"
                                                         style="transition: width 1s ease-in-out"></div>
                                                 </div>
                                                 <div class="mt-1 text-right">
                                                     <span class="text-gold/60 text-xs"
-                                                        x-text="getVotePercentage({{ $index + 1 }}) + '%'">0%</span>
+                                                        x-text="getVotePercentage({{ $contestant['id'] }}) + '%'">0%</span>
                                                 </div>
                                             </div>
 
                                             <!-- Vote Button -->
-                                            <button @click="castVote({{ $index + 1 }})" :disabled="loading"
+                                            <button @click.prevent="castVote({{ $contestant['id'] }})" 
+                                            :disabled="loading"
+                                            :id="'vote-button-' + {{ $contestant['id'] }}"
                                                 class="group relative w-full overflow-hidden rounded-full bg-gradient-to-r {{ $style['bg'] }} p-[2px] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_2rem_0_rgba(255,215,0,0.3)]">
                                                 <div
                                                     class="relative flex h-full w-full items-center justify-center gap-2 rounded-full bg-black/50 px-6 py-2 backdrop-blur-sm transition-all duration-300 group-hover:bg-opacity-90">
@@ -478,70 +481,11 @@
                                     </div>
                                 </div>
                             </div>
+                        </a>
                         @endforeach
                     </div>
                 </div>
 
-                <!-- Contestants Grid -->
-                <!-- Featured Contestants -->
-                <div class="mb-12">
-                    {{-- <h2 class="font-playfair text-gold mb-6 text-center text-2xl font-bold">Current Title Holders</h2> --}}
-                    <div class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                        @foreach ($contestants->where('is_featured', true) as $index => $contestant)
-                            <div class="pageant-card group relative overflow-hidden {{ $index < 2 ? 'sm:col-span-1' : '' }}"
-                                :class="{ 'animate-glow': loading && selectedContestant === {{ $index + 1 }} }">
-                                <div class="relative aspect-[3/4] overflow-hidden">
-                                    <img src="{{ $contestant['image_url'] ?? 'https://heritagepageant.com/wp-content/uploads/2024/05/Picture1.png' }}"
-                                        alt="{{ $contestant['name'] }}"
-                                        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105">
-                                    <!-- Always visible on mobile, hover on desktop -->
-                                    <div
-                                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-100 transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100">
-                                    </div>
-                                    <div
-                                        class="absolute bottom-0 left-0 right-0 transform-none p-4 transition-transform duration-300 sm:translate-y-full sm:p-6 sm:group-hover:translate-y-0">
-                                        <div class="mb-2 flex items-center gap-2">
-                                            <img src="https://flagcdn.com/w40/{{ strtolower($contestant['country_code']) }}.png"
-                                                alt="{{ $contestant['country'] }} flag" class="h-4 w-6 rounded shadow">
-                                            <h3 class="font-playfair text-gold text-xl font-bold sm:text-2xl">
-                                                {{ $contestant['name'] }}</h3>
-                                        </div>
-                                        <p class="text-gold/80 mb-1 text-sm sm:text-base">{{ $contestant['title'] }}</p>
-                                        <p class="text-xs text-white/70 sm:text-sm">Focus: {{ $contestant['focus_area'] }}
-                                        </p>
-                                        <div class="mt-2 flex flex-wrap gap-2 sm:mt-3">
-                                            <span class="bg-gold/10 text-gold/90 rounded-full px-2 py-1 text-xs">PETCH
-                                                Ambassador</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Vote Count Section -->
-                                <div class="bg-black/20 p-4 backdrop-blur-sm sm:p-6">
-                                    <div class="mb-3">
-                                        <div class="mb-2 flex items-center justify-between">
-                                            <span class="text-gold/60 text-sm">Current Votes</span>
-                                            <span class="vote-count text-sm"
-                                                x-text="formatNumber(votes[{{ $index + 1 }}])"></span>
-                                        </div>
-                                        <div class="progress-bar">
-                                            <div :id="'progress-' + {{ $index + 1 }}" class="progress-bar-fill"
-                                                :style="'width: ' + getVotePercentage({{ $index + 1 }}) + '%'"></div>
-                                        </div>
-                                    </div>
-
-                                    <button :id="'vote-button-' + {{ $index + 1 }}"
-                                        @click="castVote({{ $index + 1 }}); selectedContestant = {{ $index + 1 }}"
-                                        :disabled="loading"
-                                        class="vote-button flex w-full items-center justify-center space-x-2 text-sm disabled:cursor-not-allowed disabled:opacity-50">
-                                        <span>Vote Now</span>
-                                        <span class="text-base">👑</span>
-                                    </button>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
 
                 <!-- Other Contestants -->
                 <h2 class="font-playfair text-gold mb-6 text-center text-2xl font-bold">Regional Title Holders</h2>
@@ -551,8 +495,8 @@
                             :class="{ 'animate-glow': loading && selectedContestant === {{ $index + 1 }} }">
                             <a href="{{ route('vote.show', $contestant['id']) }}" class="block">
                                 <div class="relative overflow-hidden">
-                                    <img src="{{ $contestant['image_url'] ?? 'https://heritagepageant.com/wp-content/uploads/2024/05/Picture1.png' }}"
-                                        alt="{{ $contestant['name'] }}"
+                                    <img src="{{ \Storage::url($contestant['image_url']) }}"
+                                        alt="{{ $contestant['name'] }}" loading="lazy"
                                         class="h-80 w-full object-cover transition-transform duration-500 group-hover:scale-105">
                                     <div
                                         class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -579,20 +523,20 @@
                                         <div class="mb-2 flex items-center justify-between">
                                             <span class="text-gold/60">Current Votes</span>
                                             <span class="vote-count"
-                                                x-text="formatNumber(votes[{{ $index + 1 }}])"></span>
+                                                x-text="formatNumber(votes[{{ $contestant['id'] }}])"></span>
                                         </div>
                                         <div class="progress-bar">
-                                            <div :id="'progress-' + {{ $index + 1 }}" class="progress-bar-fill"
-                                                :style="'width: ' + getVotePercentage({{ $index + 1 }}) + '%'"></div>
+                                            <div :id="'progress-' + {{ $contestant['id'] }}" class="progress-bar-fill"
+                                                :style="'width: ' + getVotePercentage({{ $contestant['id'] }}) + '%'"></div>
                                         </div>
                                         <div class="mt-1 text-right">
                                             <span class="text-gold/60 text-sm"
-                                                x-text="getVotePercentage({{ $index + 1 }}) + '%'"></span>
+                                                x-text="getVotePercentage({{ $contestant['id'] }}) + '%'"></span>
                                         </div>
                                     </div>
 
-                                    <button :id="'vote-button-' + {{ $index + 1 }}"
-                                        @click.prevent="castVote({{ $index + 1 }}); selectedContestant = {{ $index + 1 }}"
+                                    <button :id="'vote-button-' + {{ $contestant['id'] }}"
+                                        @click.prevent="castVote({{ $contestant['id'] }}); selectedContestant = {{ $index + 1 }}"
                                         :disabled="loading"
                                         class="vote-button flex w-full items-center justify-center space-x-2 disabled:cursor-not-allowed disabled:opacity-50">
                                         <span>Vote Now</span>

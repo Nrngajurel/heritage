@@ -7,7 +7,7 @@
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="relative z-10 text-center">
                     <h1
-                        class="pageant-heading mb-4 text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
+                        class="pageant-heading">
                         Blog & News
                     </h1>
                     <p class="mx-auto mt-4 max-w-2xl text-xl text-gray-300">

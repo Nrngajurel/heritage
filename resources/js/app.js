@@ -65,6 +65,8 @@ document.addEventListener('alpine:init', () => {
                 
                 if (data.success) {
                     this.votes[contestantId] = data.votes;
+
+                    console.log(data);
                     this.showVoteSuccess = true;
                     this.updateProgressBars();
                     setTimeout(() => {

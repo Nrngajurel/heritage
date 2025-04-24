@@ -81,7 +81,7 @@
             <section class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 px-4 py-12 text-center sm:px-6 lg:px-8">
                 <div class="container mx-auto px-4">
                     <h1
-                        class="pageant-heading animate-fade-in-up mb-4 text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
+                        class="pageant-heading">
                         PAGEANT OF HERITAGE</h1>
                     <div class="mx-auto mb-12 text-white">
                         <p class="animate-fade-in-up mb-6 mt-10 text-gray-200" style="animation-delay: 0.2s">Pageant of
@@ -97,9 +97,9 @@
                     <div class="relative z-10">
                         <h2 class="animate-fade-in-up mb-4 mt-24 font-serif text-4xl uppercase leading-normal opacity-80"
                             style="animation-delay: 0.4s">
-                            Heritage Pageants celebrate peace,<br />
-                            environmental awareness, tourism, culture,<br />
-                            and heritage.
+                            Heritage Pageants celebrate <b>peace,<br />
+                                environmental awareness, tourism, culture,<br />
+                                and heritage.</b>
                         </h2>
                     </div>
                     <div class="my-5 -mt-5 grid grid-cols-1 gap-12 md:grid-cols-3">
@@ -171,7 +171,7 @@
             <section class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 px-4 py-20 sm:px-6 lg:px-8">
                 <div class="container relative mx-auto px-4">
 
-                    <div class="absolute -top-32 left-1/2 z-10 -translate-x-1/2 transform">
+                    {{-- <div class="absolute -top-32 left-1/2 z-10 -translate-x-1/2 transform">
                         <div class="relative flex h-24 w-24 items-center justify-center">
                             <!-- Smaller Glowing Background -->
                             <div class="absolute inset-0 scale-[2] transform">
@@ -204,9 +204,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <h2
-                        class="pageant-heading mb-4 text-center text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
+                        class="pageant-heading text-center">
                         OUR PROUD TITLEHOLDERS</h2>
                     <p class="text-gold/70 mb-8 text-center text-lg italic">Celebrating the Legacy of Excellence and Grace
                     </p>
@@ -300,7 +300,7 @@
             <section class="my-10 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 px-4 sm:px-6 lg:px-8">
                 <div class="container mx-auto px-4">
                     <h2
-                        class="pageant-heading mb-4 text-center text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
+                        class="pageant-heading text-center">
                         MOMENTS</h2>
                     <p class="text-gold/70 mb-8 text-center text-lg italic">Capturing the Magic and Elegance of Heritage
                         Pageants</p>
@@ -325,7 +325,7 @@
             <section class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 px-4 py-20 sm:px-6 lg:px-8">
                 <div class="container mx-auto px-4">
                     <h2
-                        class="pageant-heading mb-4 text-center text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
+                        class="pageant-heading text-center">
                         Heritage Highlights</h2>
                     <p class="text-gold/70 mb-8 text-center text-lg italic">Celebrating Our Most Memorable Heritage Moments
                     </p>
@@ -375,7 +375,7 @@
             <section class="bg-gray-900 py-12">
                 <div class="container mx-auto px-4">
                     <div class="text-left uppercase">
-                        <h2 class="text-gold/70 text-xl">Latest Blog Posts</h2>
+                        <h2 class="text-gold/70 text-xl">Blog Posts</h2>
                         <h2 class="mb-2 text-3xl font-bold text-white">HERITAGE PAGEANTS 2025</h2>
                         <p class="mb-8 text-sm normal-case text-gray-400">Stay updated with our latest stories from
                             Heritage

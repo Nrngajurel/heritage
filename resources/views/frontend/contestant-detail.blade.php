@@ -433,6 +433,7 @@
     <div class="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900" 
          x-data="{ 
             activeImage: '{{ Storage::url($contestant->image_url) }}', 
+            loading: false,
             voting: voting(),
             initMouseMove() {
                 document.addEventListener('mousemove', (e) => {
@@ -531,14 +532,16 @@
                         <div class="mb-3">
                             <div class="mb-2 flex items-center justify-between">
                                 <span class="text-gold/60 text-sm">Current Votes</span>
-                                <span class="vote-count text-sm" x-text="5000"></span>
+                                <span class="vote-count text-sm" x-text="voting.votes[{{ $contestant->id }}]"></span>
                             </div>
                             <div class="progress-bar">
-                                <div :id="'progress-' + 1" class="progress-bar-fill" :style="'width: ' + 10 + '%'"></div>
+                                <div :id="'progress-' + {{ $contestant->id }}" class="progress-bar-fill" :style="'width: ' + 10 + '%'"></div>
                             </div>
                         </div>
 
-                        <button :id="'vote-button-' + 1" :disabled="loading"
+                        <button :id="'vote-button-' + {{ $contestant->id }}"
+                            @click="voting.castVote({{ $contestant->id }})"
+                            :disabled="loading"
                             class="vote-button flex w-full items-center justify-center space-x-2 text-sm disabled:cursor-not-allowed disabled:opacity-50">
                             <span>Vote Now</span>
                             <span class="text-base">👑</span>
