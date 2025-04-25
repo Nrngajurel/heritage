@@ -3,10 +3,15 @@ export default () => ({
     loading: false,
     selectedContestant: null,
     showVoteSuccess: false,
+    activeShare: null,
 
     init() {
         this.votes = JSON.parse(this.$el.dataset.votes);
         this.startLiveUpdates();
+    },
+
+    get voteUrl() {
+        return window.location.origin + '/vote/' + this.activeShare?.id;
     },
 
     startLiveUpdates() {

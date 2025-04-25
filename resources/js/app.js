@@ -10,6 +10,8 @@ document.addEventListener('alpine:init', () => {
         loading: false,
         selectedContestant: null,
         showVoteSuccess: false,
+        activeShare: null,
+        copied: false,
 
         init() {
             try {
@@ -23,6 +25,11 @@ document.addEventListener('alpine:init', () => {
             } catch (error) {
                 console.error('Error parsing votes data:', error);
             }
+        },
+
+
+        get voteUrl() {
+            return window.location.origin + '/vote/' + this.activeShare?.id;
         },
 
         startLiveUpdates() {
@@ -47,11 +54,11 @@ document.addEventListener('alpine:init', () => {
 
         async castVote(contestantId) {
             if (this.loading) return;
-            
+
             this.loading = true;
             const button = document.querySelector(`#vote-button-${contestantId}`);
             button.classList.add('animate-shine');
-            
+
             try {
                 const response = await fetch(`/vote/${contestantId}`, {
                     method: 'POST',
@@ -60,9 +67,9 @@ document.addEventListener('alpine:init', () => {
                         'Accept': 'application/json'
                     }
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (data.success) {
                     this.votes[contestantId] = data.votes;
 
