@@ -216,7 +216,7 @@ class NewApplicationForm extends Component implements HasForms
                                         ->label('Age')
                                         ->numeric()
                                         ->required()
-                                        ->minValue(18),
+                                        ->minValue(0),
 
                                     TextInput::make('meta.personal_background.height')
                                         ->label('Height')

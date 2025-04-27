@@ -46,14 +46,21 @@
 
 
 
-        <div x-show="activeShare" @click.away="activeShare = null; copied = false" x-transition
-            class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-            <div class="border-gold/20 mx-4 w-full max-w-lg rounded-lg border bg-neutral-900 p-6">
+        <div x-show="activeShare" 
+            @click.away="activeShare = null; copied = false" 
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform scale-95"
+            x-transition:enter-end="opacity-100 transform scale-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 transform scale-100"
+            x-transition:leave-end="opacity-0 transform scale-95"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+            <div class="border-gold/20 mx-4 w-full max-w-lg transform rounded-lg border bg-neutral-900 p-6 transition-all duration-300 hover:scale-[1.02]">
                 <div class="mb-5 flex items-center justify-between">
-                    <h2 class="text-gold text-xl font-semibold"
+                    <h2 class="text-gold animate-pulse text-xl font-semibold"
                         x-text="`Share ${activeShare ? activeShare.name : ''} for Vote`"></h2>
                     <button @click="activeShare = null"
-                        class="text-gold/70 hover:text-gold text-xl transition">&times;</button>
+                        class="text-gold/70 hover:text-gold text-xl transition-all duration-300 hover:scale-110">&times;</button>
                 </div>
 
                 <!-- Your existing share popup here -->
@@ -63,13 +70,13 @@
                         <!-- Share URL Input -->
                         <div class="relative w-full max-w-md">
                             <input type="text" :value="voteUrl" readonly
-                                class="border-gold/20 focus:border-gold/40 w-full rounded-lg border bg-black/30 px-4 py-3 text-sm text-gray-300 focus:outline-none sm:px-5 sm:text-base"
+                                class="border-gold/20 focus:border-gold/40 hover:border-gold/40 w-full rounded-lg border bg-black/30 px-4 py-3 text-sm text-gray-300 transition-all duration-300 focus:outline-none sm:px-5 sm:text-base"
                                 x-ref="shareUrl">
                             <button
                                 @click="$refs.shareUrl.select(); document.execCommand('copy'); copied = true; setTimeout(() => copied = false, 2000)"
-                                class="text-gold/90 hover:text-gold absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 text-sm font-medium transition-colors">
-                                <span x-show="!copied">Copy</span>
-                                <span x-show="copied" x-cloak>Copied!</span>
+                                class="text-gold/90 hover:text-gold absolute right-2 top-1/2 -translate-y-1/2 px-4 py-2 text-sm font-medium transition-all duration-300 hover:scale-110">
+                                <span x-show="!copied" class="transition-opacity duration-300">Copy</span>
+                                <span x-show="copied" x-cloak class="transition-opacity duration-300">Copied!</span>
                             </button>
                         </div>
 
