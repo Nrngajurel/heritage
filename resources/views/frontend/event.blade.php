@@ -20,7 +20,7 @@
         <div>
             <div class="container mx-auto max-w-7xl px-4 py-8">
                 <p class="text-gray-300">
-                    {{ $event->description }}
+                    {!! $event->description !!}
                 </p>
                 
             </div>

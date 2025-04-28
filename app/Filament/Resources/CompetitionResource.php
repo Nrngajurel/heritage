@@ -6,6 +6,7 @@ use App\Filament\Resources\CompetitionResource\Pages;
 use App\Filament\Resources\CompetitionResource\RelationManagers;
 use App\Models\Competition;
 use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -26,13 +27,20 @@ class CompetitionResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('description')
-                    ->maxLength(255),
+                RichEditor::make('description')
+                    ->columnSpanFull()
+                    ->required()
+                    ->toolbarButtons([
+                        'bold',
+                        'italic',
+                        'link',
+                        'orderedList',
+                        'unorderedList',
+                        'h2',
+                        'h3',
+                    ])
+                    ->placeholder('Write your competition description here...'),
 
-                Forms\Components\TextInput::make('sort_order')
-                    ->numeric()
-                    ->default(0)
-                    ->columnSpanFull(),
             ]);
     }
 
@@ -42,8 +50,7 @@ class CompetitionResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('description')
-                    ->searchable(),
+               
                 Tables\Columns\TextColumn::make('sort_order')->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
