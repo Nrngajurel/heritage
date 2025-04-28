@@ -6,7 +6,7 @@
             <div class="bg-gold/5 absolute -bottom-1/4 -right-1/4 h-96 w-96 rounded-full blur-3xl"></div>
         </div>
 
-        <div class="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <div class="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
             <div class="xl:grid xl:grid-cols-5 xl:gap-8">
                 <!-- About Us Section -->
                 <div class="col-span-2 space-y-8">
@@ -108,7 +108,7 @@
             </div>
 
             <!-- Visitor Counter -->
-            <div class="relative mx-auto mt-12 max-w-7xl px-4 py-8">
+            <div class="relative mx-auto max-w-7xl px-4">
                 <div class="flex items-center justify-center">
                     <div class="group relative overflow-hidden rounded-2xl bg-black/40 p-6 backdrop-blur-sm transition-all duration-500" id="visitor-counter">
                         <div class="from-gold/10 absolute inset-0 bg-gradient-to-r to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
