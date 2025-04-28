@@ -11,6 +11,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -19,27 +20,25 @@ class CompetitionResource extends Resource
     protected static ?string $model = Competition::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
+    protected static string $formModalWidth = '7xl';
 
     public static function form(Form $form): Form
     {
         return $form
+        ->columns(1)
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                RichEditor::make('description')
-                    ->columnSpanFull()
+
+                TiptapEditor::make('description')
+                    ->profile('default')
                     ->required()
-                    ->toolbarButtons([
-                        'bold',
-                        'italic',
-                        'link',
-                        'orderedList',
-                        'unorderedList',
-                        'h2',
-                        'h3',
-                    ])
-                    ->placeholder('Write your competition description here...'),
+                    ->columnSpanFull(),
+                // RichEditor::make('description')
+                //     ->columnSpanFull()
+                //     ->required()
+                //     ->placeholder('Write your competition description here...'),
 
             ]);
     }
@@ -50,7 +49,7 @@ class CompetitionResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-               
+
                 Tables\Columns\TextColumn::make('sort_order')->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
