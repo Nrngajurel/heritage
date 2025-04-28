@@ -95,7 +95,7 @@
                             Heritage pageants.</p>
                     </div>
                     <div class="relative z-10">
-                        <h2 class="animate-fade-in-up mb-4 mt-24 font-serif text-4xl uppercase leading-normal opacity-80"
+                        <h2 class="animate-fade-in-up mb-4 mt-24 font-serif text-3xl uppercase leading-normal opacity-80 md:text-4xl"
                             style="animation-delay: 0.4s">
                             Heritage Pageants celebrate <b>peace,<br />
                                 environmental awareness, tourism, culture,<br />
@@ -123,12 +123,12 @@
                         @endforeach
                     </div>
 
-                    <div class="animate-fade-in-up relative -mt-24 font-serif text-5xl font-bold uppercase tracking-widest text-gray-100"
+                    <div class="animate-fade-in-up relative -mt-24 font-serif text-4xl font-bold uppercase tracking-widest text-gray-100 md:text-5xl"
                         style="animation-delay: 1.2s">
                         Discover the best of Heritage Queens
                     </div>
 
-                    <div class="animate-fade-in-up relative z-10 mt-14 font-serif text-7xl font-bold uppercase text-gray-400"
+                    <div class="animate-fade-in-up relative z-10 mt-14 font-serif text-5xl font-bold uppercase text-gray-400 md:text-7xl"
                         style="animation-delay: 1.4s">
                         Heritage Pageants
                     </div>
