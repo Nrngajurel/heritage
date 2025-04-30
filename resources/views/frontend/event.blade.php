@@ -18,7 +18,11 @@
             </div>
         </div>
         <div>
-            <div class="container mx-auto max-w-7xl px-4 py-8">
+            <div class="container mx-auto max-w-7xl px-4 py-8 text-justify" style="    display: flex
+;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;">
                 <p class="text-gray-300">
                     {!! $event->description !!}
                 </p>

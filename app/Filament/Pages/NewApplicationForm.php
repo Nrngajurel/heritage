@@ -209,7 +209,6 @@ class NewApplicationForm extends Component implements HasForms
                                     DatePicker::make('meta.personal_background.date_of_birth')
                                         ->label('Date of Birth')
                                         ->required()
-                                        ->maxDate(now()->subYears(18))
                                         ->displayFormat('d/m/Y'),
 
                                     TextInput::make('meta.personal_background.age')

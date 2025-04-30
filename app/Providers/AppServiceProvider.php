@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         if (App::environment('production')) {
             URL::forceScheme('https');
         }
+    
 
         View::composer('layouts.frontend-new', function ($view) {
             $view->with('events', \App\Models\Competition::get());
