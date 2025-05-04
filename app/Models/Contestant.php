@@ -45,4 +45,9 @@ class Contestant extends Model
         return $this->belongsTo(Competition::class, 'competition_id');
     }
 
+    public function application()
+    {
+        return $this->belongsTo(Application::class, 'application_id');
+    }
+
 }

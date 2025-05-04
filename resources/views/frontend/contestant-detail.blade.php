@@ -514,45 +514,47 @@
             <!-- Contestant Profile -->
             <div class="mx-auto grid max-w-6xl gap-8 lg:grid-cols-2">
                 <!-- Left Side - Image Gallery -->
-                <div class="pageant-card hover:border-gold/40 elegant-border group relative overflow-hidden rounded-2xl p-4 transition-all duration-300">
+                <div>
+                    <div class="pageant-card hover:border-gold/40 elegant-border group relative overflow-hidden rounded-2xl p-4 transition-all duration-300">
                     
-                    <!-- Country Flag Overlay -->
-                    <div class="absolute -right-20 -top-20 z-10 h-40 w-40 rotate-45 overflow-hidden opacity-30">
-                        <img src="https://flagcdn.com/w160/{{ strtolower($contestant->country_code) }}.png"
-                            alt="{{ $contestant->country }} flag" class="h-full w-full object-cover">
-                    </div>
-                    <div class="relative aspect-[3/4] overflow-hidden">
-                        <img :src="activeImage" alt="{{ $contestant->name }}"
-                            class="h-full w-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-110">
-
-                    </div>
-
-                    <!-- Vote Count Section -->
-                    <div class="bg-black/20 p-4 backdrop-blur-sm sm:p-6">
-                        <div class="mb-3">
-                            <div class="mb-2 flex items-center justify-between">
-                                <span class="text-gold/60 text-sm">Current Votes</span>
-                                <span class="vote-count text-sm" x-text="voting.votes[{{ $contestant->id }}]"></span>
-                            </div>
-                            <div class="progress-bar">
-                                <div :id="'progress-' + {{ $contestant->id }}" class="progress-bar-fill" :style="'width: ' + 10 + '%'"></div>
-                            </div>
+                        <!-- Country Flag Overlay -->
+                        <div class="absolute -right-20 -top-20 z-10 h-40 w-40 rotate-45 overflow-hidden opacity-30">
+                            <img src="https://flagcdn.com/w160/{{ strtolower($contestant->country_code) }}.png"
+                                alt="{{ $contestant->country }} flag" class="h-full w-full object-cover">
                         </div>
-
-                        <button :id="'vote-button-' + {{ $contestant->id }}"
-                            @click="voting.castVote({{ $contestant->id }})"
-                            :disabled="loading"
-                            class="vote-button flex w-full items-center justify-center space-x-2 text-sm disabled:cursor-not-allowed disabled:opacity-50">
-                            <span>Vote Now</span>
-                            <span class="text-base">👑</span>
-                        </button>
+                        <div class="relative aspect-[3/4] overflow-hidden">
+                            <img :src="activeImage" alt="{{ $contestant->name }}"
+                                class="h-full w-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-110">
+    
+                        </div>
+    
+                        <!-- Vote Count Section -->
+                        <div class="bg-black/20 p-4 backdrop-blur-sm sm:p-6">
+                            <div class="mb-3">
+                                <div class="mb-2 flex items-center justify-between">
+                                    <span class="text-gold/60 text-sm">Current Votes</span>
+                                    <span class="vote-count text-sm" x-text="voting.votes[{{ $contestant->id }}]"></span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div :id="'progress-' + {{ $contestant->id }}" class="progress-bar-fill" :style="'width: ' + 10 + '%'"></div>
+                                </div>
+                            </div>
+    
+                            <button :id="'vote-button-' + {{ $contestant->id }}"
+                                @click="voting.castVote({{ $contestant->id }})"
+                                :disabled="loading"
+                                class="vote-button flex w-full items-center justify-center space-x-2 text-sm disabled:cursor-not-allowed disabled:opacity-50">
+                                <span>Vote Now</span>
+                                <span class="text-base">👑</span>
+                            </button>
+                        </div>
+    
+    
                     </div>
-
-
                 </div>
 
                 <!-- Right Side - Contestant Info -->
-                <div class="relative space-y-6 px-4 sm:space-y-8 sm:px-8">
+                <div class="relative h-full space-y-6 px-4 sm:space-y-8 sm:px-8">
                     <!-- Basic Info -->
                     <div class="glass-card elegant-border animate-glow rounded-xl p-6 transition-all duration-300">
                         <h1 class="relative mb-2 text-3xl font-bold tracking-wider" style="text-shadow: 0 2px 4px rgba(255, 215, 0, 0.2)">
@@ -572,24 +574,24 @@
                         <div class="grid grid-cols-2 gap-4 text-gray-300">
                             <div class="stats-item glass-card rounded-lg p-3">
                                 <p class="text-gold/70 text-sm">Age</p>
-                                <p class="font-semibold">24 Years</p>
+                                <p class="font-semibold">{{ $contestant->age }} Years</p>
                             </div>
                             <div class="stats-item glass-card rounded-lg p-3">
                                 <p class="text-gold/70 text-sm">Height</p>
-                                <p class="font-semibold">6 ft</p>
+                                <p class="font-semibold">{{ $contestant->height }} ft</p>
                             </div>
-                            <div>
+                            {{-- <div>
                                 <p class="text-gold/70 text-sm">Occupation</p>
                                 <p class="text-gray-300">Model</p>
-                            </div>
+                            </div> --}}
                             <div>
                                 <p class="text-gold/70 text-sm">Education</p>
-                                <p class="text-gray-300">Bachelor's Degree in Business Administration</p>
+                                <p class="text-gray-300">{{ $contestant->education }}</p>
                             </div>
-                            <div>
+                            {{-- <div>
                                 <p class="text-gold/70 text-sm">Languages</p>
                                 <p class="text-gray-300">English, Thai</p>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 
@@ -598,18 +600,14 @@
                         <h2 class="text-gold/90 mb-4 text-xl font-semibold">About {{ explode(' ', $contestant->name)[0] }}
                         </h2>
                         <p class="mb-6 leading-relaxed text-gray-300">
-                            I am a 25-year-old Thai model and beauty pageant titleholder. I am a passionate advocate for
-                            environmental conservation and sustainable development.
-                            I am also a strong advocate for women's rights and education. I am currently pursuing a degree
-                            in Business Administration from Chulalongkorn University.
+                            {!! $contestant->bio !!}
                         </p>
 
                         <div class="space-y-3">
                             <h3 class="text-gold/80 text-lg font-semibold">Achievements</h3>
                             <ul class="list-inside list-disc space-y-2 text-gray-300">
-                                <li class="shimmer">Winner of Miss Tourism Thailand 2022</li>
-                                <li class="shimmer">Finalist of Miss Earth Thailand 2020</li>
-                                <li class="shimmer">First Runner-up of Miss Thailand 2019</li>
+                                <li class="shimmer">{{ $contestant->achievements }}</li>
+                                
                             </ul>
                         </div>
                     </div>

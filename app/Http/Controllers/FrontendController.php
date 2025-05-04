@@ -51,6 +51,12 @@ class FrontendController extends Controller
     public function show(\App\Models\Contestant $contestant)
     {
         $event = Event::latest()->first();
+        $contestant->load('application');
+
+        $contestant->age = $contestant->application->meta['personal_background']['age'] ?? null;
+        $contestant->height = $contestant->application->meta['personal_background']['height'] ?? null;
+        $contestant->achievements = $contestant->application->meta['personal_background']['List Awards or Achievements (Non Scholastic)'] ?? null;
+        $contestant->education = $contestant->application->meta['personal_background']['List Awards or Achievements (Non Scholastic)Attended School/College Name'] ?? null;
 
 
         return view('frontend.contestant-detail', [
