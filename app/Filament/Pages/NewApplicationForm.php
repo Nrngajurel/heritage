@@ -489,7 +489,7 @@ class NewApplicationForm extends Component implements HasForms
                 'terms_acceptance_d' => $data['terms_acceptance_d'],
             ]);
 
-            // DB::commit();
+            DB::commit();
 
             // // reset data
             // $this->data = [
