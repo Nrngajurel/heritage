@@ -132,7 +132,7 @@ class NewApplicationForm extends Component implements HasForms
                                         ->label('Select Competition')
                                         ->required()
                                         ->options($this->getCompetitionOptions())
-                                        ->descriptions($this->getCompetitionDescriptions())
+                                        // ->descriptions($this->getCompetitionDescriptions())
                                         ->live()
                                         ->columnSpanFull(),
                                 ]),
