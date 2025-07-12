@@ -69,7 +69,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-6 flex space-x-6">
+                    <div class="mt-6 flex space-x-4">
                         @foreach (setting()->social_links as $link)
                             @if (isset($link['url']) && $link['url'])
                                 <a href="{{ $link['url'] }}" class="hover:text-gold pr-2 text-gray-400" target="_blank"
