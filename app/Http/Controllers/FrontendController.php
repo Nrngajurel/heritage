@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Competition;
 use App\Models\Event;
 use App\Models\Gallery;
+use App\Models\Page;
 use App\Models\Post;
 use App\Notifications\ApplicationSubmitted;
 use Illuminate\Http\Request;
@@ -186,5 +187,10 @@ class FrontendController extends Controller
     public function event(Competition $event)
     {
         return view('frontend.event', compact('event'));
+    }
+
+    public function page(Page $page)
+    {
+        return view('frontend.page', compact('page'));
     }
 }

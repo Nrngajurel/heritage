@@ -47,4 +47,7 @@ Route::middleware([CountVisitor::class])->group(function(){
     
     Route::get('/contact', [ContactController::class, 'show'])->name('contact');
     Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+
+
+    Route::get('{page:slug}', [FrontendController::class, 'page'])->name('page.show');
 });
