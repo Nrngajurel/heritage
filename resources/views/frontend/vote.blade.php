@@ -544,12 +544,19 @@
                                                             x-text="getVotePercentage({{ $contestant['id'] }}) + '%'">0%</span>
                                                     </div>
                                                 </div>
+                                                <span x-text="can_vote"></span>
+                                                <span x-text="loading"></span>
 
                                                 <!-- Vote Button -->
+                                                
                                                 <button @click.prevent="castVote({{ $contestant['id'] }})"
                                                     :disabled="!can_vote || loading"
                                                     :id="'vote-button-' + {{ $contestant['id'] }}"
-                                                    class="group relative w-full overflow-hidden rounded-full bg-gradient-to-r {{ $style['bg'] }} p-[2px] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_2rem_0_rgba(255,215,0,0.3)]">
+                                                    class="group relative w-full overflow-hidden rounded-full bg-gradient-to-r {{ $style['bg'] }} p-[2px] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_2rem_0_rgba(255,215,0,0.3)]"
+                                                    :class="{
+                                                        'cursor-not-allowed opacity-50': !can_vote || loading,
+                                                    }"
+                                                    >
                                                     <div
                                                         class="relative flex h-full w-full items-center justify-center gap-2 rounded-full bg-black/50 px-6 py-2 backdrop-blur-sm transition-all duration-300 group-hover:bg-opacity-90">
                                                         <span class="text-white">Vote Now</span>
