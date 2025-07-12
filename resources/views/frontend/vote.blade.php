@@ -547,7 +547,8 @@
 
                                                 <!-- Vote Button -->
                                                 <button @click.prevent="castVote({{ $contestant['id'] }})"
-                                                    :disabled="loading" :id="'vote-button-' + {{ $contestant['id'] }}"
+                                                    :disabled="!can_vote || loading"
+                                                    :id="'vote-button-' + {{ $contestant['id'] }}"
                                                     class="group relative w-full overflow-hidden rounded-full bg-gradient-to-r {{ $style['bg'] }} p-[2px] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_2rem_0_rgba(255,215,0,0.3)]">
                                                     <div
                                                         class="relative flex h-full w-full items-center justify-center gap-2 rounded-full bg-black/50 px-6 py-2 backdrop-blur-sm transition-all duration-300 group-hover:bg-opacity-90">
@@ -576,7 +577,7 @@
 
 
                 <!-- Other Contestants -->
-                <h2 class="font-playfair text-gold mb-6 text-center text-2xl font-bold">Regional Title Holders</h2>
+                <h2 class="font-playfair text-gold mb-6 text-center text-2xl font-bold">National Title Holders</h2>
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     @foreach ($contestants->where('is_featured', false) as $index => $contestant)
                         <div class="pageant-card group"
@@ -625,8 +626,8 @@
                                     </div>
 
                                     <button :id="'vote-button-' + {{ $contestant['id'] }}"
+                                        :disabled="!can_vote || loading"
                                         @click.prevent="castVote({{ $contestant['id'] }}); selectedContestant = {{ $index + 1 }}"
-                                        :disabled="loading"
                                         class="vote-button flex w-full items-center justify-center space-x-2 disabled:cursor-not-allowed disabled:opacity-50">
                                         <span>Vote Now</span>
                                         <span class="text-lg">👑</span>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Application;
 use App\Models\Category;
 use App\Models\Competition;
+use App\Models\Contestant;
 use App\Models\Event;
 use App\Models\Gallery;
 use App\Models\Page;
@@ -18,6 +19,13 @@ class FrontendController extends Controller
     {
         try {
             $contestant->increment('votes');
+
+            Contestant::orderBy('votes', 'desc')->take(3)->update([
+                'is_featured' => true
+            ]);
+            Contestant::whereNotIn('id', Contestant::orderBy('votes', 'desc')->take(3)->pluck('id'))->update([
+                'is_featured' => false
+            ]);
             return response()->json([
                 'success' => true,
                 'votes' => $contestant->votes,

@@ -451,6 +451,7 @@
          x-init="
             voting.votes = {{ json_encode([$contestant->id => $contestant->votes]) }};
             initMouseMove();
+            voting.updateCanVote();
          "
         x-init="voting.votes = {{ json_encode([$contestant->id => $contestant->votes]) }}">
         <!-- Hero Section with Background -->
@@ -539,10 +540,11 @@
                                     <div :id="'progress-' + {{ $contestant->id }}" class="progress-bar-fill" :style="'width: ' + 10 + '%'"></div>
                                 </div>
                             </div>
+                            
     
                             <button :id="'vote-button-' + {{ $contestant->id }}"
                                 @click="voting.castVote({{ $contestant->id }})"
-                                :disabled="loading"
+                                :disabled="!voting.can_vote || voting.loading"
                                 class="vote-button flex w-full items-center justify-center space-x-2 text-sm disabled:cursor-not-allowed disabled:opacity-50">
                                 <span>Vote Now</span>
                                 <span class="text-base">👑</span>

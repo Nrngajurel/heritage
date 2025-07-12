@@ -12,8 +12,10 @@ document.addEventListener('alpine:init', () => {
         showVoteSuccess: false,
         activeShare: null,
         copied: false,
+        can_vote: true,
 
         init() {
+            this.updateCanVote();
             try {
                 const votesData = this.$el.dataset.votes;
                 if (votesData) {
@@ -51,6 +53,23 @@ document.addEventListener('alpine:init', () => {
         getVotePercentage(contestantId) {
             return (this.votes[contestantId] / this.getTotalVotes() * 100).toFixed(1);
         },
+        updateCanVote() {
+            // user can vote once a day if the  last_vote_at is set on localStorage and is more than 24 hours ago
+            const last_vote_at = localStorage.getItem('last_vote_at');
+            if (last_vote_at) {
+                const last_vote_date = new Date(last_vote_at);
+                const now = new Date();
+                const diff = now.getTime() - last_vote_date.getTime();
+                const diffInHours = diff / (1000 * 60 * 60);
+                if (diffInHours < 24) {
+                    this.can_vote = false;
+                }else{
+                    this.can_vote = true;
+                }
+            }else{
+                this.can_vote = true;
+            }
+        },
 
         async castVote(contestantId) {
             if (this.loading) return;
@@ -71,6 +90,9 @@ document.addEventListener('alpine:init', () => {
                 const data = await response.json();
 
                 if (data.success) {
+                    localStorage.setItem('last_vote_at', new Date().toISOString());
+                    this.updateCanVote();
+                    
                     this.votes[contestantId] = data.votes;
 
                     console.log(data);
