@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Miss Heritage International 2025') - Heritage Pageants</title>
+    <title>@yield('title', 'Miss Heritage International') - Heritage Pageants</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -114,23 +114,22 @@
 </head>
 
 
-<body class="min-h-screen bg-gray-900 text-gray-100 antialiased" x-data="{ mobileMenu: false }" x-cloak>
+<body class="bg-gray-900 min-h-screen text-gray-100 antialiased" x-data="{ mobileMenu: false }" x-cloak>
 
 
     <!-- Navigation -->
-    <nav class="border-gold/20 fixed z-50 w-full backdrop-blur-lg transition-all duration-300"
+    <nav class="z-50 fixed backdrop-blur-lg border-gold/20 w-full transition-all duration-300"
         :class="{ 'shadow-lg shadow-gold/5': window.pageYOffset > 0 }"
         @scroll.window="document.documentElement.style.setProperty('--scroll-y', `${window.pageYOffset}px`)">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="flex h-20 items-center justify-between">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+            <div class="flex justify-between items-center h-20">
                 <!-- Logo Section -->
                 <div class="flex items-center space-x-4">
-                    <a href="/" class="logo-glow group flex items-center space-x-3">
-                        <img src="/logo.png"
-                            alt="Heritage Pageants Logo"
-                            class="h-12 w-auto transition-transform duration-300 group-hover:scale-110">
+                    <a href="/" class="group flex items-center space-x-3 logo-glow">
+                        <img src="/logo.png" alt="Heritage Pageants Logo"
+                            class="w-auto h-12 group-hover:scale-110 transition-transform duration-300">
                         <div>
-                            <div class="font-playfair text-gold text-xl font-bold">Heritage Pageants</div>
+                            <div class="font-playfair font-bold text-gold text-xl">Heritage Pageants</div>
                             <div class="text-gold/60 text-xs">International Beauty Pageant</div>
                         </div>
                     </a>
@@ -138,98 +137,151 @@
 
                 <!-- Desktop Navigation -->
                 <div class="hidden sm:flex sm:items-center sm:space-x-1">
-                    <a href="{{ route('home') }}" class="nav-link-hover group px-4 py-2">
+                    <a href="{{ route('home') }}" class="group px-4 py-2 nav-link-hover">
                         <span class="relative">
                             <span
-                                class="bg-gold absolute inset-x-0 -bottom-1 h-0.5 origin-left scale-x-0 transform transition-transform duration-300 group-hover:scale-x-100"></span>
+                                class="-bottom-1 absolute inset-x-0 bg-gold h-0.5 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 transform"></span>
                             <span
-                                class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">Home</span>
+                                class="relative text-gray-300 group-hover:text-gold transition-colors duration-300">Home</span>
                         </span>
                     </a>
-                    
-                    
+
+
                     <!-- Events Dropdown -->
                     <div class="relative" x-data="{ open: false }" @click.away="open = false">
-                        <button @click="open = !open" class="nav-link-hover group px-4 py-2">
-                            <span class="relative inline-flex items-center">
-                                <span class="bg-gold absolute inset-x-0 -bottom-1 h-0.5 origin-left scale-x-0 transform transition-transform duration-300 group-hover:scale-x-100"></span>
-                                <span class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">Events</span>
-                                <svg class="group-hover:text-gold ml-1 h-4 w-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        <button @click="open = !open" class="group px-4 py-2 nav-link-hover">
+                            <span class="inline-flex relative items-center">
+                                <span
+                                    class="-bottom-1 absolute inset-x-0 bg-gold h-0.5 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 transform"></span>
+                                <span
+                                    class="relative text-gray-300 group-hover:text-gold transition-colors duration-300">Events</span>
+                                <svg class="ml-1 w-4 h-4 text-gray-300 group-hover:text-gold" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
                                 </svg>
                             </span>
                         </button>
-                        
+
                         <!-- Dropdown Menu -->
-                        <div x-show="open" 
-                             x-transition:enter="transition ease-out duration-200"
-                             x-transition:enter-start="opacity-0 translate-y-1"
-                             x-transition:enter-end="opacity-100 translate-y-0"
-                             x-transition:leave="transition ease-in duration-150"
-                             x-transition:leave-start="opacity-100 translate-y-0"
-                             x-transition:leave-end="opacity-0 translate-y-1"
-                             class="absolute left-0 mt-2 w-64 rounded-md bg-gray-900 py-2 shadow-xl">
+                        <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 translate-y-1"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 translate-y-1"
+                            class="left-0 absolute bg-gray-900 shadow-xl mt-2 py-2 rounded-md w-64">
                             <div class="max-h-96 overflow-y-auto">
-                                @foreach($events as $event)
-                                    <a href="{{ route('events.show', $event->id) }}" 
-                                       class="hover:bg-gold/10 hover:text-gold block px-4 py-3 text-sm text-gray-300">
+                                @foreach ($events as $event)
+                                    <a href="{{ route('events.show', $event->id) }}"
+                                        class="block hover:bg-gold/10 px-4 py-3 text-gray-300 hover:text-gold text-sm">
                                         {{ $event->name }}
                                     </a>
-                                    @unless($loop->last)
-                                        <div class="my-0.5 border-t border-gray-700"></div>
+                                    @unless ($loop->last)
+                                        <div class="my-0.5 border-gray-700 border-t"></div>
                                     @endunless
                                 @endforeach
                             </div>
-                           
+
                         </div>
                     </div>
 
-                    <a href="{{ route('gallery') }}" class="nav-link-hover group px-4 py-2">
+                    <a href="{{ route('gallery') }}" class="group px-4 py-2 nav-link-hover">
                         <span class="relative">
                             <span
-                                class="bg-gold absolute inset-x-0 -bottom-1 h-0.5 origin-left scale-x-0 transform transition-transform duration-300 group-hover:scale-x-100"></span>
+                                class="-bottom-1 absolute inset-x-0 bg-gold h-0.5 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 transform"></span>
                             <span
-                                class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">Gallery</span>
+                                class="relative text-gray-300 group-hover:text-gold transition-colors duration-300">Gallery</span>
                         </span>
                     </a>
 
 
-                    <a href="{{ route('team') }}" class="nav-link-hover group px-4 py-2">
+                    <a href="{{ route('team') }}" class="group px-4 py-2 nav-link-hover">
                         <span class="relative">
                             <span
-                                class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">Team</span>
+                                class="relative text-gray-300 group-hover:text-gold transition-colors duration-300">Team</span>
                         </span>
                     </a>
-                    <a href="{{ route('newApplicationForm') }}" class="nav-button group relative px-6 py-2">
-                        <span class="from-gold/20 to-gold/0 absolute inset-0 rounded-full bg-gradient-to-r"></span>
-                        <span class="text-gold relative font-medium">Apply Now</span>
+                    <a href="{{ route('newApplicationForm') }}" class="group relative px-6 py-2 nav-button">
+                        <span class="absolute inset-0 bg-gradient-to-r from-gold/20 to-gold/0 rounded-full"></span>
+                        <span class="relative font-medium text-gold">Apply Now</span>
                     </a>
 
-                    <a href="{{ asset('heritage_pageants_2025.pdf') }}" target="_blank" class="nav-link-hover group px-4 py-2">
+                    {{-- <a href="{{ asset('heritage_pageants_2025.pdf') }}" target="_blank"
+                        class="group px-4 py-2 nav-link-hover">
                         <span class="relative">
                             <span
-                                class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">MHI 2025</span>
+                                class="relative text-gray-300 group-hover:text-gold transition-colors duration-300">MHI
+                                2025</span>
                         </span>
-                    </a>
+                    </a> --}}
 
-                    <a href="/contact" class="nav-link-hover group px-4 py-2">
+                    <!-- MHI Dropdown -->
+                    <div class="relative" x-data="{ open: false }" @click.away="open = false">
+                        <button @click="open = !open" class="group px-4 py-2 nav-link-hover">
+                            <span class="inline-flex relative items-center">
+                                <span
+                                    class="-bottom-1 absolute inset-x-0 bg-gold h-0.5 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 transform"></span>
+                                <span
+                                    class="relative text-gray-300 group-hover:text-gold transition-colors duration-300">
+                                    MHI {{ date('Y') }}
+                                </span>
+                                <svg class="ml-1 w-4 h-4 text-gray-300 group-hover:text-gold"
+                                    :class="{ 'rotate-180': open }" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </span>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 translate-y-1"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 translate-y-1"
+                            class="left-0 absolute bg-gray-900 shadow-xl mt-2 py-2 rounded-md w-64">
+
+                            <div class="max-h-96 overflow-y-auto">
+                                <a target="_blank"
+                                    href="{{ asset('Heritage Pageants 2026_National Director (1).pdf') }}"
+                                    class="block hover:bg-gold/10 px-4 py-3 text-gray-300 hover:text-gold text-sm">
+                                    National Director Overview 2026
+                                </a>
+
+                                <div class="my-0.5 border-gray-700 border-t"></div>
+
+                                <a target="_blank" href="{{ asset('Heritage Pageants 2026_ND_Franchise (1).pdf') }}"
+                                    class="block hover:bg-gold/10 px-4 py-3 text-gray-300 hover:text-gold text-sm">
+                                    National Director Franchise Guide 2026
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <a href="/contact" class="group px-4 py-2 nav-link-hover">
                         <span class="relative">
                             <span
-                                class="bg-gold absolute inset-x-0 -bottom-1 h-0.5 origin-left scale-x-0 transform transition-transform duration-300 group-hover:scale-x-100"></span>
+                                class="-bottom-1 absolute inset-x-0 bg-gold h-0.5 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 transform"></span>
                             <span
-                                class="group-hover:text-gold relative text-gray-300 transition-colors duration-300">Contact</span>
+                                class="relative text-gray-300 group-hover:text-gold transition-colors duration-300">Contact</span>
                         </span>
                     </a>
-                    <a href="{{ route('vote.index') }}" class="nav-button group relative px-6 py-2">
-                        <span class="from-gold/20 to-gold/0 absolute inset-0 rounded-full bg-gradient-to-r"></span>
-                        <span class="text-gold relative font-medium">Vote Now</span>
+                    <a href="{{ route('vote.index') }}" class="group relative px-6 py-2 nav-button">
+                        <span class="absolute inset-0 bg-gradient-to-r from-gold/20 to-gold/0 rounded-full"></span>
+                        <span class="relative font-medium text-gold">Vote Now</span>
                     </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <div class="flex items-center sm:hidden">
+                <div class="sm:hidden flex items-center">
                     <button type="button" class="text-gold" @click="mobileMenu = !mobileMenu">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6h16M4 12h16m-7 6h7"></path>
                         </svg>
@@ -238,36 +290,65 @@
             </div>
             <!-- Mobile Menu -->
             <div class="sm:hidden" x-show="mobileMenu" x-transition>
-                <div class="space-y-1 overflow-auto pb-3 pt-2">
-                    <a href="{{ route('home') }}" class="hover:text-gold block px-3 py-2 text-gray-300">Home</a>
-                    
+                <div class="space-y-1 pt-2 pb-3 overflow-auto">
+                    <a href="{{ route('home') }}" class="block px-3 py-2 text-gray-300 hover:text-gold">Home</a>
+
                     <!-- Mobile Events Dropdown -->
                     <div x-data="{ open: false }">
-                        <button @click="open = !open" class="hover:text-gold flex w-full items-center justify-between px-3 py-2 text-gray-300">
+                        <button @click="open = !open"
+                            class="flex justify-between items-center px-3 py-2 w-full text-gray-300 hover:text-gold">
                             <span>Events</span>
-                            <svg class="h-4 w-4" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            <svg class="w-4 h-4" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
-                        <div x-show="open" class="max-h-60 overflow-auto pl-4">
-                            @foreach($events as $event)
-                                <a href="{{ route('events.show', $event->id) }}" 
-                                   class="hover:text-gold block px-3 py-2 text-sm text-gray-300">
+                        <div x-show="open" class="pl-4 max-h-60 overflow-auto">
+                            @foreach ($events as $event)
+                                <a href="{{ route('events.show', $event->id) }}"
+                                    class="block px-3 py-2 text-gray-300 hover:text-gold text-sm">
                                     {{ $event->name }}
                                 </a>
-                                @unless($loop->last)
-                                    <div class="my-0.5 border-t border-gray-700"></div>
+                                @unless ($loop->last)
+                                    <div class="my-0.5 border-gray-700 border-t"></div>
                                 @endunless
                             @endforeach
                         </div>
                     </div>
 
-                    <a href="{{ route('gallery') }}" class="hover:text-gold block px-3 py-2 text-gray-300">Gallery</a>
-                    <a href="{{ route('team') }}" class="hover:text-gold block px-3 py-2 text-gray-300">Team</a>
-                    <a href="{{ route('newApplicationForm') }}" class="text-gold block px-3 py-2 font-medium">Apply Now</a>
-                    <a href="{{ asset('heritage_pageants_2025.pdf') }}" target="_blank" class="hover:text-gold block px-3 py-2 text-gray-300">MHI 2025</a>
-                    <a href="/contact" class="hover:text-gold block px-3 py-2 text-gray-300">Contact</a>
-                    <a href="{{ route('vote.index') }}" class="text-gold block px-3 py-2 font-medium">Vote Now</a>
+                    <a href="{{ route('gallery') }}"
+                        class="block px-3 py-2 text-gray-300 hover:text-gold">Gallery</a>
+                    <a href="{{ route('team') }}" class="block px-3 py-2 text-gray-300 hover:text-gold">Team</a>
+                    <a href="{{ route('newApplicationForm') }}" class="block px-3 py-2 font-medium text-gold">Apply
+                        Now</a>
+                    {{-- <a href="{{ asset('heritage_pageants_2025.pdf') }}" target="_blank"
+                        class="block px-3 py-2 text-gray-300 hover:text-gold">MHI 2025</a> --}}
+                    <div x-data="{ open: false }">
+                        <button @click="open = !open"
+                            class="flex justify-between items-center px-3 py-2 w-full text-gray-300 hover:text-gold">
+                            <span>MHI {{ date('Y') }}</span>
+                            <svg class="w-4 h-4" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div x-show="open" class="pl-4 max-h-60 overflow-auto">
+
+                            <a href="{{ asset('Heritage Pageants 2026_National Director (1).pdf') }}"
+                                class="block px-3 py-2 text-gray-300 hover:text-gold text-sm">
+                                National Director Overview 2026
+                            </a>
+                            <div class="my-0.5 border-gray-700 border-t"></div>
+                            <a href="{{ asset('Heritage Pageants 2026_ND_Franchise (1).pdf') }}"
+                                class="block px-3 py-2 text-gray-300 hover:text-gold text-sm">
+                                National Director Franchise Guide 2026
+                            </a>
+                        </div>
+                    </div>
+                    <a href="/contact" class="block px-3 py-2 text-gray-300 hover:text-gold">Contact</a>
+                    <a href="{{ route('vote.index') }}" class="block px-3 py-2 font-medium text-gold">Vote Now</a>
                 </div>
             </div>
         </div>

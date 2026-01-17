@@ -31,7 +31,7 @@ Route::middleware([CountVisitor::class])->group(function(){
     // Route::post('application-form', [FrontendController::class, 'applicationFormSubmit'])->name('application-form-submit');
     Route::get('vote', [FrontendController::class, 'vote'])->name('vote.index');
     Route::get('vote/{contestant}', [FrontendController::class, 'show'])->name('vote.show');
-    Route::post('vote/{contestant}', [FrontendController::class, 'castVote'])->name('cast.vote');
+    Route::post('vote/{contestant}', [FrontendController::class, 'castVote'])->middleware('throttle:once-a-day')->name('cast.vote');
     
     // blog
     Route::get('blog', [FrontendController::class, 'blog'])->name('blog');

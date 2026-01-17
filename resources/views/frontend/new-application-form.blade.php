@@ -14,7 +14,7 @@
     <body class="antialiased">
         {{ \Filament\Facades\Filament::renderHook('content.start') }}
 
-        <div class="min-h-screen bg-gray-100">
+        <div class="bg-gray-100 min-h-screen">
             @livewire(\App\Filament\Pages\NewApplicationForm::class, [
                 'event' => $event
             ])
@@ -36,46 +36,43 @@
 
     <style>
         /* nav{
-            background-color: rgb(17 24 39 / var(--tw-bg-opacity));
-        } */
+                        background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+                    } */
     </style>
 @endpush
+@section('title', $event->title)
 
 @section('content')
-    <div class="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900"
-        x-data="{ showApplicationForm: true, showApplicationSubmitted: false }"
-        x-init="
-            Livewire.on('application-submitted', function() {
-                console.log('application-submitted');
-                showApplicationForm = false;
-                showApplicationSubmitted = true;
-            });
-        "
-    >
-        
+    <div class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen" x-data="{ showApplicationForm: true, showApplicationSubmitted: false }"
+        x-init="Livewire.on('application-submitted', function() {
+            console.log('application-submitted');
+            showApplicationForm = false;
+            showApplicationSubmitted = true;
+        });">
+
         <!-- Banner Section -->
-        <div class="relative overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800 pb-12 pt-24">
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="relative z-10 text-center">
+        <div class="relative bg-gradient-to-b from-gray-900 to-gray-800 pt-24 pb-12 overflow-hidden">
+            <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                <div class="z-10 relative text-center">
                     <h1 class="pageant-heading">
                         Application Form
                     </h1>
-                    <p class="text-gold/80 mx-auto mb-4 max-w-3xl text-xl font-light">
+                    <p class="mx-auto mb-4 max-w-3xl font-light text-gold/80 text-xl">
                         Join us in celebrating beauty and heritage
                     </p>
                 </div>
             </div>
             <!-- Decorative elements -->
-            <div class="absolute left-1/2 top-1/2 h-full w-full max-w-7xl -translate-x-1/2 -translate-y-1/2">
-                <div class="sparkle absolute left-1/4 top-1/4"></div>
-                <div class="sparkle absolute right-1/4 top-3/4" style="animation-delay: 0.5s"></div>
-                <div class="sparkle absolute left-1/2 top-1/2" style="animation-delay: 1s"></div>
+            <div class="top-1/2 left-1/2 absolute w-full max-w-7xl h-full -translate-x-1/2 -translate-y-1/2">
+                <div class="top-1/4 left-1/4 absolute sparkle"></div>
+                <div class="top-3/4 right-1/4 absolute sparkle" style="animation-delay: 0.5s"></div>
+                <div class="top-1/2 left-1/2 absolute sparkle" style="animation-delay: 1s"></div>
             </div>
         </div>
 
 
 
-        
+
 
         <div id="application-form" x-show="showApplicationForm">
 
@@ -96,5 +93,4 @@
 @push('scripts')
     @livewireScripts
     @filamentScripts
-
 @endpush

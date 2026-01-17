@@ -77,6 +77,8 @@ class FrontendController extends Controller
     public function newApplicationForm()
     {
         $event = Event::with('competitions')->latest()->first();
+
+
         return view('frontend.new-application-form', [
             'event' => $event,
         ]);
