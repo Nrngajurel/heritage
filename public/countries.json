@@ -33,7 +33,7 @@
             "region": "Africa"
         },
         "CF": {
-            "country": "Central African Republic (the)",
+            "country": "Central African Republic",
             "region": "Africa"
         },
         "TD": {
@@ -41,19 +41,23 @@
             "region": "Africa"
         },
         "KM": {
-            "country": "Comoros (the)",
+            "country": "Comoros",
             "region": "Africa"
         },
         "CD": {
-            "country": "Congo (the Democratic Republic of the)",
+            "country": "Congo Democratic Republic",
             "region": "Africa"
         },
         "CG": {
-            "country": "Congo (the)",
+            "country": "Congo Republic",
             "region": "Africa"
         },
         "CI": {
             "country": "Côte d'Ivoire",
+            "region": "Africa"
+        },
+        "IC": {
+            "country": "Ivory Coast",
             "region": "Africa"
         },
         "DJ": {
@@ -85,7 +89,7 @@
             "region": "Africa"
         },
         "GM": {
-            "country": "Gambia (the)",
+            "country": "Gambia",
             "region": "Africa"
         },
         "GH": {
@@ -153,7 +157,7 @@
             "region": "Africa"
         },
         "NE": {
-            "country": "Niger (the)",
+            "country": "Niger",
             "region": "Africa"
         },
         "NG": {
@@ -169,7 +173,7 @@
             "region": "Africa"
         },
         "SH": {
-            "country": "Saint Helena, Ascension and Tristan da Cunha",
+            "country": "Saint Helena",
             "region": "Africa"
         },
         "ST": {
@@ -201,11 +205,11 @@
             "region": "Africa"
         },
         "SD": {
-            "country": "Sudan (the)",
+            "country": "Sudan",
             "region": "Africa"
         },
         "TZ": {
-            "country": "Tanzania, the United Republic of",
+            "country": "Tanzania",
             "region": "Africa"
         },
         "TG": {
@@ -241,7 +245,7 @@
             "region": "Antarctic"
         },
         "TF": {
-            "country": "French Southern Territories (the)",
+            "country": "French Southern Territories",
             "region": "Antarctic"
         },
         "HM": {
@@ -249,7 +253,7 @@
             "region": "Antarctic"
         },
         "GS": {
-            "country": "South Georgia and the South Sandwich Islands",
+            "country": "South Georgia & South Sandwich Islands",
             "region": "Antarctic"
         },
         "AF": {
@@ -273,11 +277,11 @@
             "region": "Asia"
         },
         "IO": {
-            "country": "British Indian Ocean Territory (the)",
+            "country": "British Indian Ocean Territory",
             "region": "Asia"
         },
         "BN": {
-            "country": "Brunei Darussalam",
+            "country": "Brunei",
             "region": "Asia"
         },
         "KH": {
@@ -313,11 +317,11 @@
             "region": "Asia"
         },
         "KP": {
-            "country": "Korea (the Democratic People's Republic of)",
+            "country": "North Korea",
             "region": "Asia"
         },
         "KR": {
-            "country": "Korea (the Republic of)",
+            "country": "South Korea",
             "region": "Asia"
         },
         "KG": {
@@ -325,11 +329,11 @@
             "region": "Asia"
         },
         "LA": {
-            "country": "Lao People's Democratic Republic (the)",
+            "country": "Laos",
             "region": "Asia"
         },
         "MO": {
-            "country": "Macao",
+            "country": "Macau",
             "region": "Asia"
         },
         "MY": {
@@ -357,7 +361,7 @@
             "region": "Asia"
         },
         "PH": {
-            "country": "Philippines (the)",
+            "country": "Philippines",
             "region": "Asia"
         },
         "SG": {
@@ -369,7 +373,7 @@
             "region": "Asia"
         },
         "TW": {
-            "country": "Taiwan (Province of China)",
+            "country": "Taiwan",
             "region": "Asia"
         },
         "TJ": {
@@ -393,7 +397,7 @@
             "region": "Asia"
         },
         "VN": {
-            "country": "Viet Nam",
+            "country": "Vietnam",
             "region": "Asia"
         },
         "BZ": {
@@ -469,7 +473,7 @@
             "region": "Europe"
         },
         "CZ": {
-            "country": "Czechia",
+            "country": "Czech Republic",
             "region": "Europe"
         },
         "DK": {
@@ -481,7 +485,7 @@
             "region": "Europe"
         },
         "FO": {
-            "country": "Faroe Islands (the)",
+            "country": "Faroe Islands",
             "region": "Europe"
         },
         "FI": {
@@ -509,7 +513,7 @@
             "region": "Europe"
         },
         "VA": {
-            "country": "Holy See (the)",
+            "country": "Vatican City",
             "region": "Europe"
         },
         "HU": {
@@ -557,7 +561,7 @@
             "region": "Europe"
         },
         "MD": {
-            "country": "Moldova (the Republic of)",
+            "country": "Moldova",
             "region": "Europe"
         },
         "MC": {
@@ -569,7 +573,7 @@
             "region": "Europe"
         },
         "NL": {
-            "country": "Netherlands (the)",
+            "country": "Netherlands",
             "region": "Europe"
         },
         "MK": {
@@ -593,7 +597,7 @@
             "region": "Europe"
         },
         "RU": {
-            "country": "Russian Federation (the)",
+            "country": "Russia",
             "region": "Europe"
         },
         "SM": {
@@ -637,7 +641,15 @@
             "region": "Europe"
         },
         "GB": {
-            "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+            "country": "United Kingdom",
+            "region": "Europe"
+        },
+        "XK": {
+            "country": "Kosovo",
+            "region": "Europe"
+        },
+        "CYN": {
+            "country": "Northern Cyprus",
             "region": "Europe"
         },
         "BH": {
@@ -645,7 +657,7 @@
             "region": "Middle East"
         },
         "IR": {
-            "country": "Iran (Islamic Republic of)",
+            "country": "Iran",
             "region": "Middle East"
         },
         "IQ": {
@@ -673,7 +685,7 @@
             "region": "Middle East"
         },
         "PS": {
-            "country": "Palestine, State of",
+            "country": "Palestine",
             "region": "Middle East"
         },
         "QA": {
@@ -685,11 +697,11 @@
             "region": "Middle East"
         },
         "SY": {
-            "country": "Syrian Arab Republic (the)",
+            "country": "Syria",
             "region": "Middle East"
         },
         "AE": {
-            "country": "United Arab Emirates (the)",
+            "country": "United Arab Emirates",
             "region": "Middle East"
         },
         "YE": {
@@ -713,7 +725,7 @@
             "region": "North America"
         },
         "US": {
-            "country": "United States of America (the)",
+            "country": "United States",
             "region": "North America"
         },
         "AS": {
@@ -729,11 +741,11 @@
             "region": "Oceania"
         },
         "CC": {
-            "country": "Cocos (Keeling) Islands (the)",
+            "country": "Cocos (Keeling) Islands",
             "region": "Oceania"
         },
         "CK": {
-            "country": "Cook Islands (the)",
+            "country": "Cook Islands",
             "region": "Oceania"
         },
         "FJ": {
@@ -753,11 +765,11 @@
             "region": "Oceania"
         },
         "MH": {
-            "country": "Marshall Islands (the)",
+            "country": "Marshall Islands",
             "region": "Oceania"
         },
         "FM": {
-            "country": "Micronesia (Federated States of)",
+            "country": "Micronesia",
             "region": "Oceania"
         },
         "NR": {
@@ -781,7 +793,7 @@
             "region": "Oceania"
         },
         "MP": {
-            "country": "Northern Mariana Islands (the)",
+            "country": "Northern Mariana Islands",
             "region": "Oceania"
         },
         "PW": {
@@ -793,7 +805,7 @@
             "region": "Oceania"
         },
         "PN": {
-            "country": "Pitcairn",
+            "country": "Pitcairn Islands",
             "region": "Oceania"
         },
         "WS": {
@@ -817,7 +829,7 @@
             "region": "Oceania"
         },
         "UM": {
-            "country": "United States Minor Outlying Islands (the)",
+            "country": "United States Minor Outlying Islands",
             "region": "Oceania"
         },
         "VU": {
@@ -833,7 +845,7 @@
             "region": "South America"
         },
         "BO": {
-            "country": "Bolivia (Plurinational State of)",
+            "country": "Bolivia",
             "region": "South America"
         },
         "BR": {
@@ -853,7 +865,7 @@
             "region": "South America"
         },
         "FK": {
-            "country": "Falkland Islands (the) [Malvinas]",
+            "country": "Falkland Islands",
             "region": "South America"
         },
         "GF": {
@@ -881,7 +893,7 @@
             "region": "South America"
         },
         "VE": {
-            "country": "Venezuela (Bolivarian Republic of)",
+            "country": "Venezuela",
             "region": "South America"
         },
         "AI": {
@@ -897,7 +909,7 @@
             "region": "The Caribbean"
         },
         "BS": {
-            "country": "Bahamas (the)",
+            "country": "Bahamas",
             "region": "The Caribbean"
         },
         "BB": {
@@ -905,11 +917,11 @@
             "region": "The Caribbean"
         },
         "BQ": {
-            "country": "Bonaire, Sint Eustatius and Saba",
+            "country": "Bonaire",
             "region": "The Caribbean"
         },
         "KY": {
-            "country": "Cayman Islands (the)",
+            "country": "Cayman Islands",
             "region": "The Caribbean"
         },
         "CU": {
@@ -917,7 +929,7 @@
             "region": "The Caribbean"
         },
         "CW": {
-            "country": "Curaçao",
+            "country": "Curacao",
             "region": "The Caribbean"
         },
         "DM": {
@@ -925,7 +937,7 @@
             "region": "The Caribbean"
         },
         "DO": {
-            "country": "Dominican Republic (the)",
+            "country": "Dominican Republic",
             "region": "The Caribbean"
         },
         "GD": {
@@ -957,7 +969,7 @@
             "region": "The Caribbean"
         },
         "BL": {
-            "country": "Saint Barthélemy",
+            "country": "Saint Barthelemy",
             "region": "The Caribbean"
         },
         "KN": {
@@ -969,7 +981,7 @@
             "region": "The Caribbean"
         },
         "MF": {
-            "country": "Saint Martin (French part)",
+            "country": "Saint Martin",
             "region": "The Caribbean"
         },
         "VC": {
@@ -977,7 +989,7 @@
             "region": "The Caribbean"
         },
         "SX": {
-            "country": "Sint Maarten (Dutch part)",
+            "country": "Sint Maarten",
             "region": "The Caribbean"
         },
         "TT": {
@@ -985,7 +997,7 @@
             "region": "The Caribbean"
         },
         "TC": {
-            "country": "Turks and Caicos Islands (the)",
+            "country": "Turks and Caicos Islands",
             "region": "The Caribbean"
         },
         "VG": {
