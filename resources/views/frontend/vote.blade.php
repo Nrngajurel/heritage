@@ -36,7 +36,9 @@
             animation: spin-slow 10s linear infinite;
         }
     </style>
-    <div x-data="voting()" data-votes='{{ $contestants->pluck('votes', 'id')->toJson() }}' x-cloak>
+    @if ($event)
+        
+    <div x-data="voting()" data-votes='{{ $event->contestants->pluck('votes', 'id')->toJson() }}' x-cloak>
 
         @php
             $start_date = \Carbon\Carbon::parse($event->voting_start_date);
@@ -204,7 +206,7 @@
                         <img src="{{ asset('logo.png') }}" alt="Heritage Pageants Logo" class="h-20 sm:h-32 md:h-32">
                     </div>
                     <h1 class="pageant-heading">
-                        Miss Heritage International 2025
+                        {{ $event->title }}
                     </h1>
                     <p class="text-gold/80 mx-auto mb-4 max-w-3xl text-xl font-light">
                         Celebrating Peace, Environment, Tourism, Culture & Heritage
@@ -397,7 +399,7 @@
                                 <div class="relative">
                                     <div
                                         class="text-gold bg-gradient-to-r from-amber-200 to-yellow-500 bg-clip-text text-3xl font-bold text-transparent transition-all duration-300 group-hover:scale-110 sm:text-4xl lg:text-5xl">
-                                        {{ $contestants->count() }}</div>
+                                        {{ $event->contestants->count() }}</div>
                                     <div
                                         class="text-gold/40 group-hover:text-gold/60 absolute -right-3 top-0 text-lg transition-all duration-300 group-hover:rotate-12 group-hover:scale-110">
                                         ✨</div>
@@ -432,7 +434,7 @@
 
                     <!-- Title Holders Grid -->
                     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                        @foreach ($contestants->where('is_featured', true)->take(3) as $index => $contestant)
+                        @foreach ($event->contestants->where('is_featured', true)->take(3) as $index => $contestant)
                             <!-- Title Holder Card -->
                             <a href="{{ route('vote.show', $contestant['id']) }}" class="block">
                                 <div class="group relative transform-gpu transition-all duration-500 hover:scale-[1.02]">
@@ -586,7 +588,7 @@
                 <!-- Other Contestants -->
                 <h2 class="font-playfair text-gold mb-6 text-center text-2xl font-bold">National Title Holders</h2>
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                    @foreach ($contestants->where('is_featured', false) as $index => $contestant)
+                    @foreach ($event->contestants->where('is_featured', false) as $index => $contestant)
                         <div class="pageant-card group"
                             :class="{ 'animate-glow': loading && selectedContestant === {{ $index + 1 }} }">
                             <a href="{{ route('vote.show', $contestant['id']) }}" class="block">
@@ -657,6 +659,13 @@
 
         </div>
     </div>
+    @else
+        <div class="flex h-screen items-center justify-center">
+            <div class="text-center">
+                <h1 class="text-gold text-4xl font-bold">Voting is not started yet!</h1>
+            </div>
+        </div>
+    @endif
 
     @push('scripts')
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -666,7 +675,7 @@
                     totalVotes: 500,
                     showDetailModal: false,
                     selectedContestant: null,
-                    contestants: @json($contestants),
+                    contestants: @json($event?->contestants),
                     showContestantDetail(contestantData) {
                         this.selectedContestant = JSON.parse(contestantData);
                         this.showDetailModal = true;

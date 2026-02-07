@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
-use App\Models\Category;
 use App\Models\Competition;
 use App\Models\Contestant;
 use App\Models\Event;
@@ -21,20 +20,21 @@ class FrontendController extends Controller
             $contestant->increment('votes');
 
             Contestant::orderBy('votes', 'desc')->take(3)->update([
-                'is_featured' => true
+                'is_featured' => true,
             ]);
             Contestant::whereNotIn('id', Contestant::orderBy('votes', 'desc')->take(3)->pluck('id'))->update([
-                'is_featured' => false
+                'is_featured' => false,
             ]);
+
             return response()->json([
                 'success' => true,
                 'votes' => $contestant->votes,
-                'message' => 'Vote cast successfully!'
+                'message' => 'Vote cast successfully!',
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to cast vote. Please try again.'
+                'message' => 'Failed to cast vote. Please try again.',
             ], 500);
         }
     }
@@ -48,15 +48,15 @@ class FrontendController extends Controller
             return [
                 'code' => $key,
                 'country' => $item['country'],
-                'src' => "https://flagsapi.com/{$key}/flat/64.png"
+                'src' => "https://flagsapi.com/{$key}/flat/64.png",
             ];
         })->filter(function ($item) {
-            return false !== stristr($item['country'], request()->search);
+            return stristr($item['country'], request()->search) !== false;
         })->values()->take(50);
-
 
         return $countries;
     }
+
     public function show(\App\Models\Contestant $contestant)
     {
         $event = Event::latest()->first();
@@ -67,10 +67,9 @@ class FrontendController extends Controller
         $contestant->achievements = $contestant->application->meta['personal_background']['List Awards or Achievements (Non Scholastic)'] ?? null;
         $contestant->education = $contestant->application->meta['personal_background']['List Awards or Achievements (Non Scholastic)Attended School/College Name'] ?? null;
 
-
         return view('frontend.contestant-detail', [
             'contestant' => $contestant,
-            'event' => $event
+            'event' => $event,
         ]);
     }
 
@@ -78,12 +77,10 @@ class FrontendController extends Controller
     {
         $event = Event::with('competitions')->latest()->first();
 
-
         return view('frontend.new-application-form', [
             'event' => $event,
         ]);
     }
-
 
     public function blog()
     {
@@ -105,10 +102,12 @@ class FrontendController extends Controller
         // $application->notify(new ApplicationSubmitted);
 
         $event = Event::with('competitions')->latest()->first();
+
         return view('frontend.application-form', [
-            'event' => $event
+            'event' => $event,
         ]);
     }
+
     public function team()
     {
         return view('frontend.team');
@@ -116,29 +115,32 @@ class FrontendController extends Controller
 
     public function vote()
     {
-        $contestants = \App\Models\Contestant::orderBy('votes', 'desc')
-            ->get()
-            ->map(function ($contestant) {
-                return [
-                    'id' => $contestant->id,
-                    'name' => $contestant->name,
-                    'country' => $contestant->country,
-                    'country_code' => $contestant->country_code,
-                    'title' => $contestant->title,
-                    'focus_area' => $contestant->focus_area,
-                    'bio' => $contestant->bio,
-                    'votes' => $contestant->votes,
-                    'is_featured' => $contestant->is_featured,
-                    'image_url' => $contestant->image_url
-                ];
-            });
+        // voting_start_date
+        $event = Event::with('competitions')->latest()
+            ->where(function ($query) {
+                $query->where('voting_start_date', '<=', now())
+                    ->where('voting_end_date', '>=', now());
+            })
+            ->latest()
+            ->with('contestants', function ($query) {
+                $query->orderBy('votes', 'desc')
+                    ->select([
+                        'id',
+                        'event_id',
+                        'name',
+                        'country',
+                        'country_code',
+                        'title',
+                        'focus_area',
+                        'bio',
+                        'votes',
+                        'is_featured',
+                        'image_url',
+                    ]);
+            })
+            ->first();
 
-        $event = Event::with('competitions')->latest()->first();
-
-
-        return view('frontend.vote', compact('contestants'), [
-            'event' => $event
-        ]);
+        return view('frontend.vote', compact('event'));
     }
 
     public function applicationFormSubmit(Request $request)
@@ -180,11 +182,8 @@ class FrontendController extends Controller
 
         $application->notify(new ApplicationSubmitted($application));
 
-
-
         return response()->json(['message' => "Thank you. We have sent you an email to {$data['email']} about status of the application"]);
     }
-
 
     public function gallery()
     {

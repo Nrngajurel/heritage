@@ -36,6 +36,16 @@ class OurEventResource extends Resource
                     ->columnSpanFull()
                     ->placeholder('Write your event description here...'),
 
+                Forms\Components\Select::make('status')
+                    ->options([
+                        'draft' => 'Draft',
+                        'active' => 'Active',
+                        'completed' => 'Completed',
+                        'cancelled' => 'Cancelled',
+                    ])
+                    ->default('draft')
+                    ->required(),
+
                 Forms\Components\CheckboxList::make('competitions')
                     ->columns(2)
                     ->columnSpanFull()
@@ -49,6 +59,14 @@ class OurEventResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\BadgeColumn::make('status')
+                    ->colors([
+                        'secondary' => 'draft',
+                        'success' => 'active',
+                        'primary' => 'completed',
+                        'danger' => 'cancelled',
+                    ])
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('form_start_date')
                     ->dateTime()
                     ->sortable(),

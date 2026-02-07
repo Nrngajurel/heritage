@@ -16,6 +16,7 @@ class Event extends Model
         'voting_start_date',
         'voting_end_date',
         'description',
+        'status',
     ];
 
     protected $casts = [
