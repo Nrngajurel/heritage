@@ -40,7 +40,7 @@
                     } */
     </style>
 @endpush
-@section('title', $event->title)
+@section('title', $event?->name)
 
 @section('content')
     <div class="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen" x-data="{ showApplicationForm: true, showApplicationSubmitted: false }"
@@ -49,13 +49,13 @@
             showApplicationForm = false;
             showApplicationSubmitted = true;
         });">
-
+        @if ($event)
         <!-- Banner Section -->
         <div class="relative bg-gradient-to-b from-gray-900 to-gray-800 pt-24 pb-12 overflow-hidden">
             <div class="mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
                 <div class="z-10 relative text-center">
                     <h1 class="pageant-heading">
-                        Application Form
+                        {{ $event->name }} <br/> Application Form
                     </h1>
                     <p class="mx-auto mb-4 max-w-3xl font-light text-gold/80 text-xl">
                         Join us in celebrating beauty and heritage
@@ -87,6 +87,17 @@
             {{ \Filament\Facades\Filament::renderHook('content.end') }}
 
         </div>
+
+        @else
+
+        <div class="flex justify-center items-center h-screen">
+            <div class="text-center">
+                <h1 class="font-bold text-gold text-4xl">Application Form is Closed!</h1>
+            </div>
+        </div>
+            
+        @endif
+
     </div>
 @endsection
 

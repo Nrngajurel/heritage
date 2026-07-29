@@ -75,7 +75,14 @@ class FrontendController extends Controller
 
     public function newApplicationForm()
     {
-        $event = Event::with('competitions')->latest()->first();
+        $event = Event::with('competitions')
+            ->where(function ($query) {
+                $query->where('form_start_date', '<=', now())
+                    ->where('voting_end_date', '>=', now());
+            })
+            ->where('status', 'active')
+            ->latest()
+            ->first();
 
         return view('frontend.new-application-form', [
             'event' => $event,
@@ -122,6 +129,7 @@ class FrontendController extends Controller
                     ->where('voting_end_date', '>=', now());
             })
             ->latest()
+            ->where('status', 'active')
             ->with('contestants', function ($query) {
                 $query->orderBy('votes', 'desc')
                     ->select([
